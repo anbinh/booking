@@ -1,0 +1,76 @@
+.background-cover(@img, @cover: cover) {
+    background: @img;
+    -webkit-background-size: @cover;
+    -moz-background-size: @cover;
+    -o-background-size: @cover;
+    background-size: @cover;
+}
+
+.textShadowBlack(@shadow: 0 1px 0px rgba(0,0,0,1)) {
+    text-shadow: @shadow;
+}
+.textShadowWhite(@shadow: 0 1px 0px rgba(255,255,255,1)) {
+    text-shadow: @shadow;
+}
+
+.border-radius (@radius) {
+    border-radius: @radius;
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+}
+
+.box-sizing (@type: border-box) {
+    -webkit-box-sizing: @type;
+    -moz-box-sizing:    @type;
+    box-sizing:         @type;
+}
+
+.box-shadow (@shadow) {
+    -moz-box-shadow: @shadow;
+    -webkit-box-shadow: @shadow;
+    box-shadow: @shadow;
+}
+
+
+.lowerFontSize (@fontSize, @factor) {
+    font-size: @fontSize - @factor;
+}
+
+.circle (@size: 0) {
+    width: @size;
+    height: @size;
+    -webkit-border-radius: @size / 2 + 0px;
+    -moz-border-radius: @size / 2 + 0px;
+    border-radius: @size / 2 + 0px;
+}
+
+.text-shadow (@string: 0 1px 3px rgba(0, 0, 0, 0.25)) {
+    text-shadow: @string;
+}
+
+.set-cursor (@type: pointer) {
+    cursor: @type;
+}
+
+.transform (@rotate: 90deg, @scale: 1, @skew: 1deg, @translate: 10px) {
+    -webkit-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+    -moz-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+    -o-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+    -ms-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+    transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+}
+
+.font-size(@sizeValue) {
+  @remValue: @sizeValue;
+  @pxValue: (@sizeValue * 10);
+  font-size: ~"@{pxValue}px"; 
+  font-size: ~"@{remValue}rem";
+}
+
+.wordwrap() { 
+   white-space: pre-wrap;      /* CSS3 */   
+   white-space: -moz-pre-wrap; /* Firefox */    
+   white-space: -pre-wrap;     /* Opera <7 */   
+   white-space: -o-pre-wrap;   /* Opera 7 */    
+   word-wrap: break-word;      /* IE */
+}
