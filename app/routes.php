@@ -60,3 +60,49 @@ Route::post('upload/image/{user_id}', array('uses' => 'ImageController@postUploa
 Route::post('upload/image', array('uses' => 'ImageController@postUpload'));
 
 Route::get('filenotfound', 'HomeController@get404');
+
+
+//-------------NEW----------------//
+Route::filter('check-language', function(){
+	if(!Session::has('locale')) {
+		Session::set('locale','en');
+	}
+	Lang::setLocale(Session::get('locale'));
+
+});
+Route::group(array('prefix'=>'demo','before'=>'check-language'), function(){
+	Route::get('/',array('as'=>'landing-page', function()
+	{
+		return View::make('pages.home');
+	}));
+	
+	
+	Route::get('login',array ('as'=>'login-page', function()
+	{
+		return View::make('pages.login');
+	}));
+	Route::get('restore',array('as'=>'restore-page', function()
+	{
+		return View::make('pages.restore');
+	}));
+	
+	Route::get('about',array('as'=>'about-page', function()
+	{
+		return View::make('pages.aboutUs');
+	}));
+	
+	
+	
+});
+
+	
+	
+	Route::get('language/english',array('as'=>'english-language', function()
+	{	Session::set('locale','en');
+		return Redirect::back();
+	}));
+	
+	Route::get('language/germany',array('as'=>'chinese-language', function()
+	{	Session::set('locale','de');
+		return Redirect::back();
+	}));
