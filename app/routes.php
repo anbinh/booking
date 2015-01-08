@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@getIndex');
+/*Route::get('/', 'HomeController@getIndex');
 Route::get('login', 'HomeController@getLogin');
 Route::get('register', 'HomeController@getRegister');
 Route::post('register', 'HomeController@postRegister');
@@ -60,7 +60,7 @@ Route::post('upload/image/{user_id}', array('uses' => 'ImageController@postUploa
 Route::post('upload/image', array('uses' => 'ImageController@postUpload'));
 
 Route::get('filenotfound', 'HomeController@get404');
-
+*/
 
 //-------------NEW----------------//
 Route::filter('check-language', function(){
@@ -70,7 +70,7 @@ Route::filter('check-language', function(){
 	Lang::setLocale(Session::get('locale'));
 
 });
-Route::group(array('prefix'=>'demo','before'=>'check-language'), function(){
+Route::group(array('before'=>'check-language'), function(){
 	Route::get('/',array('as'=>'landing-page', function()
 	{
 		return View::make('pages.home');

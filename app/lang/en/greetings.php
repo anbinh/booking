@@ -4,7 +4,7 @@ return array (
 	'Help' => 'Help',
 	'Language' => 'Language',
 	'English' => 'English',
-	'Chinese' => 'Chinese',
+	'Chinese' => 'Arabic',
 	'Welcome to the Green world' => 'Welcome to the Green world',
 		'Book a Cleaning' => 'Book a Cleaning',
 	'Book expert home cleaners' => 'Book expert home cleaners' ,
