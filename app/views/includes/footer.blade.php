@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="footer-col col-md-4">
                         <h3>Location</h3>
-                        <p>1-1-1-1 White Place<br>Ly Thuong Kiet, HCM City</p>
+                        <p>1234 Address<br>City</p>
                     </div>
                     <div class="footer-col col-md-4">
                         <h3>Around the Web</h3>

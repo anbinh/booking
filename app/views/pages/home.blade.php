@@ -14,7 +14,7 @@
 					</div>
 					<div class='main-page-header'>
 						<h1 class='hero-text'>
-							<p>{{trans ('greetings.Welcome to the Green world')}}</p>
+							<p>{{trans ('greetings.Welcome to the Homeez')}}</p>
 						</h1>
 						<div class='hero-support-text'>
 							<p>{{trans ('greetings.Book expert home cleaners')}}</p> 

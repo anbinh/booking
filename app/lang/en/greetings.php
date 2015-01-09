@@ -5,7 +5,7 @@ return array (
 	'Language' => 'Language',
 	'English' => 'English',
 	'Chinese' => 'Vietnamese',
-	'Welcome to the Green world' => 'Welcome to the Green world',
+	'Welcome to the Homeez' => 'Welcome to the Homeez',
 	'Book a Cleaning' => 'Book a Cleaning',
 	'See All Services' => 'See All Services', 
 	'Book expert home cleaners' =>'Book expert home cleaners',
