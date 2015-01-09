@@ -106,4 +106,4 @@ Route::group(array('before'=>'check-language'), function(){
 	}));
 	
 	Route::post('login','HomeController@postLogin');	
-	
+	Route::post('restore', 'HomeController@postForgetpass');

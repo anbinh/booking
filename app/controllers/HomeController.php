@@ -182,11 +182,11 @@ class HomeController extends BaseController {
 		    });
 			
 		    //redirect to changepass alert
-			return Redirect::to('forgetpass')->withErrors($v)->with("changepass", "0");
+			return Redirect::route('restore-page')->withErrors($v)->with("changepass", "0");
 
 		} else {
 
-			return Redirect::to('forgetpass')->withErrors($v);
+			return Redirect::route('restore-page')->withErrors($v);
 
 		}
 	}
