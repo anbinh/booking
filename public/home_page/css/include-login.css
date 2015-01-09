@@ -1,0 +1,52 @@
+.text-login {
+	color: #53A524;
+}
+.floating-label {
+	font-size: 200%;
+	color: red;
+}
+#btn-submit {
+	background-color: #8cc63f; 
+	border: 1px solid #8cc63f; 
+	color: #fff;
+}
+#btn-submit:hover {
+	background-color: #53A524; 
+	border: 1px solid #53A524; 
+	color: #fff;
+}
+
+#btn-facebook {
+	background-color: #3b5998;
+	border: 1px solid #3b5998;
+	color: #fff;
+}
+#btn-facebook:hover {
+	background-color: #3867CA;
+	border: 1px solid #3867CA;
+}
+#login-block-center-plusCss {
+	color: #53A524;
+}
+#form-fields-wrapper-plusCss {
+	max-width: 25em;
+}
+#form-control-wrapper-plusCss {
+	margin-bottom: 10%;
+}
+.color-53A524 {
+	color: #53A524;
+}
+.color-009587 {
+	color: #009587; 
+	font-size: 110%;	
+	margin-bottom: 5%;
+}
+#input-email-plusCss {
+	color: #009587; 
+	font-size: 110%;	
+	margin-bottom: 5%;
+}
+#floating-label-plusCss {
+	color: #53A524;
+}

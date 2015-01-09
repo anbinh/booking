@@ -3,23 +3,11 @@
 <head>
     @include('includes.head')
 </head>
-<body>
+<body>  
+	@include('includes.header')
 
-
-<div>    
-        @include('includes.header')
-    </div>
-
-   <div>
-
-            @yield('content')
-
-   </div>
-
-<div>
-        @include('includes.footer')
-  </div>
-
-
+    @yield('content')
+    
+    @include('includes.footer')
 </body>
 </html>

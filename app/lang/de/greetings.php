@@ -1,33 +1,34 @@
-<?php 
-return array (
-	'Login' => '登录',
-	'Help' => '帮助',
-	'Language' => '语言',
-	'English' => '英语',
-	'Chinese' => '中国',
-	'Welcome to the Green world' => '欢迎来到世界的绿色',
-	'Book expert home cleaners' => '布赫 家用雷妮格' ,
-	'Just pick a time and we will do the rest.' => '只需选择一个时间，我们将做休息。' ,
-	'Book a Cleaning' => '预定清洁',
-	'See All Services' => '查看所有服务',
-	'Marketing Box #1' => '营销盒＃1',
-	'These marketing boxes are a great place to put some information. These can contain summaries of what the company does, promotional information, or anything else that is relevant to the company. These will usually be below-the-fold.' =>'这些营销盒是一个伟大的地方放一些信息。这些都包含什么样的公司呢，促销信息，或其他任何相关公司的摘要。这些通常是低于所述倍。',
-	'Marketing Box #2' => '营销盒＃2',
 
-	'Marketing Box #3' => '营销盒＃3',
-	
-	'Dont just take our word for it' => '不只是把我们的话',
-	'Tried to hang a TV on my own. What a mistake! Handys handymen' => '试图挂在电视上我自己的。什么错误！ Handys能工巧匠', 
-	'professional and left my place spotless!' => '专业，离开我的地方一尘不染！' ,
-	'ANNA, New York' => 'ANNA，纽约' ,
-	'Handy on the go' => '汉迪在旅途',
-	'Conveniently book and manage Handy appointments.' => '方便地预定和管理方便的约会。',
-	'Download the free Handy app'=> '下载免费的方便的应用程序',
-	'for your iPhone.'=> '为你的iPhone。',
-	'Ready to start?'=> '准备开始？',
-	'Geting Started'=>'歌厅开始',
-		
-		
-	'All About Us' => 'All About Us',
+
+<?php
+return array (
+		'Login' => 'Đăng nhập',
+		'Help' => 'Trợ giúp',
+		'Language' => 'Ngôn ngữ',
+		'English' => 'Tiếng Anh',
+		'Chinese' => 'Tiếng Việt',
+		'Welcome to the Green world' => 'Chào Mừng Đến Thế Giới Xanh',
+		'Book a Cleaning' => 'Bắt Đầu',
+		'See All Services' => 'Dịch Vụ',
+		'Book expert home cleaners' =>'Đặt dịch vụ',
+
+		'Just pick a time and we will do the rest.' =>'Một nhóm Hồi giáo cực đoan vừa tấn công vào toà soạn báo.',
+
+		'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat'=>'Một trong số 4 hoạ sĩ chết trong vụ tấn công ngày hôm nay trước đó đã phản hồi như sau sau khi nhận được lời doạ giết từ những nhóm Hồi giáo cực đoan',
+		'Dont just take our word for it'=>'Tôi không có con cũng không có vợ',
+		'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam'=>'Không có xe hơi, không có tín dụng. Những gì tôi nói có thể sẽ nghe hơi phô trương',
+		'nonummy nibh euismod tincidunt ut laoreet dolore!'=>' Một hoạ sĩ vẽ biếm hoạ khác, đã vẽ bức tranh này để tưởng nhớ đến những hoạ sĩ vừa qua đời!',
+		'Basic version'=> 'Phiên bản cơ bản',
+		'Claritas est etiam'=>'Tiêu đề của bức tranh là',	
+		'Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.'=>'Muốn biết thời gian, xem đồng hồ. Muốn có thời gian, hãy làm kế hoạch',
+		'Mirum est notare quam littera gothica'=>'Mọi người đều có thể nói xin lỗi',
+		'est etiam processus.'=>'Dù chả ai nghe.',
+		'Ready to start?'=>'Sẵn sàng chưa?',
+		'Marketing Box #1' =>'Thứ #1',
+		'Marketing Box #2' =>'Thứ #2',
+		'Marketing Box #3' =>'Thứ #3',
+	'All About Us' => 'Có Thể Bạn Chưa Biết',
+		'Geting Started' => 'Chiến thôi',
+		'Lorem ipsum dolor sit amet, consectetuer adipiscing elit'=>'Mọi thứ có thể quên, nhưng đừng quên thực hiện ước mơ của mình',
 	
 );

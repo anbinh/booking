@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="footer-col col-md-4">
                         <h3>Location</h3>
-                        <p>3481 Melrose Place<br>Beverly Hills, CA 90210</p>
+                        <p>1-1-1-1 White Place<br>Ly Thuong Kiet, HCM City</p>
                     </div>
                     <div class="footer-col col-md-4">
                         <h3>Around the Web</h3>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="footer-col col-md-4">
                         <a href = {{URL::route('about-page')}}><h3 style = "color: #FFF">About Us</h3></a>
-                        <p>Template is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+                        <p>Template is created by <a href="http://miratik.com/">Miratik</a>.</p>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        Copyright &copy; Your Website 2014
+                        Copyright &copy; Miratik 2015
                     </div>
                 </div>
             </div>
