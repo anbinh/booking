@@ -95,14 +95,15 @@ Route::group(array('before'=>'check-language'), function(){
 	
 });
 
-	
-	
 	Route::get('language/english',array('as'=>'english-language', function()
 	{	Session::set('locale','en');
-		return Redirect::back();
+	return Redirect::back();
 	}));
 	
 	Route::get('language/germany',array('as'=>'chinese-language', function()
 	{	Session::set('locale','de');
-		return Redirect::back();
+	return Redirect::back();
 	}));
+	
+	Route::post('login','HomeController@postLogin');	
+	

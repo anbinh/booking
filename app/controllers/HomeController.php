@@ -37,7 +37,7 @@ class HomeController extends BaseController {
 		if($v->fails())
 		{
 
-			return Redirect::to('login')->withErrors($v);
+			return Redirect::route('login-page')->withErrors($v);
 
 		} else { 
 
@@ -56,7 +56,7 @@ class HomeController extends BaseController {
 
 			} else {
 
-				return Redirect::to('login')->with("success", "0");
+				return Redirect::route('login-page')->with("success", "0");
 			}
 		}
 	}

@@ -7,17 +7,60 @@
 <form accept-charset="UTF-8" action="#" class="simple_form analytics-event" data-event-name="regular email log in attempt" id="new_user_session" method="post">
 	<div class="login-block" >
 		<p class="larger center color-53A524">Log in</p>
+		@if(Session::get("emailfirst") == "1")
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    An email is sent to your email address. please click the link to verify your email account before you can login.
+                </div>
+                @endif
+                @if(Session::get("success") == "0")
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    Wrong combination of email/password.
+                </div>
+                @endif
+                @if(Session::get("confirmed") == "1")
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    Email Verification success. Now you can login.
+                </div>
+                @elseif(Session::get("confirmed") == "0")
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    Email Verification fail.
+                </div>
+                @endif
+                @if(Session::get("changepass") == "1")
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    Please check your email for new password.
+                </div>
+                @endif
+                @if(Session::get("facebook") == "1")
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    There was an error communicating with Facebook.
+                </div>
+                @endif
+                
+				@if($errors->any())
+				<div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+                </div>
+
+				@endif
 		<div class="form-fields-wrapper" id = "form-fields-wrapper-plusCss">
 			<div class="pad-top">
 				<div class="form-control-wrapper" id = "form-control-wrapper-plusCss" >
-					<input id = "input-email-plusCss" type="email" class="form-control empty" data-hint="A valid email should contains @" required><div class="hint">A valid email should contains @</div>
+					<input name = "email" id = "input-email-plusCss" type="email" class="form-control empty" data-hint="A valid email should contains @" required><div class="hint">A valid email should contains @</div>
 					<div class="floating-label" id = "floating-label-plusCss">Email</div>
 					<span class="material-input"></span>
 				</div>			
 			</div>
 			<div class="pad-top">
 				<div class="form-control-wrapper">
-					<input style = "color: #009587; font-size: 110%;" type="password" class="form-control empty" data-hint="" required>
+					<input style = "color: #009587; font-size: 110%;" type="password" class="form-control empty" data-hint="" required name = "password">
 					<div class="hint"></div><div class="floating-label" style = "color: #53A524;">Password</div>
 					<span class="material-input"></span>
 				</div>
@@ -51,4 +94,6 @@
 </div>
 </div>
 <link rel="stylesheet" href="{{ asset('home_page/css/include-login.css') }}">
+
+
 @stop
