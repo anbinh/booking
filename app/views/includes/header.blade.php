@@ -19,7 +19,7 @@
 				<ul class="nav navbar-nav navbar-right" style ="padding-top: 0px; padding-right: 20px;">
 					<li><a href={{URL::route('login-page')}}>{{trans ('greetings.Login')}}</a></li>
 	                <li><a href={{URL::route('about-page')}}> {{trans ('greetings.Help')}}</a></li>
-		            <li class='number-regular nav-link'><a href="tel: 0000000000000"><i class='fa fa-phone'></i> 000-000-000-0000</a></li>
+		            <li class='number-regular nav-link'><a href="tel: 4373457313"><i class='fa fa-phone'></i> 437-345-7313</a></li>
 	                <li class="dropdown">
 	                 	<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{trans ('greetings.Language')}} <b class="caret"></b><div class="ripple-wrapper"></div></a>
                       	<ul class="dropdown-menu">
