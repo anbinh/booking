@@ -37,7 +37,7 @@
 						<p class="lead color-53A524">Claritas est etiam to <a target="_blank" href="http://miratik.com/"> Dest notare quam littera gothica, quam nunc </a> vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan.</p>
 					</div>
 					<div class="col-lg-5 col-lg-offset-2 col-sm-6">
-						<img class="img-responsive" src="http://ironsummitmedia.github.io/startbootstrap-landing-page/img/ipad.png" alt="">
+						<img class="img-responsive" src="{{ asset('home_page/img/Carpet_Cleaning_Icon.jpg') }}" alt="">
 					</div>
 				</div>
 			</div>
@@ -54,7 +54,7 @@
 						<p class="lead">tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam by <a target="_blank" href="http://miratik.com/">Miratik </a></p>
 					</div>
 					<div class="col-lg-5 col-sm-pull-6  col-sm-6">
-						<img class="img-responsive" src="http://ironsummitmedia.github.io/startbootstrap-landing-page/img/dog.png" alt="">
+						<img class="img-responsive" src="{{ asset('home_page/img/Clean_House.jpg') }}" alt="">
 					</div>
 				</div>
 			</div>

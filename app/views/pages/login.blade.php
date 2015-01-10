@@ -4,7 +4,7 @@
 <div class="main-body-container">
 <div class="login-background" style="background-image: url({{ asset('home_page/img/Wood_Wallpaper_by_stenosis.jpg') }});">
 <div class="row">
-<form accept-charset="UTF-8" action="#" class="simple_form analytics-event" data-event-name="regular email log in attempt" id="new_user_session" method="post">
+<form accept-charset="UTF-8" action="{{URL::to('login')}}" class="simple_form analytics-event" data-event-name="regular email log in attempt" id="new_user_session" method="post">
 	<div class="login-block" >
 		<p class="larger center color-53A524">Log in</p>
 		@if(Session::get("emailfirst") == "1")
@@ -66,8 +66,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="even-smaller center">
+		<div class="even-medium center">
 			<a href={{URL::route('restore-page')}} class="alt-link">Forgot password?</a>
+		</div>
+		<div class="even-medium center">
+			<a href={{URL::route('register-page')}} class="alt-link">Create a new account</a>
 		</div>
 		<div class="form-fields-wrapper">
 			<div class="form-steps-bottom"></div>

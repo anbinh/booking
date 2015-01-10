@@ -81,6 +81,10 @@ Route::group(array('before'=>'check-language'), function(){
 	{
 		return View::make('pages.login');
 	}));
+	Route::get('register',array ('as'=>'register-page', function()
+	{
+		return View::make('pages.register');
+	}));
 	Route::get('restore',array('as'=>'restore-page', function()
 	{
 		return View::make('pages.restore');
@@ -90,7 +94,30 @@ Route::group(array('before'=>'check-language'), function(){
 	{
 		return View::make('pages.aboutUs');
 	}));
-	
+	Route::get('terms',array ('as'=>'terms-page', function()
+	{
+		return View::make('pages.termsOfService');
+	}));
+	Route::get('list-service',array ('as'=>'list-service-page', function()
+	{
+		return View::make('pages.list-service');
+	}));
+	Route::get('privacy',array ('as'=>'privacy-page', function()
+	{
+		return View::make('pages.privacy');
+	}));
+	Route::get('why-book-with-us',array ('as'=>'why-book-page', function()
+	{
+		return View::make('pages.whybook');
+	}));
+	Route::get('contact',array ('as'=>'contact-page', function()
+	{
+		return View::make('pages.contact');
+	}));
+	Route::get('FAQ',array ('as'=>'FAQ-page', function()
+	{
+		return View::make('pages.FAQ');
+	}));
 	
 	
 });
@@ -105,5 +132,8 @@ Route::group(array('before'=>'check-language'), function(){
 	return Redirect::back();
 	}));
 	
-	Route::post('login','HomeController@postLogin');	
+	Route::post('login','HomeController@postLogin');
+	Route::get('logout', 'HomeController@logout');
+	Route::post('register', 'HomeController@postRegister');
+	Route::get( 'confirm/{id_code}', array( 'uses' => 'HomeController@confirm' ));
 	Route::post('restore', 'HomeController@postForgetpass');

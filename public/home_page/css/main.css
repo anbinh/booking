@@ -185,7 +185,7 @@ main {
 	}
 
 /* Slide 1 */
-#slide-1 .bcg {background-image:url('../img/bcg_slide-2.jpg')}
+#slide-1 .bcg {background-image:url('../img/1559386.jpg');}
 #slide-1 .hsContent {
 	bottom: 200px;
 	top: auto;
@@ -203,7 +203,7 @@ main {
 }
 
 /* Slide 3 */
-#slide-3 .bcg {background-image:url('../img/Beautiful_Green_Forest_Background.jpg')}
+#slide-3 .bcg {background-image:url('http://www.do-constructions.com/images/background1.jpg')}
 #slide-3 .hsContent {
 	margin-left: -239px;
 }
@@ -215,8 +215,9 @@ main {
 /* Slide 4 */
 #slide-4 .bcg {background-image:url('../img/1920x1080_green_forest-1484891.jpg')}
 #slide-5 .bcg {
-	background-image:url(http://ironsummitmedia.github.io/startbootstrap-landing-page/img/intro-bg.jpg);
+	background-image:url('../img/house_web_background.jpg');
 	/*margin: -15% 0 -15% 0px;*/
+	/*height: 200%;*/
 }
 #slide-4 .hsContent {
 	margin-left: -450px;
@@ -233,7 +234,16 @@ main {
 		padding-left: 0;
 		padding-right: 0;
 	}
-
+#slide-6 .bcg {
+	background-image:url(http://ironsummitmedia.github.io/startbootstrap-landing-page/img/intro-bg.jpg);
+	/*margin: -15% 0 -15% 0px;*/
+	height: 150%;
+}
+#slide-6 .hsContent {
+	margin-left: -450px;
+	position: fixed;
+	top: 500px;
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */

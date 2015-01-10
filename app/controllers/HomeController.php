@@ -25,7 +25,7 @@ class HomeController extends BaseController {
 	public function postLogin()
 	{
 		if(Auth::check()) {
-			return Redirect::to('dashboard');
+			return Redirect::route('landing-page');
 		}	
 
 		$input = Input::all();
@@ -48,10 +48,10 @@ class HomeController extends BaseController {
 			if(Auth::attempt($credentials, $remember_me))
 			{
 				if(Auth::user()->role == '1') {
-					return Redirect::to('admin');
+					return Redirect::route('admin-page');
 				}
 				else {
-					return Redirect::to('dashboard');
+					return Redirect::route('landing-page');
 				}
 
 			} else {
@@ -72,7 +72,7 @@ class HomeController extends BaseController {
 	public function postRegister()
 	{
 		if(Auth::check()) {
-			return Redirect::to('dashboard');
+			return Redirect::route('landing-page');
 		}	
 		
 		$input = Input::all();
@@ -108,11 +108,11 @@ class HomeController extends BaseController {
 		    });
 
 		    //redirect to confirmation alert
-			return Redirect::to('login')->with("emailfirst", "1");
+			return Redirect::route('login-page')->with("emailfirst", "1");
 
 		} else {
 
-			return Redirect::to('register')->withInput()->withErrors($v);
+			return Redirect::route('register-page')->withInput()->withErrors($v);
 
 		}
 	}
@@ -138,11 +138,11 @@ class HomeController extends BaseController {
 
 	        Auth::login( User::find($uid) );
 
-	        return Redirect::to('login')->with("confirmed", "1");
+	        return Redirect::route('login-page')->with("confirmed", "1");
 
 	    } else {
 
-	        return Redirect::to('login')->with("confirmed", "0");
+	        return Redirect::route('login-page')->with("confirmed", "0");
 
 	    }
 
@@ -226,7 +226,7 @@ class HomeController extends BaseController {
 	public function logout()
 	{
 		Auth::logout();
-		return Redirect::to('/');
+		return Redirect::route('login-page');
 	}
 
 	public function getPassrequest() {

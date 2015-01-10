@@ -1,5 +1,5 @@
 .text-login {
-	color: #53A524;
+	color: #2ecc71;
 }
 .floating-label {
 	font-size: 200%;
@@ -11,8 +11,8 @@
 	color: #fff;
 }
 #btn-submit:hover {
-	background-color: #53A524; 
-	border: 1px solid #53A524; 
+	background-color: #2ecc71; 
+	border: 1px solid #2ecc71; 
 	color: #fff;
 }
 
@@ -26,16 +26,16 @@
 	border: 1px solid #3867CA;
 }
 #login-block-center-plusCss {
-	color: #53A524;
+	color: #2ecc71;
 }
 #form-fields-wrapper-plusCss {
 	max-width: 25em;
 }
 #form-control-wrapper-plusCss {
-	margin-bottom: 10%;
+	
 }
 .color-53A524 {
-	color: #53A524;
+	color: #2ecc71;
 }
 .color-009587 {
 	color: #009587; 
@@ -48,5 +48,8 @@
 	margin-bottom: 5%;
 }
 #floating-label-plusCss {
-	color: #53A524;
+	color: #2ecc71;
+}
+.error {
+	color:#FFF;
 }

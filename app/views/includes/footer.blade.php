@@ -28,7 +28,9 @@
                         </ul>
                     </div>
                     <div class="footer-col col-md-4">
-                        <a href = {{URL::route('about-page')}}><h3 style = "color: #FFF">About Us</h3></a>
+                        <a href = {{URL::route('contact-page')}}><h3 style = "color: #FFF">Contact Us</h3></a>
+                         <a href = {{URL::route('terms-page')}}><h4 style = "color: #FFF">Terms and Conditions</h4></a>
+                         <a href = {{URL::route('privacy-page')}}><h4 style = "color: #FFF">Privacy Policy</h4></a>
                         <p>Template is created by <a href="http://miratik.com/">Miratik</a>.</p>
                     </div>
                 </div>

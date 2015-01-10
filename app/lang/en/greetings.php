@@ -1,6 +1,8 @@
 <?php 
 return array (
 	'Login' => 'Login',
+	'Logout' => 'Logout',
+	'Register' => 'Register',
 	'Help' => 'Help',
 	'Language' => 'Language',
 	'English' => 'English',
