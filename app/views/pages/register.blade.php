@@ -30,16 +30,19 @@
 				</div>			
 			</div>
 			<div class="pad-top">
-				<div class="form-control-wrapper">
+				<div class="form-control-wrapper" >
 					<input style = "color: #009587; font-size: 110%;" type="password" id = "input-email-plusCss" class="form-control empty" data-hint="" required name = "password">
-					<div class="hint"></div><div class="floating-label" style = "color: #53A524;">Password</div>
+					<div class="hint"></div>
+					<div class="floating-label" id = "floating-label-plusCss">Password</div>
+					
 					<span class="material-input"></span>
 				</div>
 			</div>
 			<div class="pad-top">
 				<div class="form-control-wrapper">
 					<input style = "color: #009587; font-size: 110%;" type="password" class="form-control empty" data-hint="" required name = "password_confirmation">
-					<div class="hint"></div><div class="floating-label" style = "color: #53A524;">Re-enter Password</div>
+					<div class="hint"></div>
+					<div class="floating-label" id = "floating-label-plusCss">Re-Enter Password</div>
 					<span class="material-input"></span>
 				</div>
 			</div>

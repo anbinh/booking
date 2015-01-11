@@ -118,7 +118,9 @@ Route::group(array('before'=>'check-language'), function(){
 	{
 		return View::make('pages.FAQ');
 	}));
-	
+	Route::get('logout', 'HomeController@logout');
+	Route::get( 'confirm/{id_code}', array( 'uses' => 'HomeController@confirm' ));
+	Route::get( 'changepass/{id_code}', array( 'uses' => 'HomeController@changepass' ));
 	
 });
 
@@ -133,7 +135,7 @@ Route::group(array('before'=>'check-language'), function(){
 	}));
 	
 	Route::post('login','HomeController@postLogin');
-	Route::get('logout', 'HomeController@logout');
+	
 	Route::post('register', 'HomeController@postRegister');
-	Route::get( 'confirm/{id_code}', array( 'uses' => 'HomeController@confirm' ));
+	
 	Route::post('restore', 'HomeController@postForgetpass');

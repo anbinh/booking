@@ -67,11 +67,16 @@
 			</div>
 		</div>
 		<div class="even-medium center">
-			<a href={{URL::route('restore-page')}} class="alt-link">Forgot password?</a>
+			
 		</div>
 		<div class="even-medium center">
 			<a href={{URL::route('register-page')}} class="alt-link">Create a new account</a>
 		</div>
+		<div class="even-medium center">
+			<a href={{URL::route('restore-page')}} class="alt-link">Forgot password?</a>
+		</div>
+		
+		
 		<div class="form-fields-wrapper">
 			<div class="form-steps-bottom"></div>
 			
