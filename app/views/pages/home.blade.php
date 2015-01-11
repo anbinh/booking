@@ -17,8 +17,8 @@
 					
 						<div class='main-page-header'>
 							<div class = "row">
-								<h1 class='navbar-brand-main'>
-									{{trans ('greetings.Welcome to the Homeez')}}
+								<h1 class='hero-text'>
+									<p>{{trans ('greetings.Welcome to the Homeez')}}</p>
 								</h1>
 							</div>
 							
@@ -107,7 +107,7 @@
 		<section id="slide-3">
 			<div class="bcg skrollable skrollable-before" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-bottom-top="background-position: 50% 100px;" data-anchor-target="#slide-3" id = "slide-3-plusCss">
 				<div class="hsContainer">
-					<div class='main-content-row-no-padding bottom-line' >
+					<div class='main-content-row-no-padding bottom-line'>
 					
 						<div class='main-content-row bottom-line' id = "main-content-slide3-plusCss">
 							<div class="row">
@@ -119,7 +119,7 @@
 										<a href="https://miratik.com/">{{trans ('greetings.Mirum est notare quam littera gothica')}}</a> {{trans ('greetings.est etiam processus.')}}
 									</p>
 								</div>
-								<div class="col-lg-5 col-lg-offset-2 col-sm-6" id = "margin-bottom-5">
+								<div class="col-lg-5 col-lg-offset-2 col-sm-6 margin-bottom-5">
 									<img class="img-responsive" src="http://ironsummitmedia.github.io/startbootstrap-landing-page/img/phones.png" alt="">
 								</div>
 							</div>
@@ -133,8 +133,8 @@
 								<h3 class='section-block-header pad-top color-white'>{{trans ('greetings.Ready to start?')}}</h3>
 							</div>
 							<div class='small-12 columns two-button-row' id = "main-content-slides3-plusCss">
-								<a href="#" class="big-button btn-secondary call-to-action btn_SeeAll_fisrt-last">Getting Started</a>
-								<a href="{{URL::to('list-service')}}" class="big-button btn-invert-secondary call-to-action btn_SeeAll_second-last">All Us Services</a>
+								<a href="#" class="big-button btn-secondary call-to-action btn_SeeAll_fisrt">Getting Started</a>
+								<a href="{{URL::to('list-service')}}" class="big-button btn-invert-secondary call-to-action btn_SeeAll_second">All Us Services</a>
 							</div>
 						</div>
 					</div>
