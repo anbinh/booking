@@ -241,9 +241,9 @@ class HomeController extends BaseController {
 		    //---new send email----//
 		    try {
 		    	Mail::send('emails.newpass', $data, function($message) use ($data)
-		    {
-		        $message->to($data['email'])->subject('Your new password');
-		    });
+			    {
+			        $message->to($data['email'])->subject('Your new password');
+			    });
 		    
 		    }
 		    catch (Exception $e){
