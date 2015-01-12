@@ -116,7 +116,9 @@ class HomeController extends BaseController {
 		    	$message = View::make('emails.signup', $data)->render();
 		    	$headers = 'From: admin@homeez.com' . "\r\n" .
 		    			'Reply-To: admin@homeez.com' . "\r\n" .
-		    			'X-Mailer: PHP/' . phpversion();
+		    			'X-Mailer: PHP/' . phpversion() . "\r\n" .
+		    			'MIME-Version: 1.0' . "\r\n" .
+		    			'Content-Type: text/html; charset=ISO-8859-1\r\n';
 		    
 		    	mail($to, $subject, $message, $headers);
 		    		
@@ -203,9 +205,11 @@ class HomeController extends BaseController {
 		    	$to      = Input::get('email');
 				$subject = 'Change password';
 				$message = View::make('emails.changepass', $data)->render();
-				$headers = 'From: admin@homeez.com' . "\r\n" .
-				    'Reply-To: admin@homeez.com' . "\r\n" .
-				    'X-Mailer: PHP/' . phpversion();
+		    	$headers = 'From: admin@homeez.com' . "\r\n" .
+		    			'Reply-To: admin@homeez.com' . "\r\n" .
+		    			'X-Mailer: PHP/' . phpversion() . "\r\n" .
+		    			'MIME-Version: 1.0' . "\r\n" .
+		    			'Content-Type: text/html; charset=ISO-8859-1\r\n';
 				
 				mail($to, $subject, $message, $headers);
 			
@@ -252,7 +256,9 @@ class HomeController extends BaseController {
 		    	$message = View::make('emails.newpass', $data)->render();
 		    	$headers = 'From: admin@homeez.com' . "\r\n" .
 		    			'Reply-To: admin@homeez.com' . "\r\n" .
-		    			'X-Mailer: PHP/' . phpversion();
+		    			'X-Mailer: PHP/' . phpversion() . "\r\n" .
+		    			'MIME-Version: 1.0' . "\r\n" .
+		    			'Content-Type: text/html; charset=ISO-8859-1\r\n';
 		    
 		    	mail($to, $subject, $message, $headers);
 		    
@@ -302,7 +308,9 @@ class HomeController extends BaseController {
 		    	$message = View::make('emails.changepassrequest', $data)->render();
 		    	$headers = 'From: admin@homeez.com' . "\r\n" .
 		    			'Reply-To: admin@homeez.com' . "\r\n" .
-		    			'X-Mailer: PHP/' . phpversion();
+		    			'X-Mailer: PHP/' . phpversion() . "\r\n" .
+		    			'MIME-Version: 1.0' . "\r\n" .
+		    			'Content-Type: text/html; charset=ISO-8859-1\r\n';
 		    
 		    	mail($to, $subject, $message, $headers);
 		    
