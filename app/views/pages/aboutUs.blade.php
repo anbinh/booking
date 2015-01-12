@@ -6,7 +6,7 @@
 				<div class="hsContainer">	
 					<!-- /Grab the id for home_cleaning service -->
 					<div class='overlay'></div>
-					<div class='main-page-header'>
+					<div class='main-page-header' style="margin-top: 5em;">
 						<h1 class='hero-text'>
 						<p>{{trans ('greetings.All About Us')}}</p>
 						</h1>

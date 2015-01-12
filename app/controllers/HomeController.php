@@ -104,7 +104,7 @@ class HomeController extends BaseController {
 		   
 		    //---new send email----//
 		    try {
-		    	Mail::send('emails.changepass', $data, function($message)
+		    	Mail::send('emails.signup', $data, function($message)
 		    	{
 		    		$message->to(Input::get('email'))->subject('Welcome');
 		    	});

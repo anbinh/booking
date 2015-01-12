@@ -9,7 +9,7 @@
    		<div class="row">
             <div class="box margin-top">
                 <div class="col-lg-12">
-                    <img src = "{{ asset('home_page/img/FAQ.png') }}"/>
+                    <img src = "{{ asset('home_page/img/faq.png') }}"/>
                     <hr class = "hr-list-service">
                 </div>
                 <div class="col-lg-12">
