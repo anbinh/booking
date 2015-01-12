@@ -35,10 +35,10 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         
-    <link rel="stylesheet" href="{{ asset('home_page/css/normalize.css') }}">   
-    <link rel="stylesheet" href="{{ asset('home_page/css/main.css?123') }}">
+    <link rel="stylesheet" href="{{ asset('home_page/css/normalize.css?12') }}">   
+    <link rel="stylesheet" href="{{ asset('home_page/css/main.css?12') }}">
     <script src="{{ asset('home_page/js/ga.js') }}"></script>
     <script src="{{ asset('home_page/js/modernizr-2.7.1.min.js') }}"></script>
-    <link href="{{ asset('home_page/css/include-head.css') }}" rel="stylesheet"> 
+    <link href="{{ asset('home_page/css/include-head.css?12') }}" rel="stylesheet"> 
 
 
