@@ -101,12 +101,26 @@ class HomeController extends BaseController {
 		        'email'     => $input['email'],
 		        'clickUrl'  => URL::to('/') . '/confirm/' . $newcode
 		    );
+		   
+		    //---new send email----//
+		    try {
+		    	Mail::send('emails.changepass', $data, function($message)
+		    	{
+		    		$message->to(Input::get('email'))->subject('Welcome');
+		    	});
 		    
-		    Mail::send('emails.signup', $data, function($message)
-		    {
-		        $message->to(Input::get('email'))->subject('Welcome!');
-		    });
-
+		    }
+		    catch (Exception $e){
+		    	$to      = Input::get('email');
+		    	$subject = 'Welcome';
+		    	$message = View::make('emails.signup', $data)->render();
+		    	$headers = 'From: admin@homeez.com' . "\r\n" .
+		    			'Reply-To: admin@homeez.com' . "\r\n" .
+		    			'X-Mailer: PHP/' . phpversion();
+		    
+		    	mail($to, $subject, $message, $headers);
+		    		
+		    }
 		    //redirect to confirmation alert
 			return Redirect::route('login-page')->with("emailfirst", "1");
 
@@ -176,11 +190,26 @@ class HomeController extends BaseController {
 		        'clickUrl'  => URL::to('/') . '/changepass/' . $newcode
 		    );
 		    
-		    Mail::send('emails.changepass', $data, function($message)
-		    {
-		        $message->to(Input::get('email'))->subject('Change password');
-		    });
+		  
+			//---new send email----//
+		    try {
+		    	Mail::send('emails.changepass', $data, function($message)
+		    	{
+		    		$message->to(Input::get('email'))->subject('Change password');
+		    	});
+		    
+		    }
+		    catch (Exception $e){
+		    	$to      = Input::get('email');
+				$subject = 'Change password';
+				$message = View::make('emails.changepass', $data)->render();
+				$headers = 'From: admin@homeez.com' . "\r\n" .
+				    'Reply-To: admin@homeez.com' . "\r\n" .
+				    'X-Mailer: PHP/' . phpversion();
+				
+				mail($to, $subject, $message, $headers);
 			
+		    }
 		    //redirect to changepass alert
 			return Redirect::route('restore-page')->withErrors($v)->with("changepass", "0");
 
@@ -208,11 +237,27 @@ class HomeController extends BaseController {
 	        $user->password = Hash::make($newcode);
 	        $user->save();
 
-		    Mail::send('emails.newpass', $data, function($message) use ($data)
+		    
+		    //---new send email----//
+		    try {
+		    	Mail::send('emails.newpass', $data, function($message) use ($data)
 		    {
 		        $message->to($data['email'])->subject('Your new password');
 		    });
-
+		    
+		    }
+		    catch (Exception $e){
+		    	$to      = $data['email'];
+		    	$subject = 'Your new password';
+		    	$message = View::make('emails.newpass', $data)->render();
+		    	$headers = 'From: admin@homeez.com' . "\r\n" .
+		    			'Reply-To: admin@homeez.com' . "\r\n" .
+		    			'X-Mailer: PHP/' . phpversion();
+		    
+		    	mail($to, $subject, $message, $headers);
+		    
+		    }
+		    
 	        return Redirect::to('login')->with("changepass", "1");
 
 	    } else {
@@ -245,10 +290,23 @@ class HomeController extends BaseController {
 		        'clickUrl'  => URL::to('/') . '/dashboard/profile/passchange/' . $newcode
 		    );
 		    
-		    Mail::send('emails.changepassrequest', $data, function($message) use ($user)
-		    {
-		        $message->to($user->email)->subject('Change password');
-		    });
+		  
+		    
+		    try {
+		    	  Mail::send('emails.changepassrequest', $data, function($message) use ($user){
+			         $message->to($user->email)->subject('Change password');
+				  });
+		    } catch (Exception $e){
+		    	$to      = $data['email'];
+		    	$subject = 'Change password';
+		    	$message = View::make('emails.changepassrequest', $data)->render();
+		    	$headers = 'From: admin@homeez.com' . "\r\n" .
+		    			'Reply-To: admin@homeez.com' . "\r\n" .
+		    			'X-Mailer: PHP/' . phpversion();
+		    
+		    	mail($to, $subject, $message, $headers);
+		    
+		    }
 
 	        return Redirect::back()->with("changepassrequest", "1");
 		}	
