@@ -11,7 +11,7 @@
 					<div class='main-page-header'>
 						<div class = "row">
 							<h1 class='hero-text'>
-								<p>Welcome to the Homeez</p>
+								<p>Our Homeez will make your Home at Ease</p>
 							</h1>
 						</div>
 						
