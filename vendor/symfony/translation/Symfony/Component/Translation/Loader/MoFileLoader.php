@@ -39,7 +39,7 @@ class MoFileLoader extends ArrayLoader implements LoaderInterface
     /**
      * The size of the header of a MO file in bytes.
      *
-     * @var integer Number of bytes.
+     * @var int Number of bytes.
      */
     const MO_HEADER_SIZE = 28;
 
@@ -78,6 +78,7 @@ class MoFileLoader extends ArrayLoader implements LoaderInterface
      * @param resource $resource
      *
      * @return array
+     *
      * @throws InvalidResourceException If stream content has an invalid format.
      */
     private function parse($resource)
@@ -100,12 +101,15 @@ class MoFileLoader extends ArrayLoader implements LoaderInterface
             throw new InvalidResourceException("MO stream content has an invalid format.");
         }
 
-        $formatRevision = $this->readLong($stream, $isBigEndian);
+        // formatRevision
+        $this->readLong($stream, $isBigEndian);
         $count = $this->readLong($stream, $isBigEndian);
         $offsetId = $this->readLong($stream, $isBigEndian);
         $offsetTranslated = $this->readLong($stream, $isBigEndian);
-        $sizeHashes = $this->readLong($stream, $isBigEndian);
-        $offsetHashes = $this->readLong($stream, $isBigEndian);
+        // sizeHashes
+        $this->readLong($stream, $isBigEndian);
+        // offsetHashes
+        $this->readLong($stream, $isBigEndian);
 
         $messages = array();
 
@@ -165,15 +169,16 @@ class MoFileLoader extends ArrayLoader implements LoaderInterface
     /**
      * Reads an unsigned long from stream respecting endianess.
      *
-     * @param  resource $stream
-     * @param  boolean  $isBigEndian
-     * @return integer
+     * @param resource $stream
+     * @param bool     $isBigEndian
+     *
+     * @return int
      */
     private function readLong($stream, $isBigEndian)
     {
         $result = unpack($isBigEndian ? 'N1' : 'V1', fread($stream, 4));
         $result = current($result);
 
-        return (integer) substr($result, -8);
+        return (int) substr($result, -8);
     }
 }
