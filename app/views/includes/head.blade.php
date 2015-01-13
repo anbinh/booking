@@ -41,4 +41,6 @@
     <script src="{{ asset('home_page/js/modernizr-2.7.1.min.js') }}"></script>
     <link href="{{ asset('home_page/css/include-head.css?12') }}" rel="stylesheet"> 
 
-
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>

@@ -53,3 +53,10 @@
 .error {
 	color:#FFF;
 }
+
+@media screen and (max-width: 871px){
+	.login-background {
+		height: 1100px;	
+	}
+}
+

@@ -1,104 +1,117 @@
 @extends('layouts.default')
 @section('content')
-	<div id="preload">
-		<img src="{{ asset('home_page/img/bcg_slide-1.jpg') }}">
-		<img src="{{ asset('home_page/img/bcg_slide-2.jpg') }}">
-		<img src="{{ asset('home_page/img/bcg_slide-3.jpg') }}">
-		<img src="{{ asset('home_page/img/bcg_slide-4.jpg') }}">
-	</div>
+
+	
 	<main>   	 
-        <section id="slide-1" class="homeSlide" id="section-1-plusCss">
-        	<div class="bcg skrollable skrollable-between" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide-1" id = "bcg-slide1-plusCss">
-	        	<div class="hsContainer">
-	        
-					
-					
-					<div class="white-contain"> 
-					
-						<div class='main-page-header'>
-							<div class = "row">
-								<h1 class='hero-text'>
-									<p>{{trans ('greetings.Welcome to the Homeez')}}</p>
-								</h1>
+    <section id="slide-1" class="homeSlide" id="section-1-plusCss">
+		<div class="bcg skrollable skrollable-between" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide-1" id = "bcg-slide1-plusCss">
+			<div class="hsContainer">
+				<div class="white-contain"> 
+				
+					<div class='main-page-header'>
+						<div class = "row">
+							<h1 class='hero-text'>
+								<p>Welcome to the Homeez</p>
+							</h1>
+						</div>
+						
+						<div class="mainPitch"> 
+							<div  class="row">
+								<h3 style="font-size:20px">FIND SAFE, RELIABLE HELP IN YOUR NEIGHBORHOOD.</h3> 
 							</div>
+							<div class="row">
 							
-							<div class = "row icon-handy">
-							 	<div class="col-lg-2 col-md-2 col-xs-4 thumb">
-					                <div title="handyman2" class="handyman img-center" id="handyone">
-						          
-						        	</div>
-					            </div>
-					            <div class="col-lg-2 col-md-2 col-xs-4 thumb">
-					                <div title="handyman2" class="handyman img-center" id="handytwo">
-						          
-						        	</div>
-					            </div>
-					            <div class="col-lg-2 col-md-2 col-xs-4 thumb">
-					                <div title="handyman2" class="handyman img-center" id="handythree">
-						          
-						        	</div>
-					            </div>
-					            <div class="col-lg-2 col-md-2 col-xs-4 thumb">
-					                <div title="handyman2" class="handyman img-center" id="handyfour">
-						          
-						        	</div>
-					            </div>
-					            <div class="col-lg-2 col-md-2 col-xs-4 thumb">
-					                <div title="handyman2" class="handyman img-center" id="handyfive">
-						          
-						        	</div>
-					            </div>
-					            <div class="col-lg-2 col-md-2 col-xs-4 thumb">
-					                <div title="handyman2" class="handyman img-center" id="handysix">
-						          
-						        	</div>
-					            </div>
+								<div class = "row icon-handy">
+								<div class="col-lg-2 col-md-2 col-xm-4 thumb">
+									<div title="handyman2" class="handyman img-center" id="handyone">
+								  
+									</div>
+								</div>
+								<div class="col-lg-2 col-md-2 col-xm-4 thumb">
+									<div title="handyman2" class="handyman img-center" id="handytwo">
+								  
+									</div>
+								</div>
+								<div class="col-lg-2 col-md-2 col-xm-4 thumb">
+									<div title="handyman2" class="handyman img-center" id="handythree">
+								  
+									</div>
+								</div>
+								<div class="col-lg-2 col-md-2 col-xm-4 thumb">
+									<div title="handyman2" class="handyman img-center" id="handyfour">
+								  
+									</div>
+								</div>
+								<div class="col-lg-2 col-md-2 col-xm-4 thumb">
+									<div title="handyman2" class="handyman img-center" id="handyfive">
+								  
+									</div>
+								</div>
+								<div class="col-lg-2 col-md-2 col-xm-4 thumb">
+									<div title="handyman2" class="handyman img-center" id="handysix">
+								  
+									</div>
+								</div>
 								
 								
-							</div>
+								</div>
 							
-							<div class = "row">
+								<div class = "row">
 								<div class = "col-ls-6 col-md-6 col-sm-6">
 									
-									<p class = "bigtext">{{trans ('greetings.Book expert home cleaners')}}</p> 
 									
-									<a href="#" class="big-button btn-secondary block-and-center call-to-action btn_SeeAll_fisrt push-top">{{trans ('greetings.Book a Cleaning')}}</a>
 								</div>
 								
 								<div class = "col-ls-6 col-md-6 col-sm-6">
-									<p class = "bigtext">What service do you need?</p>
-									<a href="{{URL::to('list-service')}}" class="big-button btn-alternate push-top block-and-center call-to-action btn_SeeAll_second" >List of Sevices</a>
+									
 								</div>
+								</div>
+								<div class="analytics-event-post" data-event-name="zipcode_input_on_homepage" data-event-properties="{&quot;variant_type&quot;:&quot;control&quot;}">
+								</div>  		
 							</div>
-							<div class="analytics-event-post" data-event-name="zipcode_input_on_homepage" data-event-properties="{&quot;variant_type&quot;:&quot;control&quot;}">
-						</div>  		
-		    		</div>
+						</div>
 					</div>
-					
-			
-	        	</div>
-        	</div>
-   		</section>
+				</div>
+		
+			</div>
+		</div>
+	</section>
+
 		    
 		<section id="slide-2" >
 		    <div class="bcg skrollable skrollable-between" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide-2" id = "slide-2-plusCss">
 	    		<div class="hsContainer" id = "hsContainer-slide2-plusCss">	
 					<div class="row" id = "row-slide2-plusCss">
-			            <div class="col-sm-4">
-			                <img  id = "img-slideplusCss" class="img-circle img-responsive img-center" src="{{ asset('home_page/img/33.png') }}" alt="">
-			                <h3>{{trans ('greetings.Marketing Box #1')}}</h3>
-			                <p>{{trans ('greetings.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat')}}</p>
-			            </div>
-			            <div class="col-sm-4">
-			                <img class="img-circle img-responsive img-center" src="{{ asset('home_page/img/23.png') }}" alt="">
-			                <h3>{{trans ('greetings.Marketing Box #2')}}</h3>
-			                <p>{{trans ('greetings.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat')}}</p>
-			            </div>
-			            <div class="col-sm-4">
-			                <img class="img-circle img-responsive img-center" src="{{ asset('home_page/img/35.png') }}" alt="">
-			                <h3>{{trans ('greetings.Marketing Box #3')}}</h3>
-			                <p>{{trans ('greetings.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat')}}</p>
-			            </div>
+			           
+						<div class="col-md-3">
+							<img src="http://www.byui.edu/Images/disability_services/step1-resized200x209.png" class = "step-icon" style = "width: 9em"/>
+							<h3>Select the service</h3>
+							<p style="color:#4E4E4E;font-size:18px">
+								 Leave some space underneath for details
+							</p>
+						</div>
+						<div class="col-md-3 ">
+							<img src="http://www.byui.edu/Images/disability_services/step2-resized200x209.png" style = "width: 9em"/>
+							<h3> Select the time</h3>
+							<p style="color:#4E4E4E;font-size:18px">	 
+								 Leave some space underneath for details
+							</p>
+						</div>
+						<div class="col-md-3 ">
+							<img src="http://www.byui.edu/Images/disability_services/step3-resized200x209.png" style = "width: 9em"/>
+							<h3>Choose the Supplier</h3>
+							<p style="color:#4E4E4E;font-size:18px">
+								Leave some space underneath for details
+							</p>
+						</div>
+						<div class="col-md-3 ">
+							<img src="http://www.byui.edu/Images/disability_services/step4-resized200x209.png" style = "width: 9em"/>
+							<h3>Pay </h3>
+							<p style="color:#4E4E4E;font-size:18px">
+								Leave some space underneath for details
+							</p>
+						</div>
+					
 			        </div>
 	        	</div>
 	    	</div>

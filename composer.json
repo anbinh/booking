@@ -1,15 +1,18 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
-	"require": {
-		"laravel/framework": "4.0.*",
-		"way/generators": "dev-master",
-		"intervention/image": "dev-master",
-		"facebook/php-sdk": "dev-master"
+	"name" : "laravel/laravel",
+	"description" : "The Laravel Framework.",
+	"keywords" : [
+		"framework",
+		"laravel"
+	],
+	"require" : {
+		"laravel/framework" : "4.0.*",
+		"way/generators" : "dev-master",
+		"intervention/image" : "dev-master",
+		"facebook/php-sdk" : "dev-master"
 	},
-	"autoload": {
-		"classmap": [
+	"autoload" : {
+		"classmap" : [
 			"app/commands",
 			"app/controllers",
 			"app/models",
@@ -18,22 +21,19 @@
 			"app/tests/TestCase.php"
 		]
 	},
-	"scripts": {
-		"post-install-cmd": [
+	"scripts" : {
+		"post-install-cmd" : [
 			"php artisan optimize"
 		],
-		"pre-update-cmd": [
+		"pre-update-cmd" : [
 			"php artisan clear-compiled"
 		],
-		"post-update-cmd": [
+		"post-update-cmd" : [
 			"php artisan optimize"
-		],
-		"post-create-project-cmd": [
-			"php artisan key:generate"
 		]
 	},
-	"config": {
-		"preferred-install": "dist"
+	"config" : {
+		"preferred-install" : "dist"
 	},
-	"minimum-stability": "dev"
+	"minimum-stability" : "dev"
 }
