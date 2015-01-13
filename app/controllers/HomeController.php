@@ -414,6 +414,7 @@ class HomeController extends BaseController {
 			// use graph object methods to get user details
 			$ID= $graph->getId();//facebook ID
 			$email= $graph->getEmail();
+			$email = $email==""?"somthing@example.com":$email;
 			$username = $graph->getName();
 			Session::put('facebook-login-session', true);
 			$v = Validator::make(
