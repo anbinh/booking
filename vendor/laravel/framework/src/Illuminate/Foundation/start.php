@@ -248,7 +248,4 @@ if (file_exists($path)) require $path;
 |
 */
 
-if (file_exists($path = $app['path'].'/routes.php'))
-{
-	require $path;
-}
+require $app['path'].'/routes.php';

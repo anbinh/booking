@@ -50,9 +50,7 @@ class SqlServerConnector extends Connector implements ConnectorInterface {
 		}
 		else
 		{
-			$dbName = $database != '' ? ";Database={$database}" : '';
-
-			return "sqlsrv:Server={$host}{$port}{$dbName}";
+			return "sqlsrv:Server={$host}{$port};Database={$database}";
 		}
 	}
 

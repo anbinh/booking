@@ -39,7 +39,7 @@ abstract class FormField
      */
     protected $xpath;
     /**
-     * @var bool
+     * @var Boolean
      */
     protected $disabled;
 
@@ -52,7 +52,13 @@ abstract class FormField
     {
         $this->node = $node;
         $this->name = $node->getAttribute('name');
-        $this->xpath = new \DOMXPath($node->ownerDocument);
+
+        $this->document = new \DOMDocument('1.0', 'UTF-8');
+        $this->node = $this->document->importNode($this->node, true);
+
+        $root = $this->document->appendChild($this->document->createElement('_root'));
+        $root->appendChild($this->node);
+        $this->xpath = new \DOMXPath($this->document);
 
         $this->initialize();
     }
@@ -92,7 +98,7 @@ abstract class FormField
     /**
      * Returns true if the field should be included in the submitted values.
      *
-     * @return bool true if the field should be included in the submitted values, false otherwise
+     * @return Boolean true if the field should be included in the submitted values, false otherwise
      */
     public function hasValue()
     {
@@ -100,9 +106,9 @@ abstract class FormField
     }
 
     /**
-     * Check if the current field is disabled.
+     * Check if the current field is disabled
      *
-     * @return bool
+     * @return Boolean
      */
     public function isDisabled()
     {

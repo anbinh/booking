@@ -14,6 +14,7 @@ namespace Symfony\Component\HttpKernel\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 /**
@@ -31,8 +32,8 @@ class RouterDataCollector extends DataCollector
 
         $this->data = array(
             'redirect' => false,
-            'url' => null,
-            'route' => null,
+            'url'      => null,
+            'route'    => null,
         );
     }
 
@@ -49,8 +50,6 @@ class RouterDataCollector extends DataCollector
                 $this->data['route'] = $this->guessRoute($request, $this->controllers[$request]);
             }
         }
-
-        unset($this->controllers[$request]);
     }
 
     protected function guessRoute(Request $request, $controller)
@@ -69,7 +68,7 @@ class RouterDataCollector extends DataCollector
     }
 
     /**
-     * @return bool Whether this request will result in a redirect
+     * @return Boolean Whether this request will result in a redirect
      */
     public function getRedirect()
     {

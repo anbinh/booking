@@ -98,14 +98,7 @@ class Translator extends NamespacedItemResolver implements TranslatorInterface {
 	{
 		$line = array_get($this->loaded[$namespace][$group][$locale], $item);
 
-		if (is_string($line))
-		{
-			return $this->makeReplacements($line, $replace);
-		}
-		elseif (is_array($line) and count($line) > 0)
-		{
-			return $line;
-		}
+		if ($line) return $this->makeReplacements($line, $replace);
 	}
 
 	/**
@@ -154,7 +147,7 @@ class Translator extends NamespacedItemResolver implements TranslatorInterface {
 	{
 		$line = $this->get($key, $replace, $locale = $locale ?: $this->locale);
 
-		$replace['count'] = $number;
+		array_unshift($replace, $number);
 
 		return $this->makeReplacements($this->getSelector()->choose($line, $number, $locale), $replace);
 	}

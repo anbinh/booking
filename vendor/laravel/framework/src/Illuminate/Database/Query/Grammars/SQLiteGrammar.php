@@ -5,15 +5,22 @@ use Illuminate\Database\Query\Builder;
 class SQLiteGrammar extends Grammar {
 
 	/**
-	 * All of the available clause operators.
+	 * Compile the "order by" portions of the query.
 	 *
-	 * @var array
+	 * @param  \Illuminate\Database\Query\Builder  $query
+	 * @param  array  $orders
+	 * @return string
 	 */
-	protected $operators = array(
-		'=', '<', '>', '<=', '>=', '<>', '!=',
-		'like', 'not like', 'between', 'ilike',
-		'&', '|', '<<', '>>',
-	);
+	protected function compileOrders(Builder $query, $orders)
+	{
+		$me = $this;
+
+		return 'order by '.implode(', ', array_map(function($order) use ($me)
+		{
+			return $me->wrap($order['column']).' collate nocase '.$order['direction'];
+		}
+		, $orders));
+	}
 
 	/**
 	 * Compile an insert statement into SQL.

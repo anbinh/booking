@@ -1198,7 +1198,7 @@ class Router {
 	{
 		foreach ((array) $names as $name)
 		{
-			if ( ! is_null($methods)) $methods = array_map('strtolower', (array) $methods);
+			if ( ! is_null($methods)) $methods = array_change_key_case((array) $methods);
 
 			$this->patternFilters[$pattern][] = compact('name', 'methods');
 		}
@@ -1207,11 +1207,10 @@ class Router {
 	/**
 	 * Find the patterned filters matching a request.
 	 *
-	 * @param  string  $method
-	 * @param  string  $path
+	 * @param  \Illuminate\Http\Request  $request
 	 * @return array
 	 */
-	public function findPatternFilters($method, $path)
+	public function findPatternFilters(Request $request)
 	{
 		$results = array();
 
@@ -1220,9 +1219,9 @@ class Router {
 			// To find the pattern middlewares for a request, we just need to check the
 			// registered patterns against the path info for the current request to
 			// the application, and if it matches we'll merge in the middlewares.
-			if (str_is('/'.$pattern, $path))
+			if (str_is('/'.$pattern, $request->getPathInfo()))
 			{
-				$merge = $this->filterPatternsByMethod($method, $filters);
+				$merge = $this->filterPatternsByMethod($request, $filters);
 
 				$results = array_merge($results, $merge);
 			}
@@ -1234,15 +1233,15 @@ class Router {
 	/**
 	 * Filter pattern filters that don't apply to the request verb.
 	 *
-	 * @param  string  $method
+	 * @param  \Illuminate\Http\Request  $request
 	 * @param  array  $filters
 	 * @return array
 	 */
-	protected function filterPatternsByMethod($method, $filters)
+	protected function filterPatternsByMethod(Request $request, $filters)
 	{
 		$results = array();
 
-		$method = strtolower($method);
+		$method = strtolower($request->getMethod());
 
 		// The idea here is to check and see if the pattern filter applies to this HTTP
 		// request based on the request methods. Pattern filters might be limited by

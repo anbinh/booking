@@ -11,8 +11,6 @@
 
 namespace Monolog\Handler\FingersCrossed;
 
-use Monolog\Logger;
-
 /**
  * Channel and Error level based monolog activation strategy. Allows to trigger activation
  * based on level per channel. e.g. trigger activation on level 'ERROR' by default, except
@@ -44,8 +42,8 @@ class ChannelLevelActivationStrategy implements ActivationStrategyInterface
      */
     public function __construct($defaultActionLevel, $channelToActionLevel = array())
     {
-        $this->defaultActionLevel = Logger::toMonologLevel($defaultActionLevel);
-        $this->channelToActionLevel = array_map('Monolog\Logger::toMonologLevel', $channelToActionLevel);
+        $this->defaultActionLevel = $defaultActionLevel;
+        $this->channelToActionLevel = $channelToActionLevel;
     }
 
     public function isHandlerActivated(array $record)

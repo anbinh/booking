@@ -23,8 +23,19 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class HttpKernelTest extends \PHPUnit_Framework_TestCase
 {
+    protected function setUp()
+    {
+        if (!class_exists('Symfony\Component\EventDispatcher\EventDispatcher')) {
+            $this->markTestSkipped('The "EventDispatcher" component is not available');
+        }
+
+        if (!class_exists('Symfony\Component\HttpFoundation\Request')) {
+            $this->markTestSkipped('The "HttpFoundation" component is not available');
+        }
+    }
+
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      */
     public function testHandleWhenControllerThrowsAnExceptionAndRawIsTrue()
     {
@@ -34,7 +45,7 @@ class HttpKernelTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      */
     public function testHandleWhenControllerThrowsAnExceptionAndRawIsFalseAndNoListenerIsRegistered()
     {
@@ -136,7 +147,7 @@ class HttpKernelTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \LogicException
+     * @expectedException LogicException
      */
     public function testHandleWhenTheControllerIsNotACallable()
     {
@@ -188,7 +199,7 @@ class HttpKernelTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \LogicException
+     * @expectedException LogicException
      */
     public function testHandleWhenTheControllerDoesNotReturnAResponse()
     {
@@ -241,7 +252,7 @@ class HttpKernelTest extends \PHPUnit_Framework_TestCase
     protected function getResolver($controller = null)
     {
         if (null === $controller) {
-            $controller = function () { return new Response('Hello'); };
+            $controller = function() { return new Response('Hello'); };
         }
 
         $resolver = $this->getMock('Symfony\\Component\\HttpKernel\\Controller\\ControllerResolverInterface');

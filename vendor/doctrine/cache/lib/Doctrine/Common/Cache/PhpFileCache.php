@@ -102,6 +102,6 @@ class PhpFileCache extends FileCache
         $value  = var_export($value, true);
         $code   = sprintf('<?php return %s;', $value);
 
-        return file_put_contents($filename, $code) !== false;
+        return file_put_contents($filename, $code);
     }
 }

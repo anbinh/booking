@@ -3,7 +3,6 @@
 namespace Doctrine\Tests\Common\Cache;
 
 use Doctrine\Common\Cache\MemcachedCache;
-use Memcached;
 
 class MemcachedCacheTest extends CacheTest
 {
@@ -11,29 +10,21 @@ class MemcachedCacheTest extends CacheTest
 
     public function setUp()
     {
-        if ( ! extension_loaded('memcached')) {
-            $this->markTestSkipped('The ' . __CLASS__ .' requires the use of memcached');
-        }
+        if (extension_loaded('memcached')) {
+            $this->memcached = new \Memcached();
+            $this->memcached->setOption(\Memcached::OPT_COMPRESSION, false);
+            $this->memcached->addServer('127.0.0.1', 11211);
 
-        $this->memcached = new Memcached();
-        $this->memcached->setOption(Memcached::OPT_COMPRESSION, false);
-        $this->memcached->addServer('127.0.0.1', 11211);
-
-        if (@fsockopen('127.0.0.1', 11211) === false) {
-            unset($this->memcached);
-            $this->markTestSkipped('The ' . __CLASS__ .' cannot connect to memcache');
-        }
-    }
-
-    public function tearDown()
-    {
-        if ($this->memcached instanceof Memcached) {
-            $this->memcached->flush();
+            $fh = @fsockopen('127.0.0.1', 11211);
+            if (!$fh) {
+                $this->markTestSkipped('The ' . __CLASS__ .' requires the use of memcache');
+            }
+        } else {
+            $this->markTestSkipped('The ' . __CLASS__ .' requires the use of memcache');
         }
     }
 
-    public function testNoExpire()
-    {
+    public function testNoExpire() {
         $cache = $this->_getCacheDriver();
         $cache->save('noexpire', 'value', 0);
         sleep(1);
@@ -44,7 +35,8 @@ class MemcachedCacheTest extends CacheTest
     {
         $cache = $this->_getCacheDriver();
         $cache->save('key', 'value', 30 * 24 * 3600 + 1);
-        $this->assertTrue($cache->contains('key'), 'Memcache provider should support TTL > 30 days');
+
+        $this->assertTrue($cache->contains('key'), 'Memcached provider should support TTL > 30 days');
     }
 
     protected function _getCacheDriver()

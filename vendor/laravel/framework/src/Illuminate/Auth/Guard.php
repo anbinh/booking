@@ -45,6 +45,13 @@ class Guard {
 	protected $request;
 
 	/**
+	 * The cookies queued by the guards.
+	 *
+	 * @var array
+	 */
+	protected $queuedCookies = array();
+
+	/**
 	 * The event dispatcher instance.
 	 *
 	 * @var \Illuminate\Events\Dispatcher
@@ -89,7 +96,7 @@ class Guard {
 	 */
 	public function guest()
 	{
-		return ! $this->check();
+		return is_null($this->user());
 	}
 
 	/**
@@ -128,7 +135,7 @@ class Guard {
 
 		if (is_null($user) and ! is_null($recaller))
 		{
-			$user = $this->getUserByRecaller($recaller);
+			$user = $this->provider->retrieveByID($recaller);
 		}
 
 		return $this->user = $user;
@@ -145,39 +152,6 @@ class Guard {
 		{
 			return $this->getCookieJar()->get($this->getRecallerName());
 		}
-	}
-
-	/**
-	 * Pull a user from the repository by its recaller ID.
-	 *
-	 * @param  string  $recaller
-	 * @return mixed
-	 */
-	protected function getUserByRecaller($recaller)
-	{
-		if ($this->validRecaller($recaller))
-		{
-			list($id, $token) = explode('|', $recaller, 2);
-
-			$this->viaRemember = ! is_null($user = $this->provider->retrieveByToken($id, $token));
-
-			return $user;
-		}
-	}
-
-	/**
-	 * Deteremine if the recaller cookie is in a valid format.
-	 *
-	 * @param  string  $recaller
-	 * @return bool
-	 */
-	protected function validRecaller($recaller)
-	{
-		if ( ! is_string($recaller) || ! str_contains($recaller, '|')) return false;
-
-		$segments = explode('|', $recaller);
-
-		return count($segments) == 2 && trim($segments[0]) !== '' && trim($segments[1]) !== '';
 	}
 
 	/**
@@ -227,6 +201,7 @@ class Guard {
 		// request indicating that the given credentials were invalid for login.
 		if ($this->attemptBasic($request, $field)) return;
 
+		
 		return $this->getBasicResponse();
 	}
 
@@ -365,9 +340,7 @@ class Guard {
 		// identifier. We will then decrypt this later to retrieve the users.
 		if ($remember)
 		{
-			$this->createRememberTokenIfDoesntExist($user);
-
-			$this->queueRecallerCookie($user);
+			$this->queuedCookies[] = $this->createRecaller($id);
 		}
 
 		// If we have an event dispatcher instance set we will fire an event so that
@@ -396,40 +369,14 @@ class Guard {
 	}
 
 	/**
-	 * Log the given user ID into the application without sessions or cookies.
-	 *
-	 * @param  mixed  $id
-	 * @return bool
-	 */
-	public function onceUsingId($id)
-	{
-		$this->setUser($this->provider->retrieveById($id));
-
-		return $this->user instanceof UserInterface;
-	}
-
-	/**
-	 * Queue the recaller cookie into the cookie jar.
-	 *
-	 * @param  \Illuminate\Auth\UserInterface  $user
-	 * @return void
-	 */
-	protected function queueRecallerCookie($user)
-	{
-		$value = $user->getAuthIdentifier().'|'.$user->getRememberToken();
-
-		$this->getCookieJar()->queue($this->createRecaller($value));
-	}
-
-	/**
 	 * Create a remember me cookie for a given ID.
 	 *
-	 * @param  string  $value
+	 * @param  mixed  $id
 	 * @return \Symfony\Component\HttpFoundation\Cookie
 	 */
-	protected function createRecaller($value)
+	protected function createRecaller($id)
 	{
-		return $this->getCookieJar()->forever($this->getRecallerName(), $value);
+		return $this->getCookieJar()->forever($this->getRecallerName(), $id);
 	}
 
 	/**
@@ -445,11 +392,6 @@ class Guard {
 		// so any further processing can be done. This allows the developer to be
 		// listening for anytime a user signs out of this application manually.
 		$this->clearUserDataFromStorage();
-
-		if ( ! is_null($this->user))
-		{
-			$this->refreshRememberToken($user);
-		}
 
 		if (isset($this->events))
 		{
@@ -475,34 +417,17 @@ class Guard {
 
 		$recaller = $this->getRecallerName();
 
-		$this->getCookieJar()->queue($this->getCookieJar()->forget($recaller));
+		$this->queuedCookies[] = $this->getCookieJar()->forget($recaller);
 	}
 
 	/**
-	 * Refresh the remember token for the user.
+	 * Get the cookies queued by the guard.
 	 *
-	 * @param  \Illuminate\Auth\UserInterface  $user
-	 * @return void
+	 * @return array
 	 */
-	protected function refreshRememberToken(UserInterface $user)
+	public function getQueuedCookies()
 	{
-		$user->setRememberToken($token = str_random(60));
-
-		$this->provider->updateRememberToken($user, $token);
-	}
-
-	/**
-	 * Create a new remember token for the user if one doens't already exist.
-	 *
-	 * @param  \Illuminate\Auth\UserInterface  $user
-	 * @return void
-	 */
-	protected function createRememberTokenIfDoesntExist(UserInterface $user)
-	{
-		if (is_null($user->getRememberToken()))
-		{
-			$this->refreshRememberToken($user);
-		}
+		return $this->queuedCookies;
 	}
 
 	/**

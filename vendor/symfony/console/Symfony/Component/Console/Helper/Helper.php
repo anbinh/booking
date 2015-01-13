@@ -45,11 +45,11 @@ abstract class Helper implements HelperInterface
      *
      * @param string $string The string to check its length
      *
-     * @return int The length of the string
+     * @return integer The length of the string
      */
     protected function strlen($string)
     {
-        if (!function_exists('mb_strwidth')) {
+        if (!function_exists('mb_strlen')) {
             return strlen($string);
         }
 
@@ -57,6 +57,6 @@ abstract class Helper implements HelperInterface
             return strlen($string);
         }
 
-        return mb_strwidth($string, $encoding);
+        return mb_strlen($string, $encoding);
     }
 }

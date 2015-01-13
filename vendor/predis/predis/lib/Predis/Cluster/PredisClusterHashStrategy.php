@@ -23,8 +23,8 @@ use Predis\Command\ScriptedCommand;
  */
 class PredisClusterHashStrategy implements CommandHashStrategyInterface
 {
-    protected $commands;
-    protected $hashGenerator;
+    private $commands;
+    private $hashGenerator;
 
     /**
      * @param HashGeneratorInterface $hashGenerator Hash generator instance.
@@ -42,126 +42,114 @@ class PredisClusterHashStrategy implements CommandHashStrategyInterface
      */
     protected function getDefaultCommands()
     {
-        $getKeyFromFirstArgument = array($this, 'getKeyFromFirstArgument');
-        $getKeyFromAllArguments = array($this, 'getKeyFromAllArguments');
+        $keyIsFirstArgument = array($this, 'getKeyFromFirstArgument');
+        $keysAreAllArguments = array($this, 'getKeyFromAllArguments');
 
         return array(
             /* commands operating on the key space */
-            'EXISTS'                => $getKeyFromFirstArgument,
-            'DEL'                   => $getKeyFromAllArguments,
-            'TYPE'                  => $getKeyFromFirstArgument,
-            'EXPIRE'                => $getKeyFromFirstArgument,
-            'EXPIREAT'              => $getKeyFromFirstArgument,
-            'PERSIST'               => $getKeyFromFirstArgument,
-            'PEXPIRE'               => $getKeyFromFirstArgument,
-            'PEXPIREAT'             => $getKeyFromFirstArgument,
-            'TTL'                   => $getKeyFromFirstArgument,
-            'PTTL'                  => $getKeyFromFirstArgument,
-            'SORT'                  => $getKeyFromFirstArgument, // TODO
-            'DUMP'                  => $getKeyFromFirstArgument,
-            'RESTORE'               => $getKeyFromFirstArgument,
+            'EXISTS'                => $keyIsFirstArgument,
+            'DEL'                   => $keysAreAllArguments,
+            'TYPE'                  => $keyIsFirstArgument,
+            'EXPIRE'                => $keyIsFirstArgument,
+            'EXPIREAT'              => $keyIsFirstArgument,
+            'PERSIST'               => $keyIsFirstArgument,
+            'PEXPIRE'               => $keyIsFirstArgument,
+            'PEXPIREAT'             => $keyIsFirstArgument,
+            'TTL'                   => $keyIsFirstArgument,
+            'PTTL'                  => $keyIsFirstArgument,
+            'SORT'                  => $keyIsFirstArgument, // TODO
+            'DUMP'                  => $keyIsFirstArgument,
+            'RESTORE'               => $keyIsFirstArgument,
 
             /* commands operating on string values */
-            'APPEND'                => $getKeyFromFirstArgument,
-            'DECR'                  => $getKeyFromFirstArgument,
-            'DECRBY'                => $getKeyFromFirstArgument,
-            'GET'                   => $getKeyFromFirstArgument,
-            'GETBIT'                => $getKeyFromFirstArgument,
-            'MGET'                  => $getKeyFromAllArguments,
-            'SET'                   => $getKeyFromFirstArgument,
-            'GETRANGE'              => $getKeyFromFirstArgument,
-            'GETSET'                => $getKeyFromFirstArgument,
-            'INCR'                  => $getKeyFromFirstArgument,
-            'INCRBY'                => $getKeyFromFirstArgument,
-            'INCRBYFLOAT'           => $getKeyFromFirstArgument,
-            'SETBIT'                => $getKeyFromFirstArgument,
-            'SETEX'                 => $getKeyFromFirstArgument,
+            'APPEND'                => $keyIsFirstArgument,
+            'DECR'                  => $keyIsFirstArgument,
+            'DECRBY'                => $keyIsFirstArgument,
+            'GET'                   => $keyIsFirstArgument,
+            'GETBIT'                => $keyIsFirstArgument,
+            'MGET'                  => $keysAreAllArguments,
+            'SET'                   => $keyIsFirstArgument,
+            'GETRANGE'              => $keyIsFirstArgument,
+            'GETSET'                => $keyIsFirstArgument,
+            'INCR'                  => $keyIsFirstArgument,
+            'INCRBY'                => $keyIsFirstArgument,
+            'SETBIT'                => $keyIsFirstArgument,
+            'SETEX'                 => $keyIsFirstArgument,
             'MSET'                  => array($this, 'getKeyFromInterleavedArguments'),
             'MSETNX'                => array($this, 'getKeyFromInterleavedArguments'),
-            'SETNX'                 => $getKeyFromFirstArgument,
-            'SETRANGE'              => $getKeyFromFirstArgument,
-            'STRLEN'                => $getKeyFromFirstArgument,
-            'SUBSTR'                => $getKeyFromFirstArgument,
+            'SETNX'                 => $keyIsFirstArgument,
+            'SETRANGE'              => $keyIsFirstArgument,
+            'STRLEN'                => $keyIsFirstArgument,
+            'SUBSTR'                => $keyIsFirstArgument,
             'BITOP'                 => array($this, 'getKeyFromBitOp'),
-            'BITCOUNT'              => $getKeyFromFirstArgument,
+            'BITCOUNT'              => $keyIsFirstArgument,
 
             /* commands operating on lists */
-            'LINSERT'               => $getKeyFromFirstArgument,
-            'LINDEX'                => $getKeyFromFirstArgument,
-            'LLEN'                  => $getKeyFromFirstArgument,
-            'LPOP'                  => $getKeyFromFirstArgument,
-            'RPOP'                  => $getKeyFromFirstArgument,
-            'RPOPLPUSH'             => $getKeyFromAllArguments,
+            'LINSERT'               => $keyIsFirstArgument,
+            'LINDEX'                => $keyIsFirstArgument,
+            'LLEN'                  => $keyIsFirstArgument,
+            'LPOP'                  => $keyIsFirstArgument,
+            'RPOP'                  => $keyIsFirstArgument,
+            'RPOPLPUSH'             => $keysAreAllArguments,
             'BLPOP'                 => array($this, 'getKeyFromBlockingListCommands'),
             'BRPOP'                 => array($this, 'getKeyFromBlockingListCommands'),
             'BRPOPLPUSH'            => array($this, 'getKeyFromBlockingListCommands'),
-            'LPUSH'                 => $getKeyFromFirstArgument,
-            'LPUSHX'                => $getKeyFromFirstArgument,
-            'RPUSH'                 => $getKeyFromFirstArgument,
-            'RPUSHX'                => $getKeyFromFirstArgument,
-            'LRANGE'                => $getKeyFromFirstArgument,
-            'LREM'                  => $getKeyFromFirstArgument,
-            'LSET'                  => $getKeyFromFirstArgument,
-            'LTRIM'                 => $getKeyFromFirstArgument,
+            'LPUSH'                 => $keyIsFirstArgument,
+            'LPUSHX'                => $keyIsFirstArgument,
+            'RPUSH'                 => $keyIsFirstArgument,
+            'RPUSHX'                => $keyIsFirstArgument,
+            'LRANGE'                => $keyIsFirstArgument,
+            'LREM'                  => $keyIsFirstArgument,
+            'LSET'                  => $keyIsFirstArgument,
+            'LTRIM'                 => $keyIsFirstArgument,
 
             /* commands operating on sets */
-            'SADD'                  => $getKeyFromFirstArgument,
-            'SCARD'                 => $getKeyFromFirstArgument,
-            'SDIFF'                 => $getKeyFromAllArguments,
-            'SDIFFSTORE'            => $getKeyFromAllArguments,
-            'SINTER'                => $getKeyFromAllArguments,
-            'SINTERSTORE'           => $getKeyFromAllArguments,
-            'SUNION'                => $getKeyFromAllArguments,
-            'SUNIONSTORE'           => $getKeyFromAllArguments,
-            'SISMEMBER'             => $getKeyFromFirstArgument,
-            'SMEMBERS'              => $getKeyFromFirstArgument,
-            'SSCAN'                 => $getKeyFromFirstArgument,
-            'SPOP'                  => $getKeyFromFirstArgument,
-            'SRANDMEMBER'           => $getKeyFromFirstArgument,
-            'SREM'                  => $getKeyFromFirstArgument,
+            'SADD'                  => $keyIsFirstArgument,
+            'SCARD'                 => $keyIsFirstArgument,
+            'SDIFF'                 => $keysAreAllArguments,
+            'SDIFFSTORE'            => $keysAreAllArguments,
+            'SINTER'                => $keysAreAllArguments,
+            'SINTERSTORE'           => $keysAreAllArguments,
+            'SUNION'                => $keysAreAllArguments,
+            'SUNIONSTORE'           => $keysAreAllArguments,
+            'SISMEMBER'             => $keyIsFirstArgument,
+            'SMEMBERS'              => $keyIsFirstArgument,
+            'SPOP'                  => $keyIsFirstArgument,
+            'SRANDMEMBER'           => $keyIsFirstArgument,
+            'SREM'                  => $keyIsFirstArgument,
 
             /* commands operating on sorted sets */
-            'ZADD'                  => $getKeyFromFirstArgument,
-            'ZCARD'                 => $getKeyFromFirstArgument,
-            'ZCOUNT'                => $getKeyFromFirstArgument,
-            'ZINCRBY'               => $getKeyFromFirstArgument,
+            'ZADD'                  => $keyIsFirstArgument,
+            'ZCARD'                 => $keyIsFirstArgument,
+            'ZCOUNT'                => $keyIsFirstArgument,
+            'ZINCRBY'               => $keyIsFirstArgument,
             'ZINTERSTORE'           => array($this, 'getKeyFromZsetAggregationCommands'),
-            'ZRANGE'                => $getKeyFromFirstArgument,
-            'ZRANGEBYSCORE'         => $getKeyFromFirstArgument,
-            'ZRANK'                 => $getKeyFromFirstArgument,
-            'ZREM'                  => $getKeyFromFirstArgument,
-            'ZREMRANGEBYRANK'       => $getKeyFromFirstArgument,
-            'ZREMRANGEBYSCORE'      => $getKeyFromFirstArgument,
-            'ZREVRANGE'             => $getKeyFromFirstArgument,
-            'ZREVRANGEBYSCORE'      => $getKeyFromFirstArgument,
-            'ZREVRANK'              => $getKeyFromFirstArgument,
-            'ZSCORE'                => $getKeyFromFirstArgument,
+            'ZRANGE'                => $keyIsFirstArgument,
+            'ZRANGEBYSCORE'         => $keyIsFirstArgument,
+            'ZRANK'                 => $keyIsFirstArgument,
+            'ZREM'                  => $keyIsFirstArgument,
+            'ZREMRANGEBYRANK'       => $keyIsFirstArgument,
+            'ZREMRANGEBYSCORE'      => $keyIsFirstArgument,
+            'ZREVRANGE'             => $keyIsFirstArgument,
+            'ZREVRANGEBYSCORE'      => $keyIsFirstArgument,
+            'ZREVRANK'              => $keyIsFirstArgument,
+            'ZSCORE'                => $keyIsFirstArgument,
             'ZUNIONSTORE'           => array($this, 'getKeyFromZsetAggregationCommands'),
-            'ZSCAN'                 => $getKeyFromFirstArgument,
-            'ZLEXCOUNT'             => $getKeyFromFirstArgument,
-            'ZRANGEBYLEX'           => $getKeyFromFirstArgument,
-            'ZREMRANGEBYLEX'        => $getKeyFromFirstArgument,
 
             /* commands operating on hashes */
-            'HDEL'                  => $getKeyFromFirstArgument,
-            'HEXISTS'               => $getKeyFromFirstArgument,
-            'HGET'                  => $getKeyFromFirstArgument,
-            'HGETALL'               => $getKeyFromFirstArgument,
-            'HMGET'                 => $getKeyFromFirstArgument,
-            'HMSET'                 => $getKeyFromFirstArgument,
-            'HINCRBY'               => $getKeyFromFirstArgument,
-            'HINCRBYFLOAT'          => $getKeyFromFirstArgument,
-            'HKEYS'                 => $getKeyFromFirstArgument,
-            'HLEN'                  => $getKeyFromFirstArgument,
-            'HSET'                  => $getKeyFromFirstArgument,
-            'HSETNX'                => $getKeyFromFirstArgument,
-            'HVALS'                 => $getKeyFromFirstArgument,
-            'HSCAN'                 => $getKeyFromFirstArgument,
-
-            /* commands operating on HyperLogLog */
-            'PFADD'                 => $getKeyFromFirstArgument,
-            'PFCOUNT'               => $getKeyFromAllArguments,
-            'PFMERGE'               => $getKeyFromAllArguments,
+            'HDEL'                  => $keyIsFirstArgument,
+            'HEXISTS'               => $keyIsFirstArgument,
+            'HGET'                  => $keyIsFirstArgument,
+            'HGETALL'               => $keyIsFirstArgument,
+            'HMGET'                 => $keyIsFirstArgument,
+            'HMSET'                 => $keyIsFirstArgument,
+            'HINCRBY'               => $keyIsFirstArgument,
+            'HINCRBYFLOAT'          => $keyIsFirstArgument,
+            'HKEYS'                 => $keyIsFirstArgument,
+            'HLEN'                  => $keyIsFirstArgument,
+            'HSET'                  => $keyIsFirstArgument,
+            'HSETNX'                => $keyIsFirstArgument,
+            'HVALS'                 => $keyIsFirstArgument,
 
             /* scripting */
             'EVAL'                  => array($this, 'getKeyFromScriptingCommands'),
@@ -189,7 +177,7 @@ class PredisClusterHashStrategy implements CommandHashStrategyInterface
      * associated handler for the specified command ID is removed.
      *
      * @param string $commandId The ID of the command to be handled.
-     * @param mixed  $callback  A valid callable object or NULL.
+     * @param mixed $callback A valid callable object or NULL.
      */
     public function setCommandHandler($commandId, $callback = null)
     {
@@ -197,7 +185,6 @@ class PredisClusterHashStrategy implements CommandHashStrategyInterface
 
         if (!isset($callback)) {
             unset($this->commands[$commandId]);
-
             return;
         }
 
@@ -211,7 +198,7 @@ class PredisClusterHashStrategy implements CommandHashStrategyInterface
     /**
      * Extracts the key from the first argument of a command instance.
      *
-     * @param  CommandInterface $command Command instance.
+     * @param CommandInterface $command Command instance.
      * @return string
      */
     protected function getKeyFromFirstArgument(CommandInterface $command)
@@ -223,7 +210,7 @@ class PredisClusterHashStrategy implements CommandHashStrategyInterface
      * Extracts the key from a command with multiple keys only when all keys
      * in the arguments array produce the same hash.
      *
-     * @param  CommandInterface $command Command instance.
+     * @param CommandInterface $command Command instance.
      * @return string
      */
     protected function getKeyFromAllArguments(CommandInterface $command)
@@ -239,7 +226,7 @@ class PredisClusterHashStrategy implements CommandHashStrategyInterface
      * Extracts the key from a command with multiple keys only when all keys
      * in the arguments array produce the same hash.
      *
-     * @param  CommandInterface $command Command instance.
+     * @param CommandInterface $command Command instance.
      * @return string
      */
     protected function getKeyFromInterleavedArguments(CommandInterface $command)
@@ -259,7 +246,7 @@ class PredisClusterHashStrategy implements CommandHashStrategyInterface
     /**
      * Extracts the key from BLPOP and BRPOP commands.
      *
-     * @param  CommandInterface $command Command instance.
+     * @param CommandInterface $command Command instance.
      * @return string
      */
     protected function getKeyFromBlockingListCommands(CommandInterface $command)
@@ -274,7 +261,7 @@ class PredisClusterHashStrategy implements CommandHashStrategyInterface
     /**
      * Extracts the key from BITOP command.
      *
-     * @param  CommandInterface $command Command instance.
+     * @param CommandInterface $command Command instance.
      * @return string
      */
     protected function getKeyFromBitOp(CommandInterface $command)
@@ -289,7 +276,7 @@ class PredisClusterHashStrategy implements CommandHashStrategyInterface
     /**
      * Extracts the key from ZINTERSTORE and ZUNIONSTORE commands.
      *
-     * @param  CommandInterface $command Command instance.
+     * @param CommandInterface $command Command instance.
      * @return string
      */
     protected function getKeyFromZsetAggregationCommands(CommandInterface $command)
@@ -305,7 +292,7 @@ class PredisClusterHashStrategy implements CommandHashStrategyInterface
     /**
      * Extracts the key from EVAL and EVALSHA commands.
      *
-     * @param  CommandInterface $command Command instance.
+     * @param CommandInterface $command Command instance.
      * @return string
      */
     protected function getKeyFromScriptingCommands(CommandInterface $command)
@@ -354,8 +341,8 @@ class PredisClusterHashStrategy implements CommandHashStrategyInterface
     /**
      * Checks if the specified array of keys will generate the same hash.
      *
-     * @param  array $keys Array of keys.
-     * @return bool
+     * @param array $keys Array of keys.
+     * @return Boolean
      */
     protected function checkSameHashForKeys(Array $keys)
     {
@@ -382,7 +369,7 @@ class PredisClusterHashStrategy implements CommandHashStrategyInterface
      * Returns only the hashable part of a key (delimited by "{...}"), or the
      * whole key if a key tag is not found in the string.
      *
-     * @param  string $key A key.
+     * @param string $key A key.
      * @return string
      */
     protected function extractKeyTag($key)

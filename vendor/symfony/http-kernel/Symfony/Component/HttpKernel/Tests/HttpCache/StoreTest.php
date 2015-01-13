@@ -23,6 +23,10 @@ class StoreTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        if (!class_exists('Symfony\Component\HttpFoundation\Request')) {
+            $this->markTestSkipped('The "HttpFoundation" component is not available');
+        }
+
         $this->request = Request::create('/');
         $this->response = new Response('hello world', 200, array());
 
@@ -87,7 +91,7 @@ class StoreTest extends \PHPUnit_Framework_TestCase
     {
         $cacheKey = $this->storeSimpleEntry();
         $entries = $this->getStoreMetadata($cacheKey);
-        list($req, $res) = $entries[0];
+        list ($req, $res) = $entries[0];
 
         $this->assertEquals('ena94a8fe5ccb19ba61c4c0873d391e987982fbbd3', $res['x-content-digest'][0]);
     }

@@ -11,8 +11,6 @@
 
 namespace Symfony\Component\Process;
 
-use Symfony\Component\Process\Exception\InvalidArgumentException;
-
 /**
  * ProcessUtils is a bunch of utility methods.
  *
@@ -23,7 +21,7 @@ use Symfony\Component\Process\Exception\InvalidArgumentException;
 class ProcessUtils
 {
     /**
-     * This class should not be instantiated.
+     * This class should not be instantiated
      */
     private function __construct()
     {
@@ -39,66 +37,24 @@ class ProcessUtils
     public static function escapeArgument($argument)
     {
         //Fix for PHP bug #43784 escapeshellarg removes % from given string
-        //Fix for PHP bug #49446 escapeshellarg doesn't work on Windows
+        //Fix for PHP bug #49446 escapeshellarg dosn`t work on windows
         //@see https://bugs.php.net/bug.php?id=43784
         //@see https://bugs.php.net/bug.php?id=49446
-        if ('\\' === DIRECTORY_SEPARATOR) {
-            if ('' === $argument) {
-                return escapeshellarg($argument);
-            }
-
+        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
             $escapedArgument = '';
-            $quote =  false;
-            foreach (preg_split('/(")/i', $argument, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE) as $part) {
-                if ('"' === $part) {
+            foreach (preg_split('/([%"])/i', $argument, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE) as $part) {
+                if ('"' == $part) {
                     $escapedArgument .= '\\"';
-                } elseif (self::isSurroundedBy($part, '%')) {
-                    // Avoid environment variable expansion
-                    $escapedArgument .= '^%"'.substr($part, 1, -1).'"^%';
+                } elseif ('%' == $part) {
+                    $escapedArgument .= '^%';
                 } else {
-                    // escape trailing backslash
-                    if ('\\' === substr($part, -1)) {
-                        $part .= '\\';
-                    }
-                    $quote = true;
-                    $escapedArgument .= $part;
+                    $escapedArgument .= escapeshellarg($part);
                 }
-            }
-            if ($quote) {
-                $escapedArgument = '"'.$escapedArgument.'"';
             }
 
             return $escapedArgument;
         }
 
         return escapeshellarg($argument);
-    }
-
-    /**
-     * Validates and normalized a Process input.
-     *
-     * @param string $caller The name of method call that validates the input
-     * @param mixed  $input  The input to validate
-     *
-     * @return string The validated input
-     *
-     * @throws InvalidArgumentException In case the input is not valid
-     */
-    public static function validateInput($caller, $input)
-    {
-        if (null !== $input) {
-            if (is_scalar($input) || (is_object($input) && method_exists($input, '__toString'))) {
-                return (string) $input;
-            }
-
-            throw new InvalidArgumentException(sprintf('%s only accepts strings.', $caller));
-        }
-
-        return $input;
-    }
-
-    private static function isSurroundedBy($arg, $char)
-    {
-        return 2 < strlen($arg) && $char === $arg[0] && $char === $arg[strlen($arg) - 1];
     }
 }

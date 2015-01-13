@@ -50,28 +50,9 @@ class CommandMakeCommand extends Command {
 		// will correspond to what the actual file should be stored as on storage.
 		$file = $path.'/'.$this->input->getArgument('name').'.php';
 
-		$this->writeCommand($file, $stub);
-	}
+		$this->files->put($file, $this->formatStub($stub));
 
-	/**
-	 * Write the finished command file to disk.
-	 *
-	 * @param  string  $file
-	 * @param  string  $stub
-	 * @return void
-	 */
-	protected function writeCommand($file, $stub)
-	{
-		if ( ! file_exists($file))
-		{
-			$this->files->put($file, $this->formatStub($stub));
-
-			$this->info('Command created successfully.');
-		}
-		else
-		{
-			$this->error('Command already exists!');
-		}
+		$this->info('Command created successfully.');
 	}
 
 	/**
@@ -84,30 +65,16 @@ class CommandMakeCommand extends Command {
 	{
 		$stub = str_replace('{{class}}', $this->input->getArgument('name'), $stub);
 
-		if ( ! is_null($this->option('command')))
-		{
-			$stub = str_replace('command:name', $this->option('command'), $stub);
-		}
-
-		return $this->addNamespace($stub);
-	}
-
-	/**
-	 * Add the proper namespace to the command.
-	 *
-	 * @param  string  $stub
-	 * @return string
-	 */
-	protected function addNamespace($stub)
-	{
 		if ( ! is_null($namespace = $this->input->getOption('namespace')))
 		{
-			return str_replace('{{namespace}}', ' namespace '.$namespace.';', $stub);
+			$stub = str_replace('{{namespace}}', ' namespace '.$namespace.';', $stub);
 		}
 		else
 		{
-			return str_replace('{{namespace}}', '', $stub);
+			$stub = str_replace('{{namespace}}', '', $stub);
 		}
+
+		return $stub;
 	}
 
 	/**
@@ -149,8 +116,6 @@ class CommandMakeCommand extends Command {
 	protected function getOptions()
 	{
 		return array(
-			array('command', null, InputOption::VALUE_OPTIONAL, 'The terminal command that should be assigned.', null),
-
 			array('path', null, InputOption::VALUE_OPTIONAL, 'The path where the command should be stored.', null),
 
 			array('namespace', null, InputOption::VALUE_OPTIONAL, 'The command namespace.', null),

@@ -39,23 +39,23 @@ class BeanstalkdQueue extends Queue implements QueueInterface {
 	 * @param  string  $job
 	 * @param  mixed   $data
 	 * @param  string  $queue
-	 * @return mixed
+	 * @return void
 	 */
 	public function push($job, $data = '', $queue = null)
 	{
 		$payload = $this->createPayload($job, $data);
 
-		return $this->pheanstalk->useTube($this->getQueue($queue))->put($payload);
+		$this->pheanstalk->useTube($this->getQueue($queue))->put($payload);
 	}
 
 	/**
 	 * Push a new job onto the queue after a delay.
 	 *
-	 * @param  \DateTime|int  $delay
+	 * @param  int     $delay
 	 * @param  string  $job
-	 * @param  mixed  $data
+	 * @param  mixed   $data
 	 * @param  string  $queue
-	 * @return mixed
+	 * @return void
 	 */
 	public function later($delay, $job, $data = '', $queue = null)
 	{
@@ -63,7 +63,7 @@ class BeanstalkdQueue extends Queue implements QueueInterface {
 
 		$pheanstalk = $this->pheanstalk->useTube($this->getQueue($queue));
 
-		return $pheanstalk->put($payload, Pheanstalk::DEFAULT_PRIORITY, $this->getSeconds($delay));
+		$pheanstalk->put($payload, Pheanstalk::DEFAULT_PRIORITY, $delay);
 	}
 
 	/**
@@ -88,7 +88,7 @@ class BeanstalkdQueue extends Queue implements QueueInterface {
 	 * @param  string|null  $queue
 	 * @return string
 	 */
-	public function getQueue($queue)
+	protected function getQueue($queue)
 	{
 		return $queue ?: $this->default;
 	}

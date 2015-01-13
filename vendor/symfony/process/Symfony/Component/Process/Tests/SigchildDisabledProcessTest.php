@@ -15,7 +15,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
 {
     /**
      * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. You must use setEnhanceSigchildCompatibility() to use this method.
      */
     public function testGetExitCode()
     {
@@ -24,25 +23,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
 
     /**
      * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. You must use setEnhanceSigchildCompatibility() to use this method.
-     */
-    public function testGetExitCodeIsNullOnStart()
-    {
-        parent::testGetExitCodeIsNullOnStart();
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. You must use setEnhanceSigchildCompatibility() to use this method.
-     */
-    public function testGetExitCodeIsNullOnWhenStartingAgain()
-    {
-        parent::testGetExitCodeIsNullOnWhenStartingAgain();
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. You must use setEnhanceSigchildCompatibility() to use this method.
      */
     public function testExitCodeCommandFailed()
     {
@@ -51,7 +31,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
 
     /**
      * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. Term signal can not be retrieved.
      */
     public function testProcessIsSignaledIfStopped()
     {
@@ -60,7 +39,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
 
     /**
      * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. Term signal can not be retrieved.
      */
     public function testProcessWithTermSignal()
     {
@@ -69,7 +47,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
 
     /**
      * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. Term signal can not be retrieved.
      */
     public function testProcessIsNotSignaled()
     {
@@ -78,7 +55,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
 
     /**
      * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. Term signal can not be retrieved.
      */
     public function testProcessWithoutTermSignal()
     {
@@ -87,16 +63,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
 
     /**
      * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. You must use setEnhanceSigchildCompatibility() to use this method.
-     */
-    public function testCheckTimeoutOnStartedProcess()
-    {
-        parent::testCheckTimeoutOnStartedProcess();
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. The process identifier can not be retrieved.
      */
     public function testGetPid()
     {
@@ -104,8 +70,7 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
     }
 
     /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. The process identifier can not be retrieved.
+     * @expectedException Symfony\Component\Process\Exception\RuntimeException
      */
     public function testGetPidIsNullBeforeStart()
     {
@@ -113,8 +78,7 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
     }
 
     /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. The process identifier can not be retrieved.
+     * @expectedException Symfony\Component\Process\Exception\RuntimeException
      */
     public function testGetPidIsNullAfterRun()
     {
@@ -122,8 +86,7 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
     }
 
     /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. You must use setEnhanceSigchildCompatibility() to use this method.
+     * @expectedException Symfony\Component\Process\Exception\RuntimeException
      */
     public function testExitCodeText()
     {
@@ -135,16 +98,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
 
     /**
      * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. You must use setEnhanceSigchildCompatibility() to use this method.
-     */
-    public function testExitCodeTextIsNullWhenExitCodeIsNull()
-    {
-        parent::testExitCodeTextIsNullWhenExitCodeIsNull();
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. You must use setEnhanceSigchildCompatibility() to use this method.
      */
     public function testIsSuccessful()
     {
@@ -153,16 +106,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
 
     /**
      * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. You must use setEnhanceSigchildCompatibility() to use this method.
-     */
-    public function testIsSuccessfulOnlyAfterTerminated()
-    {
-        parent::testIsSuccessfulOnlyAfterTerminated();
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. You must use setEnhanceSigchildCompatibility() to use this method.
      */
     public function testIsNotSuccessful()
     {
@@ -170,17 +113,7 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
     }
 
     /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. You must use setEnhanceSigchildCompatibility() to use this method.
-     */
-    public function testTTYCommandExitCode()
-    {
-        parent::testTTYCommandExitCode();
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. The process can not be signaled.
+     * @expectedException Symfony\Component\Process\Exception\RuntimeException
      */
     public function testSignal()
     {
@@ -188,8 +121,7 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
     }
 
     /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     * @expectedExceptionMessage This PHP has been compiled with --enable-sigchild. Term signal can not be retrieved.
+     * @expectedException Symfony\Component\Process\Exception\RuntimeException
      */
     public function testProcessWithoutTermSignalIsNotSignaled()
     {
@@ -204,16 +136,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
     public function testProcessThrowsExceptionWhenExternallySignaled()
     {
         $this->markTestSkipped('Retrieving Pid is not supported in sigchild environment');
-    }
-
-    public function testExitCodeIsAvailableAfterSignal()
-    {
-        $this->markTestSkipped('Signal is not supported in sigchild environment');
-    }
-
-    public function testRunProcessWithTimeout()
-    {
-        $this->markTestSkipped('Signal (required for timeout) is not supported in sigchild environment');
     }
 
     /**

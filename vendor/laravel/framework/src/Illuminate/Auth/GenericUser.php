@@ -41,37 +41,6 @@ class GenericUser implements UserInterface {
 	}
 
 	/**
-	 * Get the token value for the "remember me" session.
-	 *
-	 * @return string
-	 */
-	public function getRememberToken()
-	{
-		return $this->attributes['remember_token'];
-	}
-
-	/**
-	 * Set the token value for the "remember me" session.
-	 *
-	 * @param  string  $value
-	 * @return void
-	 */
-	public function setRememberToken($value)
-	{
-		$this->attributes['remember_token'] = $value;
-	}
-
-	/**
-	 * Get the column name for the "remember me" token.
-	 *
-	 * @return string
-	 */
-	public function getRememberTokenName()
-	{
-		return 'remember_token';
-	}
-
-	/**
 	 * Dynamically access the user's attributes.
 	 *
 	 * @param  string  $key
@@ -86,7 +55,7 @@ class GenericUser implements UserInterface {
 	 * Dynamically set an attribute on the user.
 	 *
 	 * @param  string  $key
-	 * @param  mixed   $value
+	 * @param  mied    $value
 	 * @return void
 	 */
 	public function __set($key, $value)

@@ -14,12 +14,12 @@ namespace Predis\Profile;
 /**
  *
  */
-class ServerVersionNextTest extends PredisProfileTestCase
+class ServerVersionNextTest extends ServerVersionTestCase
 {
     /**
      * {@inheritdoc}
      */
-    public function getProfile($version = null)
+    public function getProfileInstance()
     {
         return new ServerVersionNext();
     }
@@ -29,7 +29,7 @@ class ServerVersionNextTest extends PredisProfileTestCase
      */
     public function getExpectedVersion()
     {
-        return '3.0';
+        return '2.8';
     }
 
     /**
@@ -173,17 +173,6 @@ class ServerVersionNextTest extends PredisProfileTestCase
             132 => 'evalsha',
             133 => 'script',
             134 => 'time',
-            135 => 'scan',
-            136 => 'sscan',
-            137 => 'zscan',
-            138 => 'zlexcount',
-            139 => 'zrangebylex',
-            140 => 'zremrangebylex',
-            141 => 'hscan',
-            142 => 'pfadd',
-            143 => 'pfcount',
-            144 => 'pfmerge',
-            145 => 'command',
         );
     }
 }

@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the Monolog package.
- *
- * (c) Jordi Boggiano <j.boggiano@seld.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Monolog\Handler;
 
 use Monolog\Logger;
@@ -55,10 +46,6 @@ class FilterHandler extends AbstractHandler
         $this->handler  = $handler;
         $this->bubble   = $bubble;
         $this->setAcceptedLevels($minLevelOrList, $maxLevel);
-
-        if (!$this->handler instanceof HandlerInterface && !is_callable($this->handler)) {
-            throw new \RuntimeException("The given handler (".json_encode($this->handler).") is not a callable nor a Monolog\Handler\HandlerInterface object");
-        }
     }
 
     /**
@@ -76,13 +63,11 @@ class FilterHandler extends AbstractHandler
     public function setAcceptedLevels($minLevelOrList = Logger::DEBUG, $maxLevel = Logger::EMERGENCY)
     {
         if (is_array($minLevelOrList)) {
-            $acceptedLevels = array_map('Monolog\Logger::toMonologLevel', $minLevelOrList);
+            $acceptedLevels = $minLevelOrList;
         } else {
-            $minLevelOrList = Logger::toMonologLevel($minLevelOrList);
-            $maxLevel = Logger::toMonologLevel($maxLevel);
-            $acceptedLevels = array_values(array_filter(Logger::getLevels(), function ($level) use ($minLevelOrList, $maxLevel) {
+            $acceptedLevels = array_filter(Logger::getLevels(), function ($level) use ($minLevelOrList, $maxLevel) {
                 return $level >= $minLevelOrList && $level <= $maxLevel;
-            }));
+            });
         }
         $this->acceptedLevels = array_flip($acceptedLevels);
     }
@@ -106,6 +91,12 @@ class FilterHandler extends AbstractHandler
 
         // The same logic as in FingersCrossedHandler
         if (!$this->handler instanceof HandlerInterface) {
+            if (!is_callable($this->handler)) {
+                throw new \RuntimeException(
+                    "The given handler (" . json_encode($this->handler)
+                    . ") is not a callable nor a Monolog\\Handler\\HandlerInterface object"
+                );
+            }
             $this->handler = call_user_func($this->handler, $record, $this);
             if (!$this->handler instanceof HandlerInterface) {
                 throw new \RuntimeException("The factory callable should return a HandlerInterface");

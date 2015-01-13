@@ -14,21 +14,19 @@ namespace Symfony\Component\HttpFoundation\Tests;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Symfony\Component\HttpFoundation\Resources\stubs\FakeFile;
 
 class BinaryFileResponseTest extends ResponseTestCase
 {
     public function testConstruction()
     {
-        $file = __DIR__.'/../README.md';
-        $response = new BinaryFileResponse($file, 404, array('X-Header' => 'Foo'), true, null, true, true);
+        $response = new BinaryFileResponse('README.md', 404, array('X-Header' => 'Foo'), true, null, true, true);
         $this->assertEquals(404, $response->getStatusCode());
         $this->assertEquals('Foo', $response->headers->get('X-Header'));
         $this->assertTrue($response->headers->has('ETag'));
         $this->assertTrue($response->headers->has('Last-Modified'));
         $this->assertFalse($response->headers->has('Content-Disposition'));
 
-        $response = BinaryFileResponse::create($file, 404, array(), true, ResponseHeaderBag::DISPOSITION_INLINE);
+        $response = BinaryFileResponse::create('README.md', 404, array(), true, ResponseHeaderBag::DISPOSITION_INLINE);
         $this->assertEquals(404, $response->getStatusCode());
         $this->assertFalse($response->headers->has('ETag'));
         $this->assertEquals('inline; filename="README.md"', $response->headers->get('Content-Disposition'));
@@ -39,13 +37,13 @@ class BinaryFileResponseTest extends ResponseTestCase
      */
     public function testSetContent()
     {
-        $response = new BinaryFileResponse(__FILE__);
+        $response = new BinaryFileResponse('README.md');
         $response->setContent('foo');
     }
 
     public function testGetContent()
     {
-        $response = new BinaryFileResponse(__FILE__);
+        $response = new BinaryFileResponse('README.md');
         $this->assertFalse($response->getContent());
     }
 
@@ -77,6 +75,7 @@ class BinaryFileResponseTest extends ResponseTestCase
         $response->sendContent();
 
         $this->assertEquals(206, $response->getStatusCode());
+        $this->assertEquals('binary', $response->headers->get('Content-Transfer-Encoding'));
         $this->assertEquals($responseRange, $response->headers->get('Content-Range'));
     }
 
@@ -85,71 +84,12 @@ class BinaryFileResponseTest extends ResponseTestCase
         return array(
             array('bytes=1-4', 1, 4, 'bytes 1-4/35'),
             array('bytes=-5', 30, 5, 'bytes 30-34/35'),
+            array('bytes=-35', 0, 35, 'bytes 0-34/35'),
+            array('bytes=-40', 0, 35, 'bytes 0-34/35'),
             array('bytes=30-', 30, 5, 'bytes 30-34/35'),
             array('bytes=30-30', 30, 1, 'bytes 30-30/35'),
             array('bytes=30-34', 30, 5, 'bytes 30-34/35'),
-        );
-    }
-
-    /**
-     * @dataProvider provideFullFileRanges
-     */
-    public function testFullFileRequests($requestRange)
-    {
-        $response = BinaryFileResponse::create(__DIR__.'/File/Fixtures/test.gif')->setAutoEtag();
-
-        // prepare a request for a range of the testing file
-        $request = Request::create('/');
-        $request->headers->set('Range', $requestRange);
-
-        $file = fopen(__DIR__.'/File/Fixtures/test.gif', 'r');
-        $data = fread($file, 35);
-        fclose($file);
-
-        $this->expectOutputString($data);
-        $response = clone $response;
-        $response->prepare($request);
-        $response->sendContent();
-
-        $this->assertEquals(200, $response->getStatusCode());
-    }
-
-    public function provideFullFileRanges()
-    {
-        return array(
-            array('bytes=0-'),
-            array('bytes=0-34'),
-            array('bytes=-35'),
-            // Syntactical invalid range-request should also return the full resource
-            array('bytes=20-10'),
-            array('bytes=50-40'),
-        );
-    }
-
-    /**
-     * @dataProvider provideInvalidRanges
-     */
-    public function testInvalidRequests($requestRange)
-    {
-        $response = BinaryFileResponse::create(__DIR__.'/File/Fixtures/test.gif')->setAutoEtag();
-
-        // prepare a request for a range of the testing file
-        $request = Request::create('/');
-        $request->headers->set('Range', $requestRange);
-
-        $response = clone $response;
-        $response->prepare($request);
-        $response->sendContent();
-
-        $this->assertEquals(416, $response->getStatusCode());
-        #$this->assertEquals('', $response->headers->get('Content-Range'));
-    }
-
-    public function provideInvalidRanges()
-    {
-        return array(
-            array('bytes=-40'),
-            array('bytes=30-40'),
+            array('bytes=30-40', 30, 5, 'bytes 30-34/35')
         );
     }
 
@@ -159,7 +99,7 @@ class BinaryFileResponseTest extends ResponseTestCase
         $request->headers->set('X-Sendfile-Type', 'X-Sendfile');
 
         BinaryFileResponse::trustXSendfileTypeHeader();
-        $response = BinaryFileResponse::create(__DIR__.'/../README.md');
+        $response = BinaryFileResponse::create('README.md');
         $response->prepare($request);
 
         $this->expectOutputString('');
@@ -177,10 +117,18 @@ class BinaryFileResponseTest extends ResponseTestCase
         $request->headers->set('X-Sendfile-Type', 'X-Accel-Redirect');
         $request->headers->set('X-Accel-Mapping', $mapping);
 
-        $file = new FakeFile($realpath, __DIR__.'/File/Fixtures/test');
+        $file = $this->getMockBuilder('Symfony\Component\HttpFoundation\File\File')
+                     ->disableOriginalConstructor()
+                     ->getMock();
+        $file->expects($this->any())
+             ->method('getRealPath')
+             ->will($this->returnValue($realpath));
+        $file->expects($this->any())
+             ->method('isReadable')
+             ->will($this->returnValue(true));
 
         BinaryFileResponse::trustXSendFileTypeHeader();
-        $response = new BinaryFileResponse($file);
+        $response = new BinaryFileResponse('README.md');
         $reflection = new \ReflectionObject($response);
         $property = $reflection->getProperty('file');
         $property->setAccessible(true);
@@ -188,35 +136,6 @@ class BinaryFileResponseTest extends ResponseTestCase
 
         $response->prepare($request);
         $this->assertEquals($virtual, $response->headers->get('X-Accel-Redirect'));
-    }
-
-    public function testSplFileObject()
-    {
-        $filePath = __DIR__.'/File/Fixtures/test';
-        $file = new \SplFileObject($filePath);
-
-        $response = new BinaryFileResponse($file);
-
-        $this->assertEquals(realpath($response->getFile()->getPathname()), realpath($filePath));
-    }
-
-    public function testAcceptRangeOnUnsafeMethods()
-    {
-        $request = Request::create('/', 'POST');
-        $response = BinaryFileResponse::create(__DIR__.'/File/Fixtures/test.gif');
-        $response->prepare($request);
-
-        $this->assertEquals('none', $response->headers->get('Accept-Ranges'));
-    }
-
-    public function testAcceptRangeNotOverriden()
-    {
-        $request = Request::create('/', 'POST');
-        $response = BinaryFileResponse::create(__DIR__.'/File/Fixtures/test.gif');
-        $response->headers->set('Accept-Ranges', 'foo');
-        $response->prepare($request);
-
-        $this->assertEquals('foo', $response->headers->get('Accept-Ranges'));
     }
 
     public function getSampleXAccelMappings()
@@ -229,6 +148,6 @@ class BinaryFileResponseTest extends ResponseTestCase
 
     protected function provideResponse()
     {
-        return new BinaryFileResponse(__DIR__.'/../README.md');
+        return new BinaryFileResponse('README.md');
     }
 }

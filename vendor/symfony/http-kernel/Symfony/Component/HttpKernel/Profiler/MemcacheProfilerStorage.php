@@ -11,22 +11,24 @@
 
 namespace Symfony\Component\HttpKernel\Profiler;
 
+use Memcache;
+
 /**
- * Memcache Profiler Storage.
+ * Memcache Profiler Storage
  *
  * @author Andrej Hudec <pulzarraider@gmail.com>
  */
 class MemcacheProfilerStorage extends BaseMemcacheProfilerStorage
 {
     /**
-     * @var \Memcache
+     * @var Memcache
      */
     private $memcache;
 
     /**
-     * Internal convenience method that returns the instance of the Memcache.
+     * Internal convenience method that returns the instance of the Memcache
      *
-     * @return \Memcache
+     * @return Memcache
      *
      * @throws \RuntimeException
      */
@@ -40,7 +42,7 @@ class MemcacheProfilerStorage extends BaseMemcacheProfilerStorage
             $host = $matches[1] ?: $matches[2];
             $port = $matches[3];
 
-            $memcache = new \Memcache();
+            $memcache = new Memcache;
             $memcache->addServer($host, $port);
 
             $this->memcache = $memcache;
@@ -50,9 +52,9 @@ class MemcacheProfilerStorage extends BaseMemcacheProfilerStorage
     }
 
     /**
-     * Set instance of the Memcache.
+     * Set instance of the Memcache
      *
-     * @param \Memcache $memcache
+     * @param Memcache $memcache
      */
     public function setMemcache($memcache)
     {
@@ -91,7 +93,8 @@ class MemcacheProfilerStorage extends BaseMemcacheProfilerStorage
         $memcache = $this->getMemcache();
 
         if (method_exists($memcache, 'append')) {
-            // Memcache v3.0
+
+            //Memcache v3.0
             if (!$result = $memcache->append($key, $value, false, $expiration)) {
                 return $memcache->set($key, $value, false, $expiration);
             }
@@ -99,7 +102,7 @@ class MemcacheProfilerStorage extends BaseMemcacheProfilerStorage
             return $result;
         }
 
-        // simulate append in Memcache <3.0
+        //simulate append in Memcache <3.0
         $content = $memcache->get($key);
 
         return $memcache->set($key, $content.$value, false, $expiration);

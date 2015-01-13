@@ -55,25 +55,7 @@ class CookieJar
         $this->flushExpiredCookies();
 
         if (!empty($domain)) {
-            foreach ($this->cookieJar as $cookieDomain => $pathCookies) {
-                if ($cookieDomain) {
-                    $cookieDomain = '.'.ltrim($cookieDomain, '.');
-                    if ($cookieDomain != substr('.'.$domain, -strlen($cookieDomain))) {
-                        continue;
-                    }
-                }
-
-                foreach ($pathCookies as $cookiePath => $namedCookies) {
-                    if ($cookiePath != substr($path, 0, strlen($cookiePath))) {
-                        continue;
-                    }
-                    if (isset($namedCookies[$name])) {
-                        return $namedCookies[$name];
-                    }
-                }
-            }
-
-            return;
+            return isset($this->cookieJar[$domain][$path][$name]) ? $this->cookieJar[$domain][$path][$name] : null;
         }
 
         // avoid relying on this behavior that is mainly here for BC reasons
@@ -82,6 +64,8 @@ class CookieJar
                 return $cookies[$path][$name];
             }
         }
+
+        return null;
     }
 
     /**
@@ -198,8 +182,8 @@ class CookieJar
     /**
      * Returns not yet expired cookie values for the given URI.
      *
-     * @param string $uri             A URI
-     * @param bool   $returnsRawValue Returns raw value or urldecoded value
+     * @param string  $uri             A URI
+     * @param Boolean $returnsRawValue Returns raw value or urldecoded value
      *
      * @return array An array of cookie values
      */
@@ -211,8 +195,8 @@ class CookieJar
         $cookies = array();
         foreach ($this->cookieJar as $domain => $pathCookies) {
             if ($domain) {
-                $domain = '.'.ltrim($domain, '.');
-                if ($domain != substr('.'.$parts['host'], -strlen($domain))) {
+                $domain = ltrim($domain, '.');
+                if ($domain != substr($parts['host'], -strlen($domain))) {
                     continue;
                 }
             }

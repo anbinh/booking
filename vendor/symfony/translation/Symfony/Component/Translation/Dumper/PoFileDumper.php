@@ -21,23 +21,17 @@ use Symfony\Component\Translation\MessageCatalogue;
 class PoFileDumper extends FileDumper
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function format(MessageCatalogue $messages, $domain = 'messages')
     {
-        $output = 'msgid ""'."\n";
-        $output .= 'msgstr ""'."\n";
-        $output .= '"Content-Type: text/plain; charset=UTF-8\n"'."\n";
-        $output .= '"Content-Transfer-Encoding: 8bit\n"'."\n";
-        $output .= '"Language: '.$messages->getLocale().'\n"'."\n";
-        $output .= "\n";
-
+        $output = '';
         $newLine = false;
         foreach ($messages->all($domain) as $source => $target) {
             if ($newLine) {
-                $output .= "\n";
+              $output .= "\n";
             } else {
-                $newLine = true;
+              $newLine = true;
             }
             $output .= sprintf('msgid "%s"'."\n", $this->escape($source));
             $output .= sprintf('msgstr "%s"', $this->escape($target));
@@ -47,7 +41,7 @@ class PoFileDumper extends FileDumper
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function getExtension()
     {

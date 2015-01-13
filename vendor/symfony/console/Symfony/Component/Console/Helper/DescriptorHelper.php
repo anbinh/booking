@@ -36,10 +36,10 @@ class DescriptorHelper extends Helper
     public function __construct()
     {
         $this
-            ->register('txt', new TextDescriptor())
-            ->register('xml', new XmlDescriptor())
+            ->register('txt',  new TextDescriptor())
+            ->register('xml',  new XmlDescriptor())
             ->register('json', new JsonDescriptor())
-            ->register('md', new MarkdownDescriptor())
+            ->register('md',   new MarkdownDescriptor())
         ;
     }
 
@@ -48,11 +48,8 @@ class DescriptorHelper extends Helper
      *
      * @param OutputInterface $output
      * @param object          $object
-     * @param string|null     $format
-     * @param bool            $raw
-     * @param string|null     $namespace
-     *
-     * @throws \InvalidArgumentException when the given format is not supported
+     * @param string          $format
+     * @param boolean         $raw
      */
     public function describe(OutputInterface $output, $object, $format = null, $raw = false, $namespace = null)
     {

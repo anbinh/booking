@@ -11,14 +11,15 @@
 
 namespace Predis\PubSub;
 
-use PredisTestCase;
+use \PHPUnit_Framework_TestCase as StandardTestCase;
+
 use Predis\Client;
 use Predis\Profile\ServerProfile;
 
 /**
  * @group realm-pubsub
  */
-class PubSubContextTest extends PredisTestCase
+class PubSubContextTest extends StandardTestCase
 {
     /**
      * @group disconnected
@@ -142,39 +143,6 @@ class PubSubContextTest extends PredisTestCase
 
         $this->assertFalse($pubsub->valid());
         $this->assertNull($pubsub->next());
-    }
-
-    public function testHandlesPongMessages()
-    {
-        $rawmessage = array('pong', '');
-
-        $connection = $this->getMock('Predis\Connection\SingleConnectionInterface');
-        $connection->expects($this->once())->method('read')->will($this->returnValue($rawmessage));
-
-        $client = new Client($connection);
-        $pubsub = new PubSubContext($client, array('subscribe' => 'channel:foo'));
-
-        $message = $pubsub->current();
-        $this->assertSame('pong', $message->kind);
-        $this->assertSame('', $message->payload);
-    }
-
-    /**
-     * @group disconnected
-     */
-    public function testHandlesPongMessagesWithPayload()
-    {
-        $rawmessage = array('pong', 'foobar');
-
-        $connection = $this->getMock('Predis\Connection\SingleConnectionInterface');
-        $connection->expects($this->once())->method('read')->will($this->returnValue($rawmessage));
-
-        $client = new Client($connection);
-        $pubsub = new PubSubContext($client, array('subscribe' => 'channel:foo'));
-
-        $message = $pubsub->current();
-        $this->assertSame('pong', $message->kind);
-        $this->assertSame('foobar', $message->payload);
     }
 
     /**
@@ -335,6 +303,6 @@ class PubSubContextTest extends PredisTestCase
 
         $this->assertSame(array('message1', 'message2', 'QUIT'), $messages);
         $this->assertFalse($pubsub->valid());
-        $this->assertEquals('ECHO', $consumer->echo('ECHO'));
+        $this->assertTrue($consumer->ping());
     }
 }

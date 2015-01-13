@@ -25,24 +25,18 @@ class ProcessUtilsTest extends \PHPUnit_Framework_TestCase
 
     public function dataArguments()
     {
-        if ('\\' === DIRECTORY_SEPARATOR) {
+        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
             return array(
-                array('"\"php\" \"-v\""', '"php" "-v"'),
                 array('"foo bar"', 'foo bar'),
                 array('^%"path"^%', '%path%'),
-                array('"<|>\\" \\"\'f"', '<|>" "\'f'),
-                array('""', ''),
-                array('"with\trailingbs\\\\"', 'with\trailingbs\\'),
+                array('"<|>"\\"" "\\""\'f"', '<|>" "\'f'),
             );
         }
 
         return array(
-            array("'\"php\" \"-v\"'", '"php" "-v"'),
             array("'foo bar'", 'foo bar'),
             array("'%path%'", '%path%'),
             array("'<|>\" \"'\\''f'", '<|>" "\'f'),
-            array("''", ''),
-            array("'with\\trailingbs\\'", 'with\trailingbs\\'),
         );
     }
 }

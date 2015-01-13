@@ -14,14 +14,14 @@ namespace Symfony\Component\Translation\Dumper;
 use Symfony\Component\Translation\MessageCatalogue;
 
 /**
- * PhpFileDumper generates PHP files from a message catalogue.
+ * PhpFileDumper generates php files from a message catalogue.
  *
  * @author Michel Salib <michelsalib@hotmail.com>
  */
 class PhpFileDumper extends FileDumper
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function format(MessageCatalogue $messages, $domain)
     {
@@ -31,7 +31,7 @@ class PhpFileDumper extends FileDumper
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     protected function getExtension()
     {

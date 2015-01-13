@@ -12,6 +12,7 @@
 namespace Symfony\Component\Console\Helper;
 
 use Symfony\Component\Console\Output\OutputInterface;
+use InvalidArgumentException;
 
 /**
  * Provides helpers to display table output.
@@ -77,8 +78,6 @@ class TableHelper extends Helper
      * @param int $layout self::LAYOUT_*
      *
      * @return TableHelper
-     *
-     * @throws \InvalidArgumentException when the table layout is not known
      */
     public function setLayout($layout)
     {
@@ -110,7 +109,8 @@ class TableHelper extends Helper
                 break;
 
             default:
-                throw new \InvalidArgumentException(sprintf('Invalid table layout "%s".', $layout));
+                throw new InvalidArgumentException(sprintf('Invalid table layout "%s".', $layout));
+                break;
         };
 
         return $this;
@@ -142,30 +142,6 @@ class TableHelper extends Helper
     public function addRow(array $row)
     {
         $this->rows[] = array_values($row);
-
-        end($this->rows);
-        $rowKey = key($this->rows);
-        reset($this->rows);
-
-        foreach ($row as $key => $cellValue) {
-            if (!strstr($cellValue, "\n")) {
-                continue;
-            }
-
-            $lines = explode("\n", $cellValue);
-            $this->rows[$rowKey][$key] = $lines[0];
-            unset($lines[0]);
-
-            foreach ($lines as $lineKey => $line) {
-                $nextRowKey = $rowKey + $lineKey + 1;
-
-                if (isset($this->rows[$nextRowKey])) {
-                    $this->rows[$nextRowKey][$key] = $line;
-                } else {
-                    $this->rows[$nextRowKey] = array($key => $line);
-                }
-            }
-        }
 
         return $this;
     }
@@ -278,7 +254,7 @@ class TableHelper extends Helper
     /**
      * Sets cell padding type.
      *
-     * @param int $padType STR_PAD_*
+     * @param integer $padType STR_PAD_*
      *
      * @return TableHelper
      */
@@ -376,9 +352,9 @@ class TableHelper extends Helper
     /**
      * Renders table cell with padding.
      *
-     * @param array  $row
-     * @param int    $column
-     * @param string $cellFormat
+     * @param array   $row
+     * @param integer $column
+     * @param string  $cellFormat
      */
     private function renderCell(array $row, $column, $cellFormat)
     {
@@ -389,8 +365,6 @@ class TableHelper extends Helper
         if (function_exists('mb_strlen') && false !== $encoding = mb_detect_encoding($cell)) {
             $width += strlen($cell) - mb_strlen($cell, $encoding);
         }
-
-        $width += $this->strlen($cell) - $this->computeLengthWithoutDecoration($cell);
 
         $this->output->write(sprintf(
             $cellFormat,
@@ -426,7 +400,7 @@ class TableHelper extends Helper
     /**
      * Gets column width.
      *
-     * @param int $column
+     * @param integer $column
      *
      * @return int
      */
@@ -448,14 +422,22 @@ class TableHelper extends Helper
     /**
      * Gets cell width.
      *
-     * @param array $row
-     * @param int   $column
+     * @param array   $row
+     * @param integer $column
      *
      * @return int
      */
     private function getCellWidth(array $row, $column)
     {
-        return isset($row[$column]) ? $this->computeLengthWithoutDecoration($row[$column]) : 0;
+        if ($column < 0) {
+            return 0;
+        }
+
+        if (isset($row[$column])) {
+            return $this->strlen($row[$column]);
+        }
+
+        return $this->getCellWidth($row, $column - 1);
     }
 
     /**
@@ -467,20 +449,8 @@ class TableHelper extends Helper
         $this->numberOfColumns = null;
     }
 
-    private function computeLengthWithoutDecoration($string)
-    {
-        $formatter = $this->output->getFormatter();
-        $isDecorated = $formatter->isDecorated();
-        $formatter->setDecorated(false);
-
-        $string = $formatter->format($string);
-        $formatter->setDecorated($isDecorated);
-
-        return $this->strlen($string);
-    }
-
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getName()
     {

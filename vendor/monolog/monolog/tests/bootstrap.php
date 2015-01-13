@@ -9,7 +9,5 @@
  * file that was distributed with this source code.
  */
 
-$loader = require __DIR__ . "/../vendor/autoload.php";
-$loader->addPsr4('Monolog\\', __DIR__.'/Monolog');
-
-date_default_timezone_set('UTC');
+$loader = require_once __DIR__ . "/../vendor/autoload.php";
+$loader->add('Monolog\\', __DIR__);

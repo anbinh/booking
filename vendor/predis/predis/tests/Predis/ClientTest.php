@@ -11,7 +11,8 @@
 
 namespace Predis;
 
-use PredisTestCase;
+use \PHPUnit_Framework_TestCase as StandardTestCase;
+
 use Predis\Connection\ConnectionFactory;
 use Predis\Connection\MasterSlaveReplication;
 use Predis\Connection\PredisCluster;
@@ -20,7 +21,7 @@ use Predis\Profile\ServerProfile;
 /**
  *
  */
-class ClientTest extends PredisTestCase
+class ClientTest extends StandardTestCase
 {
     /**
      * @group disconnected
@@ -403,7 +404,7 @@ class ClientTest extends PredisTestCase
                 ->will($this->returnValue($ping));
 
         $options = array('profile' => $profile);
-        $client = $this->getMock('Predis\Client', null, array($connection, $options));
+        $client = $this->getMock('Predis\Client', array('createCommand'), array($connection, $options));
 
         $this->assertTrue($client->ping());
     }
@@ -520,7 +521,7 @@ class ClientTest extends PredisTestCase
     {
         $client = new Client();
 
-        $this->assertInstanceOf('Predis\Pipeline\PipelineContext', $client->pipeline());
+        $this->assertInstanceOf('Predis\Pipeline\PipelineContext', $pipeline = $client->pipeline());
     }
 
     /**
@@ -583,24 +584,24 @@ class ClientTest extends PredisTestCase
     /**
      * @group disconnected
      */
-    public function testPubSubLoopWithoutArgumentsReturnsPubSubContext()
+    public function testPubSubWithoutArgumentsReturnsPubSubContext()
     {
         $client = new Client();
 
-        $this->assertInstanceOf('Predis\PubSub\PubSubContext', $client->pubSubLoop());
+        $this->assertInstanceOf('Predis\PubSub\PubSubContext', $pubsub = $client->pubSub());
     }
 
     /**
      * @group disconnected
      */
-    public function testPubSubLoopWithArrayReturnsPubSubContextWithOptions()
+    public function testPubSubWithArrayReturnsPubSubContextWithOptions()
     {
         $connection = $this->getMock('Predis\Connection\SingleConnectionInterface');
         $options = array('subscribe' => 'channel');
 
         $client = new Client($connection);
 
-        $this->assertInstanceOf('Predis\PubSub\PubSubContext', $pubsub = $client->pubSubLoop($options));
+        $this->assertInstanceOf('Predis\PubSub\PubSubContext', $pubsub = $client->pubSub($options));
 
         $reflection = new \ReflectionProperty($pubsub, 'options');
         $reflection->setAccessible(true);
@@ -611,7 +612,7 @@ class ClientTest extends PredisTestCase
     /**
      * @group disconnected
      */
-    public function testPubSubLoopWithArrayAndCallableExecutesPubSub()
+    public function testPubSubWithArrayAndCallableExecutesPubSub()
     {
         // NOTE: we use a subscribe count of 0 in the fake message to trick
         //       the context and to make it think that it can be closed
@@ -630,17 +631,7 @@ class ClientTest extends PredisTestCase
                  ->method('__invoke');
 
         $client = new Client($connection);
-        $client->pubSubLoop($options, $callable);
-    }
-
-    /**
-     * @group disconnected
-     */
-    public function testPubSubIsAliasForPubSubLoop()
-    {
-        $client = new Client();
-
-        $this->assertInstanceOf('Predis\PubSub\PubSubContext', $client->pubSub());
+        $client->pubSub($options, $callable);
     }
 
     /**
@@ -650,17 +641,7 @@ class ClientTest extends PredisTestCase
     {
         $client = new Client();
 
-        $this->assertInstanceOf('Predis\Transaction\MultiExecContext', $client->multiExec());
-    }
-
-    /**
-     * @group disconnected
-     */
-    public function testMethodTransactionIsAliasForMethodMultiExec()
-    {
-        $client = new Client();
-
-        $this->assertInstanceOf('Predis\Transaction\MultiExecContext', $client->transaction());
+        $this->assertInstanceOf('Predis\Transaction\MultiExecContext', $pubsub = $client->multiExec());
     }
 
     /**
@@ -752,9 +733,48 @@ class ClientTest extends PredisTestCase
     // ******************************************************************** //
 
     /**
+     * Returns a named array with the default connection parameters and their values.
+     *
+     * @return Array Default connection parameters.
+     */
+    protected function getDefaultParametersArray()
+    {
+        return array(
+            'scheme' => 'tcp',
+            'host' => REDIS_SERVER_HOST,
+            'port' => REDIS_SERVER_PORT,
+            'database' => REDIS_SERVER_DBNUM,
+        );
+    }
+
+    /**
+     * Returns a named array with the default client options and their values.
+     *
+     * @return Array Default connection parameters.
+     */
+    protected function getDefaultOptionsArray()
+    {
+        return array(
+            'profile' => REDIS_SERVER_VERSION,
+        );
+    }
+
+    /**
+     * Returns a named array with the default connection parameters merged with
+     * the specified additional parameters.
+     *
+     * @param Array $additional Additional connection parameters.
+     * @return Array Connection parameters.
+     */
+    protected function getParametersArray(Array $additional)
+    {
+        return array_merge($this->getDefaultParametersArray(), $additional);
+    }
+
+    /**
      * Returns an URI string representation of the specified connection parameters.
      *
-     * @param  Array  $parameters Array of connection parameters.
+     * @param Array $parameters Array of connection parameters.
      * @return String URI string.
      */
     protected function getParametersString(Array $parameters)

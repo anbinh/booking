@@ -77,7 +77,7 @@ class AcceptHeader
      *
      * @param string $value
      *
-     * @return bool
+     * @return Boolean
      */
     public function has($value)
     {
@@ -150,7 +150,7 @@ class AcceptHeader
     }
 
     /**
-     * Sorts items by descending quality.
+     * Sorts items by descending quality
      */
     private function sort()
     {

@@ -30,6 +30,11 @@ class MockFileSessionStorage extends MockArraySessionStorage
     private $savePath;
 
     /**
+     * @var array
+     */
+    private $sessionData;
+
+    /**
      * Constructor.
      *
      * @param string      $savePath Path of directory to save session files.

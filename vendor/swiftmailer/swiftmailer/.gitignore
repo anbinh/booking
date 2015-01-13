@@ -1,4 +1,7 @@
-/tests/acceptance.conf.php
-/tests/smoke.conf.php
-/build/*
+.DS_Store
+tests/acceptance.conf.php
+tests/smoke.conf.php
+build/*
+.project
+.settings/*
 /vendor/

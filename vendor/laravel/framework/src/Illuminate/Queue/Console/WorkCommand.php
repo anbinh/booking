@@ -48,32 +48,18 @@ class WorkCommand extends Command {
 	 */
 	public function fire()
 	{
-		if ($this->downForMaintenance()) return;
+		$queue = $this->input->getOption('queue');
 
-		$queue = $this->option('queue');
-
-		$delay = $this->option('delay');
+		$delay = $this->input->getOption('delay');
 
 		// The memory limit is the amount of memory we will allow the script to occupy
 		// before killing it and letting a process manager restart it for us, which
 		// is to protect us against any memory leaks that will be in the scripts.
-		$memory = $this->option('memory');
+		$memory = $this->input->getOption('memory');
 
-		$connection = $this->argument('connection');
+		$connection = $this->input->getArgument('connection');
 
-		$this->worker->pop($connection, $queue, $delay, $memory, $this->option('sleep'));
-	}
-
-	/**
-	 * Determine if the worker should run in maintenance mode.
-	 *
-	 * @return bool
-	 */
-	protected function downForMaintenance()
-	{
-		if ($this->option('force')) return false;
-
-		return $this->laravel->isDownForMaintenance();
+		$this->worker->pop($connection, $queue, $delay, $memory, $this->input->getOption('sleep'));
 	}
 
 	/**
@@ -100,11 +86,9 @@ class WorkCommand extends Command {
 
 			array('delay', null, InputOption::VALUE_OPTIONAL, 'Amount of time to delay failed jobs', 0),
 
-			array('force', null, InputOption::VALUE_NONE, 'Force the worker to run even in maintenance mode.'),
-
 			array('memory', null, InputOption::VALUE_OPTIONAL, 'The memory limit in megabytes', 128),
 
-			array('sleep', null, InputOption::VALUE_OPTIONAL, 'Number of seconds to sleep when no job is available', 3),
+			array('sleep', null, InputOption::VALUE_NONE, 'Whether the worker should sleep when no job is available'),
 		);
 	}
 

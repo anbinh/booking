@@ -4,7 +4,6 @@ use Closure;
 use Countable;
 use ArrayAccess;
 use ArrayIterator;
-use CachingIterator;
 use IteratorAggregate;
 use Illuminate\Support\Contracts\JsonableInterface;
 use Illuminate\Support\Contracts\ArrayableInterface;
@@ -157,18 +156,6 @@ class Collection implements ArrayAccess, ArrayableInterface, Countable, Iterator
 	}
 
 	/**
-	 * Reduce the collection to a single value.
-	 *
-	 * @param  callable  $callback
-	 * @param  mixed  $initial
-	 * @return mixed
-	 */
-	public function reduce($callback, $initial = null)
-	{
-		return array_reduce($this->items, $callback, $initial);
-	}
-
-	/**
 	 * Execute a callback over each item.
 	 *
 	 * @param  Closure  $callback
@@ -189,7 +176,7 @@ class Collection implements ArrayAccess, ArrayableInterface, Countable, Iterator
 	 */
 	public function map(Closure $callback)
 	{
-		return new static(array_map($callback, $this->items, array_keys($this->items)));
+		return new static(array_map($callback, $this->items));
 	}
 
 	/**
@@ -220,10 +207,9 @@ class Collection implements ArrayAccess, ArrayableInterface, Countable, Iterator
 	 * Sort the collection using the given Closure.
 	 *
 	 * @param  \Closure  $callback
-	 * @param  int  $options
 	 * @return \Illuminate\Support\Collection
 	 */
-	public function sortBy(Closure $callback, $options = SORT_REGULAR)
+	public function sortBy(Closure $callback)
 	{
 		$results = array();
 
@@ -235,7 +221,7 @@ class Collection implements ArrayAccess, ArrayableInterface, Countable, Iterator
 			$results[$key] = $callback($value);
 		}
 
-		asort($results, $options);
+		asort($results);
 
 		// Once we have sorted all of the keys in the array, we will loop through them
 		// and grab the corresponding model so we can set the underlying items list
@@ -313,7 +299,7 @@ class Collection implements ArrayAccess, ArrayableInterface, Countable, Iterator
 	/**
 	 * Merge items with the collection items.
 	 *
-	 * @param  \Illuminate\Support\Collection|\Illuminate\Support\Contracts\ArrayableInterface|array  $items
+	 * @param  \Illuminate\Support\Collection|\Illuminate\Support\Contracts\ArrayableInterface|array
 	 * @return \Illuminate\Support\Collection
 	 */
 	public function merge($items)
@@ -346,19 +332,6 @@ class Collection implements ArrayAccess, ArrayableInterface, Countable, Iterator
 	}
 
 	/**
-	 * Take the first or last {$limit} items.
-	 *
-	 * @param  int  $limit
-	 * @return \Illuminate\Support\Collection
-	 */
-	public function take($limit = null)
-	{
-		if ($limit < 0) return $this->slice($limit, abs($limit));
-
-		return $this->slice(0, $limit);
-	}
-
-	/**
 	 * Get an array with the values of a given key.
 	 *
 	 * @param  string  $value
@@ -367,7 +340,28 @@ class Collection implements ArrayAccess, ArrayableInterface, Countable, Iterator
 	 */
 	public function lists($value, $key = null)
 	{
-		return array_pluck($this->items, $value, $key);
+		$results = array();
+
+		foreach ($this->items as $item)
+		{
+			$itemValue = is_object($item) ? $item->{$value} : $item[$value];
+
+			// If the key is "null", we will just append the value to the array and keep
+			// looping. Otherwise we will key the array using the value of the key we
+			// received from the developer. Then we'll return the final array form.
+			if (is_null($key))
+			{
+				$results[] = $itemValue;
+			}
+			else
+			{
+				$itemKey = is_object($item) ? $item->{$key} : $item[$key];
+
+				$results[$itemKey] = $itemValue;
+			}
+		}
+
+		return $results;
 	}
 
 	/**
@@ -427,16 +421,6 @@ class Collection implements ArrayAccess, ArrayableInterface, Countable, Iterator
 	public function getIterator()
 	{
 		return new ArrayIterator($this->items);
-	}
-
-	/**
-	 * Get a CachingIterator instance.
-	 *
-	 * @return \CachingIterator
-	 */
-	public function getCachingIterator($flags = CachingIterator::CALL_TOSTRING)
-	{
-		return new CachingIterator($this->getIterator(), $flags);
 	}
 
 	/**

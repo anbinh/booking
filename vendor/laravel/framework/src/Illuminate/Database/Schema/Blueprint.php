@@ -270,16 +270,6 @@ class Blueprint {
 	}
 
 	/**
-	* Indicate that the soft delete column should be dropped.
-	*
-	* @return void
-	*/
-	public function dropSoftDeletes()
-	{
-		$this->dropColumn('deleted_at');
-	}
-
-	/**
 	 * Rename the table to a given name.
 	 *
 	 * @param  string  $to
@@ -384,28 +374,6 @@ class Blueprint {
 	}
 
 	/**
-	 * Create a new medium text column on the table.
-	 *
-	 * @param  string  $column
-	 * @return \Illuminate\Support\Fluent
-	 */
-	public function mediumText($column)
-	{
-		return $this->addColumn('mediumText', $column);
-	}
-
-	/**
-	 * Create a new long text column on the table.
-	 *
-	 * @param  string  $column
-	 * @return \Illuminate\Support\Fluent
-	 */
-	public function longText($column)
-	{
-		return $this->addColumn('longText', $column);
-	}
-
-	/**
 	 * Create a new integer column on the table.
 	 *
 	 * @param  string  $column
@@ -504,20 +472,6 @@ class Blueprint {
 	}
 
 	/**
-	 * Create a new double column on the table.
-	 *
-	 * @param  string   $column
-	 * @param  int|null	$total
-	 * @param  int|null $places
-	 * @return \Illuminate\Support\Fluent
-	 *
-	 */
-	public function double($column, $total = null, $places = null)
-	{
-		return $this->addColumn('double', $column, compact('total', 'places'));
-	}
-
-	/**
 	 * Create a new decimal column on the table.
 	 *
 	 * @param  string  $column
@@ -598,18 +552,6 @@ class Blueprint {
 	}
 
 	/**
-	 * Add nullable creation and update timestamps to the table.
-	 *
-	 * @return void
-	 */
-	public function nullableTimestamps()
-	{
-		$this->timestamp('created_at')->nullable();
-
-		$this->timestamp('updated_at')->nullable();
-	}
-
-	/**
 	 * Add creation and update timestamps to the table.
 	 *
 	 * @return void
@@ -640,19 +582,6 @@ class Blueprint {
 	public function binary($column)
 	{
 		return $this->addColumn('binary', $column);
-	}
-
-	/**
-	 * Add the proper columns for a polymorphic table.
-	 *
-	 * @param  string  $name
-	 * @return void
-	 */
-	public function morphs($name)
-	{
-		$this->integer("{$name}_id");
-
-		$this->string("{$name}_type");
 	}
 
 	/**
@@ -712,9 +641,9 @@ class Blueprint {
 	 */
 	protected function createIndexName($type, array $columns)
 	{
-		$index = strtolower($this->table.'_'.implode('_', $columns).'_'.$type);
+		$table = str_replace(array('-', '.'), '_', $this->table);
 
-		return str_replace(array('-', '.'), '_', $index);
+		return strtolower($table.'_'.implode('_', $columns).'_'.$type);
 	}
 
 	/**

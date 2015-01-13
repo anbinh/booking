@@ -79,14 +79,4 @@ class CacheBasedSessionHandler implements \SessionHandlerInterface {
 		return true;
 	}
 
-	/**
-	 * Get the underlying cache repository.
-	 *
-	 * @return \Illuminate\Cache\Repository
-	 */
-	public function getCache()
-	{
-		return $this->cache;
-	}
-
 }

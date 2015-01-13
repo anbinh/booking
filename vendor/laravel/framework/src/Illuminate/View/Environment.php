@@ -116,9 +116,7 @@ class Environment {
 
 		$data = array_merge($mergeData, $this->parseData($data));
 
-		$this->callCreator($view = new View($this, $this->getEngineFromPath($path), $view, $path, $data));
-
-		return $view;
+		return new View($this, $this->getEngineFromPath($path), $view, $path, $data);
 	}
 
 	/**
@@ -267,30 +265,11 @@ class Environment {
 	}
 
 	/**
-	 * Register a view creator event.
-	 *
-	 * @param  array|string  $views
-	 * @param  \Closure|string  $callback
-	 * @return array
-	 */
-	public function creator($views, $callback)
-	{
-		$creators = array();
-
-		foreach ((array) $views as $view)
-		{
-			$creators[] = $this->addViewEvent($view, $callback, 'creating: ');
-		}
-
-		return $creators;
-	}
-
-	/**
 	 * Register a view composer event.
 	 *
 	 * @param  array|string  $views
-	 * @param  \Closure|string  $callback
-	 * @return array
+	 * @param  Closure|string  $callback
+	 * @return Closure
 	 */
 	public function composer($views, $callback)
 	{
@@ -298,31 +277,30 @@ class Environment {
 
 		foreach ((array) $views as $view)
 		{
-			$composers[] = $this->addViewEvent($view, $callback);
+			$composers[] = $this->addComposer($view, $callback);
 		}
 
 		return $composers;
 	}
 
 	/**
-	 * Add an event for a given view.
+	 * Add a composer for a given view.
 	 *
 	 * @param  string  $view
 	 * @param  Closure|string  $callback
-	 * @param  string  $prefix
 	 * @return Closure
 	 */
-	protected function addViewEvent($view, $callback, $prefix = 'composing: ')
+	protected function addComposer($view, $callback)
 	{
 		if ($callback instanceof Closure)
 		{
-			$this->events->listen($prefix.$view, $callback);
+			$this->events->listen('composing: '.$view, $callback);
 
 			return $callback;
 		}
 		elseif (is_string($callback))
 		{
-			return $this->addClassEvent($view, $callback, $prefix);
+			return $this->addClassComposer($view, $callback);
 		}
 	}
 
@@ -331,17 +309,16 @@ class Environment {
 	 *
 	 * @param  string   $view
 	 * @param  string   $class
-	 * @param  string   $prefix
-	 * @return \Closure
+	 * @return Closure
 	 */
-	protected function addClassEvent($view, $class, $prefix)
+	protected function addClassComposer($view, $class)
 	{
-		$name = $prefix.$view;
+		$name = 'composing: '.$view;
 
 		// When registering a class based view "composer", we will simply resolve the
 		// classes from the application IoC container then call the compose method
 		// on the instance. This allows for convenient, testable view composers.
-		$callback = $this->buildClassEventCallback($class, $prefix);
+		$callback = $this->buildClassComposerCallback($class);
 
 		$this->events->listen($name, $callback);
 
@@ -351,15 +328,14 @@ class Environment {
 	/**
 	 * Build a class based container callback Closure.
 	 *
-	 * @param  string  $class
-	 * @param  string  $prefix
-	 * @return \Closure
+	 * @param  string   $class
+	 * @return Closure
 	 */
-	protected function buildClassEventCallback($class, $prefix)
+	protected function buildClassComposerCallback($class)
 	{
 		$container = $this->container;
 
-		list($class, $method) = $this->parseClassEvent($class, $prefix);
+		list($class, $method) = $this->parseClassComposer($class);
 
 		// Once we have the class and method name, we can build the Closure to resolve
 		// the instance out of the IoC container and call the method on it with the
@@ -376,21 +352,11 @@ class Environment {
 	 * Parse a class based composer name.
 	 *
 	 * @param  string  $class
-	 * @param  string  $prefix
 	 * @return array
 	 */
-	protected function parseClassEvent($class, $prefix)
+	protected function parseClassComposer($class)
 	{
-		if (str_contains($class, '@'))
-		{
-			return explode('@', $class);
-		}
-		else
-		{
-			$method = str_contains($prefix, 'composing') ? 'compose' : 'create';
-
-			return array($class, $method);
-		}
+		return str_contains($class, '@') ? explode('@', $class) : array($class, 'compose');
 	}
 
 	/**
@@ -402,17 +368,6 @@ class Environment {
 	public function callComposer(View $view)
 	{
 		$this->events->fire('composing: '.$view->getName(), array($view));
-	}
-
-	/**
-	 * Call the creator for a given view.
-	 *
-	 * @param  \Illuminate\View\View  $view
-	 * @return void
-	 */
-	public function callCreator(View $view)
-	{
-		$this->events->fire('creating: '.$view->getName(), array($view));
 	}
 
 	/**
@@ -639,17 +594,6 @@ class Environment {
 	}
 
 	/**
-	 * Set the event dispatcher instance.
-	 *
-	 * @param  \Illuminate\Events\Dispatcher
-	 * @return void
-	 */
-	public function setDispatcher(Dispatcher $events)
-	{
-		$this->events = $events;
-	}
-
-	/**
 	 * Get the IoC container instance.
 	 *
 	 * @return \Illuminate\Container\Container
@@ -668,18 +612,6 @@ class Environment {
 	public function setContainer(Container $container)
 	{
 		$this->container = $container;
-	}
-
-	/**
-	 * Get an item from the shared data.
-	 *
-	 * @param  string  $key
-	 * @param  mixed   $default
-	 * @return mixed
-	 */
-	public function shared($key, $default = null)
-	{
-		return array_get($this->shared, $key, $default);
 	}
 
 	/**

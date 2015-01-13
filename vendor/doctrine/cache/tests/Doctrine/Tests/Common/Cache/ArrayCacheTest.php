@@ -18,9 +18,4 @@ class ArrayCacheTest extends CacheTest
 
         $this->assertNull($stats);
     }
-
-    protected function isSharedStorage()
-    {
-        return false;
-    }
 }

@@ -1,20 +1,10 @@
 <?php namespace Illuminate\Support\Facades;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response as IlluminateResponse;
-use Illuminate\Support\Contracts\JsonableInterface;
 use Illuminate\Support\Contracts\ArrayableInterface;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class Response {
-
-	/**
-	 * An array of registered Response macros.
-	 *
-	 * @var array
-	 */
-	protected static $macros = array();
 
 	/**
 	 * Return a new response from the application.
@@ -22,11 +12,11 @@ class Response {
 	 * @param  string  $content
 	 * @param  int     $status
 	 * @param  array   $headers
-	 * @return \Illuminate\Http\Response
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public static function make($content = '', $status = 200, array $headers = array())
 	{
-		return new IlluminateResponse($content, $status, $headers);
+		return new \Illuminate\Http\Response($content, $status, $headers);
 	}
 
 	/**
@@ -36,7 +26,7 @@ class Response {
 	 * @param  array   $data
 	 * @param  int     $status
 	 * @param  array   $headers
-	 * @return \Illuminate\Http\Response
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public static function view($view, $data = array(), $status = 200, array $headers = array())
 	{
@@ -73,7 +63,7 @@ class Response {
 	 */
 	public static function stream($callback, $status = 200, array $headers = array())
 	{
-		return new StreamedResponse($callback, $status, $headers);
+		return new \Symfony\Component\HttpFoundation\StreamedResponse($callback, $status, $headers);
 	}
 
 	/**
@@ -94,35 +84,6 @@ class Response {
 		}
 
 		return $response;
-	}
-
-	/**
-	 * Register a macro with the Response class.
-	 *
-	 * @param  string  $name
-	 * @param  callable  $callback
-	 * @return void
-	 */
-	public static function macro($name, $callback)
-	{
-		static::$macros[$name] = $callback;
-	}
-
-	/**
-	 * Handle dynamic calls into Response macros.
-	 *
-	 * @param  string  $method
-	 * @param  array  $parameters
-	 * @return mixed
-	 */
-	public static function __callStatic($method, $parameters)
-	{
-		if (isset(static::$macros[$method]))
-		{
-			return call_user_func_array(static::$macros[$method], func_get_args());
-		}
-
-		throw new \BadMethodCallException("Call to undefined method $method");
 	}
 
 }

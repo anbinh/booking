@@ -44,7 +44,7 @@ class MetadataBag implements SessionBagInterface
     /**
      * Unix timestamp.
      *
-     * @var int
+     * @var integer
      */
     private $lastUsed;
 
@@ -77,7 +77,7 @@ class MetadataBag implements SessionBagInterface
     /**
      * Gets the lifetime that the session cookie was set with.
      *
-     * @return int
+     * @return integer
      */
     public function getLifetime()
     {
@@ -87,10 +87,10 @@ class MetadataBag implements SessionBagInterface
     /**
      * Stamps a new session's metadata.
      *
-     * @param int $lifetime Sets the cookie lifetime for the session cookie. A null value
-     *                      will leave the system settings unchanged, 0 sets the cookie
-     *                      to expire with browser session. Time is in seconds, and is
-     *                      not a Unix timestamp.
+     * @param integer $lifetime Sets the cookie lifetime for the session cookie. A null value
+     *                          will leave the system settings unchanged, 0 sets the cookie
+     *                          to expire with browser session. Time is in seconds, and is
+     *                          not a Unix timestamp.
      */
     public function stampNew($lifetime = null)
     {
@@ -108,7 +108,7 @@ class MetadataBag implements SessionBagInterface
     /**
      * Gets the created timestamp metadata.
      *
-     * @return int Unix timestamp
+     * @return integer Unix timestamp
      */
     public function getCreated()
     {
@@ -118,7 +118,7 @@ class MetadataBag implements SessionBagInterface
     /**
      * Gets the last used metadata.
      *
-     * @return int Unix timestamp
+     * @return integer Unix timestamp
      */
     public function getLastUsed()
     {

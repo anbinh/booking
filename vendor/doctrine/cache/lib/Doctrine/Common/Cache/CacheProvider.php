@@ -43,7 +43,7 @@ abstract class CacheProvider implements Cache
     /**
      * The namespace version.
      *
-     * @var integer|null
+     * @var string
      */
     private $namespaceVersion;
 
@@ -56,8 +56,7 @@ abstract class CacheProvider implements Cache
      */
     public function setNamespace($namespace)
     {
-        $this->namespace        = (string) $namespace;
-        $this->namespaceVersion = null;
+        $this->namespace = (string) $namespace;
     }
 
     /**
@@ -162,7 +161,7 @@ abstract class CacheProvider implements Cache
     /**
      * Returns the namespace version.
      *
-     * @return integer
+     * @return string
      */
     private function getNamespaceVersion()
     {
@@ -189,7 +188,7 @@ abstract class CacheProvider implements Cache
      *
      * @param string $id The id of the cache entry to fetch.
      *
-     * @return string|boolean The cached data or FALSE, if no cache entry exists for the given id.
+     * @return string|bool The cached data or FALSE, if no cache entry exists for the given id.
      */
     abstract protected function doFetch($id);
 

@@ -42,10 +42,6 @@ class ClosureExpressionVisitor extends ExpressionVisitor
      */
     public static function getObjectFieldValue($object, $field)
     {
-        if (is_array($object)) {
-            return $object[$field];
-        }
-
         $accessors = array('get', 'is');
 
         foreach ($accessors as $accessor) {
@@ -65,7 +61,7 @@ class ClosureExpressionVisitor extends ExpressionVisitor
             return $object->$accessor();
         }
 
-        if ($object instanceof \ArrayAccess) {
+        if ($object instanceof \ArrayAccess || is_array($object)) {
             return $object[$field];
         }
 
@@ -83,7 +79,7 @@ class ClosureExpressionVisitor extends ExpressionVisitor
      */
     public static function sortByField($name, $orientation = 1, \Closure $next = null)
     {
-        if ( ! $next) {
+        if (!$next) {
             $next = function() {
                 return 0;
             };

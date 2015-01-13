@@ -5,7 +5,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class BelongsToMany extends Relation {
 
@@ -86,19 +85,6 @@ class BelongsToMany extends Relation {
 		$results = $this->take(1)->get($columns);
 
 		return count($results) > 0 ? $results->first() : null;
-	}
-
-	/**
-	 * Execute the query and get the first result or throw an exception.
-	 *
-	 * @param  array  $columns
-	 * @return \Illuminate\Database\Eloquent\Model|static
-	 */
-	public function firstOrFail($columns = array('*'))
-	{
-		if ( ! is_null($model = $this->first($columns))) return $model;
-
-		throw new ModelNotFoundException;
 	}
 
 	/**
@@ -202,9 +188,7 @@ class BelongsToMany extends Relation {
 	 */
 	public function addConstraints()
 	{
-		$this->setJoin();
-
-		if (static::$constraints) $this->setWhere();
+		$this->setJoin()->setWhere();
 	}
 
 	/**
@@ -471,8 +455,8 @@ class BelongsToMany extends Relation {
 	/**
 	 * Create an array of new instances of the related models.
 	 *
-	 * @param  array  $records
-	 * @param  array  $joinings
+	 * @param  array  $attributes
+	 * @param  array  $joining
 	 * @return \Illuminate\Database\Eloquent\Model
 	 */
 	public function createMany(array $records, array $joinings = array())
@@ -535,9 +519,9 @@ class BelongsToMany extends Relation {
 
 		foreach ($records as $id => $attributes)
 		{
-			if ( ! is_array($attributes))
+			if (is_numeric($attributes))
 			{
-				list($id, $attributes) = array($attributes, array());
+				list($id, $attributes) = array((int) $attributes, array());
 			}
 
 			$results[$id] = $attributes;
@@ -756,7 +740,7 @@ class BelongsToMany extends Relation {
 	 * @return void
 	 */
 	public function touchIfTouching()
-	{
+	{ 
 	 	if ($this->touchingParent()) $this->getParent()->touch();
 
 	 	if ($this->getParent()->touches($this->relationName)) $this->touch();
@@ -828,9 +812,11 @@ class BelongsToMany extends Relation {
 	 */
 	public function newPivot(array $attributes = array(), $exists = false)
 	{
-		$pivot = $this->related->newPivot($this->parent, $attributes, $this->table, $exists);
+		$pivot = new Pivot($this->parent, $attributes, $this->table, $exists);
 
-		return $pivot->setPivotKeys($this->foreignKey, $this->otherKey);
+		$pivot->setPivotKeys($this->foreignKey, $this->otherKey);
+
+		return $pivot;
 	}
 
 	/**

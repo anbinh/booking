@@ -288,28 +288,6 @@ class MySqlGrammar extends Grammar {
 	}
 
 	/**
-	 * Create the column definition for a medium text type.
-	 *
-	 * @param  \Illuminate\Support\Fluent  $column
-	 * @return string
-	 */
-	protected function typeMediumText(Fluent $column)
-	{
-		return 'mediumtext';
-	}
-
-	/**
-	 * Create the column definition for a long text type.
-	 *
-	 * @param  \Illuminate\Support\Fluent  $column
-	 * @return string
-	 */
-	protected function typeLongText(Fluent $column)
-	{
-		return 'longtext';
-	}
-
-	/**
 	 * Create the column definition for a big integer type.
 	 *
 	 * @param  \Illuminate\Support\Fluent  $column
@@ -373,24 +351,6 @@ class MySqlGrammar extends Grammar {
 	protected function typeFloat(Fluent $column)
 	{
 		return "float({$column->total}, {$column->places})";
-	}
-
-	/**
-	 * Create the column definition for a double type.
-	 *
-	 * @param  \Illuminate\Support\Fluent  $column
-	 * @return string
-	 */
-	protected function typeDouble(Fluent $column)
-	{
-		if ($column->total and $column->places)
-		{
-			return "double({$column->total}, {$column->places})";
-		}
-		else
-		{
-			return 'double';
-		}
 	}
 
 	/**

@@ -21,7 +21,6 @@ namespace Symfony\Component\Translation;
 class IdentityTranslator implements TranslatorInterface
 {
     private $selector;
-    private $locale;
 
     /**
      * Constructor.
@@ -42,7 +41,6 @@ class IdentityTranslator implements TranslatorInterface
      */
     public function setLocale($locale)
     {
-        $this->locale = $locale;
     }
 
     /**
@@ -52,7 +50,6 @@ class IdentityTranslator implements TranslatorInterface
      */
     public function getLocale()
     {
-        return $this->locale ?: \Locale::getDefault();
     }
 
     /**
@@ -72,6 +69,6 @@ class IdentityTranslator implements TranslatorInterface
      */
     public function transChoice($id, $number, array $parameters = array(), $domain = 'messages', $locale = null)
     {
-        return strtr($this->selector->choose((string) $id, (int) $number, $locale ?: $this->getLocale()), $parameters);
+        return strtr($this->selector->choose((string) $id, (int) $number, $locale), $parameters);
     }
 }

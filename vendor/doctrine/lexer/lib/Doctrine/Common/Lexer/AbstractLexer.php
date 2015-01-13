@@ -30,20 +30,7 @@ namespace Doctrine\Common\Lexer;
 abstract class AbstractLexer
 {
     /**
-     * Lexer original input string.
-     *
-     * @var string
-     */
-    private $input;
-
-    /**
      * Array of scanned tokens.
-     *
-     * Each token is an associative array containing three items:
-     *  - 'value'    : the string value of the token in the input string
-     *  - 'type'     : the type of the token (identifier, numeric, string, input
-     *                 parameter, none)
-     *  - 'position' : the position of the token in the input string
      *
      * @var array
      */
@@ -89,9 +76,7 @@ abstract class AbstractLexer
      */
     public function setInput($input)
     {
-        $this->input  = $input;
         $this->tokens = array();
-
         $this->reset();
         $this->scan($input);
     }
@@ -132,18 +117,6 @@ abstract class AbstractLexer
     }
 
     /**
-     * Retrieve the original lexer's input until a given position. 
-     *
-     * @param integer $position
-     *
-     * @return string
-     */
-    public function getInputUntilPosition($position)
-    {
-        return substr($this->input, 0, $position);
-    }
-
-    /**
      * Checks whether a given token matches the current lookahead.
      *
      * @param integer|string $token
@@ -170,7 +143,13 @@ abstract class AbstractLexer
     /**
      * Moves to the next token in the input string.
      *
-     * @return boolean
+     * A token is an associative array containing three items:
+     *  - 'value'    : the string value of the token in the input string
+     *  - 'type'     : the type of the token (identifier, numeric, string, input
+     *                 parameter, none)
+     *  - 'position' : the position of the token in the input string
+     *
+     * @return array|null The next token; null if there is no more tokens left.
      */
     public function moveNext()
     {
@@ -247,12 +226,8 @@ abstract class AbstractLexer
         static $regex;
 
         if ( ! isset($regex)) {
-            $regex = sprintf(
-                '/(%s)|%s/%s',
-                implode(')|(', $this->getCatchablePatterns()),
-                implode('|', $this->getNonCatchablePatterns()),
-                $this->getModifiers()
-            );
+            $regex = '/(' . implode(')|(', $this->getCatchablePatterns()) . ')|'
+                   . implode('|', $this->getNonCatchablePatterns()) . '/i';
         }
 
         $flags = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_OFFSET_CAPTURE;
@@ -290,16 +265,6 @@ abstract class AbstractLexer
         }
 
         return $token;
-    }
-
-    /**
-     * Regex modifiers
-     *
-     * @return string
-     */
-    protected function getModifiers()
-    {
-        return 'i';
     }
 
     /**

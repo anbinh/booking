@@ -11,15 +11,16 @@
 
 namespace Symfony\Component\HttpKernel;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\BrowserKit\Client as BaseClient;
 use Symfony\Component\BrowserKit\Request as DomRequest;
 use Symfony\Component\BrowserKit\Response as DomResponse;
 use Symfony\Component\BrowserKit\Cookie as DomCookie;
 use Symfony\Component\BrowserKit\History;
 use Symfony\Component\BrowserKit\CookieJar;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\TerminableInterface;
 
 /**
  * Client simulates a browser and makes requests to a Kernel object.
@@ -102,12 +103,9 @@ class Client extends BaseClient
         $r = new \ReflectionClass('\\Symfony\\Component\\ClassLoader\\ClassLoader');
         $requirePath = str_replace("'", "\\'", $r->getFileName());
         $symfonyPath = str_replace("'", "\\'", realpath(__DIR__.'/../../..'));
-        $errorReporting = error_reporting();
 
-        $code = <<<EOF
+        return <<<EOF
 <?php
-
-error_reporting($errorReporting);
 
 require_once '$requirePath';
 
@@ -116,22 +114,7 @@ require_once '$requirePath';
 \$loader->register();
 
 \$kernel = unserialize('$kernel');
-\$request = unserialize('$request');
-EOF;
-
-        return $code.$this->getHandleScript();
-    }
-
-    protected function getHandleScript()
-    {
-        return <<<'EOF'
-$response = $kernel->handle($request);
-
-if ($kernel instanceof Symfony\Component\HttpKernel\TerminableInterface) {
-    $kernel->terminate($request, $response);
-}
-
-echo serialize($response);
+echo serialize(\$kernel->handle(unserialize('$request')));
 EOF;
     }
 
@@ -146,9 +129,7 @@ EOF;
     {
         $httpRequest = Request::create($request->getUri(), $request->getMethod(), $request->getParameters(), $request->getCookies(), $request->getFiles(), $request->getServer(), $request->getContent());
 
-        foreach ($this->filterFiles($httpRequest->files->all()) as $key => $value) {
-            $httpRequest->files->set($key, $value);
-        }
+        $httpRequest->files->replace($this->filterFiles($httpRequest->files->all()));
 
         return $httpRequest;
     }
@@ -162,7 +143,7 @@ EOF;
      * If the size of a file is greater than the allowed size (from php.ini) then
      * an invalid UploadedFile is returned with an error set to UPLOAD_ERR_INI_SIZE.
      *
-     * @see UploadedFile
+     * @see Symfony\Component\HttpFoundation\File\UploadedFile
      *
      * @param array $files An array of files
      *
@@ -194,6 +175,8 @@ EOF;
                         true
                     );
                 }
+            } else {
+                $filtered[$key] = $value;
             }
         }
 

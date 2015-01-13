@@ -113,9 +113,7 @@ class Route extends BaseRoute {
 	{
 		$before = $this->getBeforeFilters();
 
-		$patterns = $this->router->findPatternFilters($request->getMethod(), $request->getPathInfo());
-
-		return array_merge($before, $patterns);	
+		return array_merge($before, $this->router->findPatternFilters($request));	
 	}
 
 	/**

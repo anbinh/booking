@@ -237,28 +237,6 @@ class SqlServerGrammar extends Grammar {
 	}
 
 	/**
-	 * Create the column definition for a medium text type.
-	 *
-	 * @param  \Illuminate\Support\Fluent  $column
-	 * @return string
-	 */
-	protected function typeMediumText(Fluent $column)
-	{
-		return 'nvarchar(max)';
-	}
-
-	/**
-	 * Create the column definition for a long text type.
-	 *
-	 * @param  \Illuminate\Support\Fluent  $column
-	 * @return string
-	 */
-	protected function typeLongText(Fluent $column)
-	{
-		return 'nvarchar(max)';
-	}
-
-	/**
 	 * Create the column definition for a integer type.
 	 *
 	 * @param  \Illuminate\Support\Fluent  $column
@@ -320,17 +298,6 @@ class SqlServerGrammar extends Grammar {
 	 * @return string
 	 */
 	protected function typeFloat(Fluent $column)
-	{
-		return 'float';
-	}
-
-	/**
-	 * Create the column definition for a double type.
-	 *
-	 * @param  \Illuminate\Support\Fluent  $column
-	 * @return string
-	 */
-	protected function typeDouble(Fluent $column)
 	{
 		return 'float';
 	}

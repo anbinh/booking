@@ -38,37 +38,33 @@ class SqsQueue extends Queue implements QueueInterface {
 	 * @param  string  $job
 	 * @param  mixed   $data
 	 * @param  string  $queue
-	 * @return mixed
+	 * @return void
 	 */
 	public function push($job, $data = '', $queue = null)
 	{
 		$payload = $this->createPayload($job, $data);
 
-		$response = $this->sqs->sendMessage(array('QueueUrl' => $this->getQueue($queue), 'MessageBody' => $payload));
-
-		return $response->get('MessageId');
+		return $this->sqs->sendMessage(array('QueueUrl' => $this->getQueue($queue), 'MessageBody' => $payload));
 	}
 
 	/**
 	 * Push a new job onto the queue after a delay.
 	 *
-	 * @param  \DateTime|int  $delay
+	 * @param  int     $delay
 	 * @param  string  $job
-	 * @param  mixed  $data
+	 * @param  mixed   $data
 	 * @param  string  $queue
-	 * @return mixed
+	 * @return void
 	 */
 	public function later($delay, $job, $data = '', $queue = null)
 	{
 		$payload = $this->createPayload($job, $data);
 
-		$delay = $this->getSeconds($delay);
-
 		return $this->sqs->sendMessage(array(
 
 			'QueueUrl' => $this->getQueue($queue), 'MessageBody' => $payload, 'DelaySeconds' => $delay,
 
-		))->get('MessageId');
+		));
 	}
 
 	/**
@@ -97,7 +93,7 @@ class SqsQueue extends Queue implements QueueInterface {
 	 * @param  string|null  $queue
 	 * @return string
 	 */
-	public function getQueue($queue)
+	protected function getQueue($queue)
 	{
 		return $queue ?: $this->default;
 	}

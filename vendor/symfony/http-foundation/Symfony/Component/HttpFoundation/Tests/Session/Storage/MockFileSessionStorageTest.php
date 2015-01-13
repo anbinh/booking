@@ -28,7 +28,7 @@ class MockFileSessionStorageTest extends \PHPUnit_Framework_TestCase
     private $sessionDir;
 
     /**
-     * @var MockFileSessionStorage
+     * @var FileMockSessionStorage
      */
     protected $storage;
 
@@ -107,7 +107,7 @@ class MockFileSessionStorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      */
     public function testSaveWithoutStart()
     {

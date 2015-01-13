@@ -1,7 +1,6 @@
 <?php namespace Illuminate\Exception;
 
 use Closure;
-use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Handler\JsonResponseHandler;
 use Illuminate\Support\ServiceProvider;
@@ -56,19 +55,9 @@ class ExceptionServiceProvider extends ServiceProvider {
 	{
 		$this->app['exception.plain'] = $this->app->share(function($app)
 		{
-			// If the application is running in a console environment, we will just always
-			// use the debug handler as there is no point in the console ever returning
-			// out HTML. This debug handler always returns JSON from the console env.
-			if ($app->runningInConsole())
-			{
-				return $app['exception.debug'];
-			}
-			else
-			{
-				$handler = new KernelHandler($app['config']['app.debug']);
+			$handler = new KernelHandler($app['config']['app.debug']);
 
-				return new SymfonyDisplayer($handler);
-			}
+			return new SymfonyDisplayer($handler);
 		});
 	}
 
@@ -101,7 +90,7 @@ class ExceptionServiceProvider extends ServiceProvider {
 			// We will instruct Whoops to not exit after it displays the exception as it
 			// will otherwise run out before we can do anything else. We just want to
 			// let the framework go ahead and finish a request on this end instead.
-			with($whoops = new Run)->allowQuit(false);
+			with($whoops = new \Whoops\Run)->allowQuit(false);
 
 			return $whoops->pushHandler($app['whoops.handler']);
 		});
@@ -147,7 +136,7 @@ class ExceptionServiceProvider extends ServiceProvider {
 	protected function registerPrettyWhoopsHandler()
 	{
 		$me = $this;
-
+		
 		$this->app['whoops.handler'] = $this->app->share(function() use ($me)
 		{
 			with($handler = new PrettyPageHandler)->setEditor('sublime');

@@ -18,6 +18,13 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class LocaleListenerTest extends \PHPUnit_Framework_TestCase
 {
+    protected function setUp()
+    {
+        if (!class_exists('Symfony\Component\EventDispatcher\EventDispatcher')) {
+            $this->markTestSkipped('The "EventDispatcher" component is not available');
+        }
+    }
+
     public function testDefaultLocaleWithoutSession()
     {
         $listener = new LocaleListener('fr');
@@ -43,6 +50,10 @@ class LocaleListenerTest extends \PHPUnit_Framework_TestCase
 
     public function testLocaleSetForRoutingContext()
     {
+        if (!class_exists('Symfony\Component\Routing\Router')) {
+            $this->markTestSkipped('The "Routing" component is not available');
+        }
+
         // the request context is updated
         $context = $this->getMock('Symfony\Component\Routing\RequestContext');
         $context->expects($this->once())->method('setParameter')->with('_locale', 'es');

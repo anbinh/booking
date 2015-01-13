@@ -19,25 +19,16 @@ class RedisStore implements StoreInterface {
 	protected $prefix;
 
 	/**
-	 * The Redis connection that should be used.
-	 *
-	 * @var string
-	 */
-	protected $connection;
-
-	/**
-	 * Create a new Redis store.
+	 * Create a new APC store.
 	 *
 	 * @param  \Illuminate\Redis\Database  $redis
-	 * @param  string  $prefix
-	 * @param  string  $connection
+	 * @param  string                     $prefix
 	 * @return void
 	 */
-	public function __construct(Redis $redis, $prefix = '', $connection = 'default')
+	public function __construct(Redis $redis, $prefix = '')
 	{
 		$this->redis = $redis;
 		$this->prefix = $prefix.':';
-		$this->connection = $connection;
 	}
 
 	/**
@@ -48,7 +39,7 @@ class RedisStore implements StoreInterface {
 	 */
 	public function get($key)
 	{
-		if ( ! is_null($value = $this->connection()->get($this->prefix.$key)))
+		if ( ! is_null($value = $this->redis->get($this->prefix.$key)))
 		{
 			return is_numeric($value) ? $value : unserialize($value);
 		}
@@ -66,9 +57,9 @@ class RedisStore implements StoreInterface {
 	{
 		$value = is_numeric($value) ? $value : serialize($value);
 
-		$this->connection()->set($this->prefix.$key, $value);
+		$this->redis->set($this->prefix.$key, $value);
 
-		$this->connection()->expire($this->prefix.$key, $minutes * 60);
+		$this->redis->expire($this->prefix.$key, $minutes * 60);
 	}
 
 	/**
@@ -80,7 +71,7 @@ class RedisStore implements StoreInterface {
 	 */
 	public function increment($key, $value = 1)
 	{
-		return $this->connection()->incrby($this->prefix.$key, $value);
+		return $this->redis->incrby($this->prefix.$key, $value);
 	}
 
 	/**
@@ -92,7 +83,7 @@ class RedisStore implements StoreInterface {
 	 */
 	public function decrement($key, $value = 1)
 	{
-		return $this->connection()->decrby($this->prefix.$key, $value);
+		return $this->redis->decrby($this->prefix.$key, $value);
 	}
 
 	/**
@@ -106,7 +97,7 @@ class RedisStore implements StoreInterface {
 	{
 		$value = is_numeric($value) ? $value : serialize($value);
 
-		$this->connection()->set($this->prefix.$key, $value);
+		$this->redis->set($this->prefix.$key, $value);
 	}
 
 	/**
@@ -117,7 +108,7 @@ class RedisStore implements StoreInterface {
 	 */
 	public function forget($key)
 	{
-		$this->connection()->del($this->prefix.$key);
+		$this->redis->del($this->prefix.$key);
 	}
 
 	/**
@@ -127,39 +118,18 @@ class RedisStore implements StoreInterface {
 	 */
 	public function flush()
 	{
-		$this->connection()->flushdb();
+		$this->redis->flushdb();
 	}
 
 	/**
 	 * Begin executing a new section operation.
 	 *
 	 * @param  string  $name
-	 * @return \Illuminate\Cache\RedisSection
+	 * @return \Illuminate\Cache\Section
 	 */
 	public function section($name)
 	{
 		return new RedisSection($this, $name);
-	}
-
-	/**
-	 * Get the Redis connection instance.
-	 *
-	 * @return \Predis\Connection\SingleConnectionInterface
-	 */
-	public function connection()
-	{
-		return $this->redis->connection($this->connection);
-	}
-
-	/**
-	 * Set the connection name to be used.
-	 *
-	 * @param  string  $connection
-	 * @return void
-	 */
-	public function setConnection($connection)
-	{
-		$this->connection = $connection;
 	}
 
 	/**

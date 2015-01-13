@@ -259,14 +259,4 @@ class PasswordBroker {
 		return $this->getRequest()->input('password_confirmation');
 	}
 
-	/**
-	 * Get the password reminder repository implementation.
-	 *
-	 * @return \Illuminate\Auth\Reminders\ReminderRepositoryInterface
-	 */
-	protected function getRepository()
-	{
-		return $this->reminders;
-	}
-
 }

@@ -1,13 +1,11 @@
 <?php namespace Illuminate\Cache;
 
-use Memcached;
-
 class MemcachedConnector {
 
 	/**
 	 * Create a new Memcached connection.
 	 *
-	 * @param array  $servers
+	 * @param  array  $servers
 	 * @return \Memcached
 	 */
 	public function connect(array $servers)
@@ -37,7 +35,7 @@ class MemcachedConnector {
 	 */
 	protected function getMemcached()
 	{
-		return new Memcached;
+		return new \Memcached;
 	}
 
 }

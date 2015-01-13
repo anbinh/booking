@@ -7,10 +7,9 @@
 	],
 	"require" : {
 		"laravel/framework" : "4.0.*",
-		"way/generators" : "*",
+		"way/generators" : "dev-master",
 		"intervention/image" : "dev-master",
-		"facebook/php-sdk" : "dev-master",
-		"hybridauth/hybridauth": "*"
+		"facebook/php-sdk" : "dev-master"
 	},
 	"autoload" : {
 		"classmap" : [

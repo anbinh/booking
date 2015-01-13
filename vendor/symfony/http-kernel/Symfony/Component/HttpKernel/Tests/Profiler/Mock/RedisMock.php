@@ -18,6 +18,7 @@ namespace Symfony\Component\HttpKernel\Tests\Profiler\Mock;
  */
 class RedisMock
 {
+
     private $connected;
     private $storage;
 
@@ -28,13 +29,13 @@ class RedisMock
     }
 
     /**
-     * Add a server to connection pool.
+     * Add a server to connection pool
      *
-     * @param string $host
-     * @param int    $port
-     * @param float  $timeout
+     * @param string  $host
+     * @param integer $port
+     * @param float   $timeout
      *
-     * @return bool
+     * @return boolean
      */
     public function connect($host, $port = 6379, $timeout = 0)
     {
@@ -50,10 +51,10 @@ class RedisMock
     /**
      * Set client option.
      *
-     * @param int $name
-     * @param int $value
+     * @param integer $name
+     * @param integer $value
      *
-     * @return bool
+     * @return boolean
      */
     public function setOption($name, $value)
     {
@@ -69,7 +70,7 @@ class RedisMock
      *
      * @param string $key
      *
-     * @return bool
+     * @return boolean
      */
     public function exists($key)
     {
@@ -83,11 +84,11 @@ class RedisMock
     /**
      * Store data at the server with expiration time.
      *
-     * @param string $key
-     * @param int    $ttl
-     * @param mixed  $value
+     * @param string  $key
+     * @param integer $ttl
+     * @param mixed   $value
      *
-     * @return bool
+     * @return boolean
      */
     public function setex($key, $ttl, $value)
     {
@@ -103,10 +104,10 @@ class RedisMock
     /**
      * Sets an expiration time on an item.
      *
-     * @param string $key
-     * @param int    $ttl
+     * @param string  $key
+     * @param integer $ttl
      *
-     * @return bool
+     * @return boolean
      */
     public function setTimeout($key, $ttl)
     {
@@ -126,7 +127,7 @@ class RedisMock
      *
      * @param string $key
      *
-     * @return bool
+     * @return boolean
      */
     public function get($key)
     {
@@ -138,12 +139,12 @@ class RedisMock
     }
 
     /**
-     * Append data to an existing item.
+     * Append data to an existing item
      *
      * @param string $key
      * @param string $value
      *
-     * @return int Size of the value after the append.
+     * @return integer Size of the value after the append.
      */
     public function append($key, $value)
     {
@@ -165,7 +166,7 @@ class RedisMock
      *
      * @param string|array $key
      *
-     * @return int
+     * @return integer
      */
     public function delete($key)
     {
@@ -197,7 +198,7 @@ class RedisMock
     /**
      * Flush all existing items from all databases at the server.
      *
-     * @return bool
+     * @return boolean
      */
     public function flushAll()
     {
@@ -211,9 +212,9 @@ class RedisMock
     }
 
     /**
-     * Close Redis server connection.
+     * Close Redis server connection
      *
-     * @return bool
+     * @return boolean
      */
     public function close()
     {

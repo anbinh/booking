@@ -17,6 +17,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EsiTest extends \PHPUnit_Framework_TestCase
 {
+    protected function setUp()
+    {
+        if (!class_exists('Symfony\Component\HttpFoundation\Request')) {
+            $this->markTestSkipped('The "HttpFoundation" component is not available');
+        }
+    }
+
     public function testHasSurrogateEsiCapability()
     {
         $esi = new Esi();
@@ -103,11 +110,6 @@ class EsiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo <?php echo $this->esi->handle($this, \'...\', \'alt\', true) ?>'."\n", $response->getContent());
         $this->assertEquals('ESI', $response->headers->get('x-body-eval'));
 
-        $response = new Response('foo <esi:comment text="some comment" /><esi:include src="foo\'" alt="bar\'" onerror="continue" />');
-        $esi->process($request, $response);
-
-        $this->assertEquals("foo <?php echo \$this->esi->handle(\$this, 'foo\\'', 'bar\\'', true) ?>"."\n", $response->getContent());
-
         $response = new Response('foo <esi:include src="..." />');
         $esi->process($request, $response);
 
@@ -131,7 +133,7 @@ class EsiTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      */
     public function testProcessWhenNoSrcInAnEsi()
     {
@@ -171,7 +173,7 @@ class EsiTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      */
     public function testHandleWhenResponseIsNot200()
     {

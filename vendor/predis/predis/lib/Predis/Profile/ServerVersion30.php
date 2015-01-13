@@ -251,11 +251,10 @@ class ServerVersion30 extends ServerProfile
             'pfcount'                   => 'Predis\Command\HyperLogLogCount',
             'pfmerge'                   => 'Predis\Command\HyperLogLogMerge',
 
-            /* remote server control commands */
-            'command'                   => 'Predis\Command\ServerCommand',
-
             /* ---------------- Redis 3.0 ---------------- */
 
+            /* remote server control commands */
+            'command'                   => 'Predis\Command\ServerCommand',
         );
     }
 }
