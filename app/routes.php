@@ -139,3 +139,5 @@ Route::group(array('before'=>'check-language'), function(){
 	Route::post('register', 'HomeController@postRegister');
 	
 	Route::post('restore', 'HomeController@postForgetpass');
+//-----------login---facebook --///
+	Route::get('login-facebook', 'HomeController@loginfacebook');

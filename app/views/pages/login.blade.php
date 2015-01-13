@@ -90,7 +90,7 @@
 				</div>
 				<div class="form-fields-wrapper">
 					
-					<a href="" class="no-decoration" data-event-name="facebook log in attempt" onclick="">
+					<a href="./login-facebook" class="no-decoration" data-event-name="facebook log in attempt" onclick="">
 						<div class="push-top center btn-default btn-facebook btn-face" id = "btn-facebook" >
 							<i class="fa fa-facebook-square"></i>
 							Log in with Facebook

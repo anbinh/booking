@@ -19,10 +19,8 @@
 				<ul class="nav navbar-nav navbar-right" style ="padding-top: 0px; padding-right: 20px;">
 				 	<li><a href={{URL::route('about-page')}}> About Us</a></li>
 				 	<li><a href={{URL::route('why-book-page')}}> Why book with us?</a></li>
-					<li><a href=@if(Auth::check()){{URL::to('logout')}}@else {{URL::to('login')}} @endif>@if(Auth::check()) Sign-out @else Sign-in @endif</a></li>
+					<li><a href=@if((Auth::check()) || (Session::get('facebook-login-session'))){{URL::to('logout')}}@else {{URL::to('login')}} @endif>@if((Auth::check()) || (Session::get('facebook-login-session'))) Sign-out @else Sign-in @endif</a></li>
 					
-					
-	               
 	                 <li><a href={{URL::route('FAQ-page')}}> FAQ</a></li>
 	                
 		            
