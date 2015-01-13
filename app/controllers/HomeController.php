@@ -396,8 +396,8 @@ class HomeController extends BaseController {
 	
 	public function loginfacebook()
 	{	
-		$app_id = '1568122293417956';
-		$app_secret = 'e5cf555ff6df8f9514ded64fb8ee4bec';
+		$app_id = '795327690540365';
+		$app_secret = '988eaa891818273370656bcbc0a5b134';
 		$redirect_url='http://localhost/Project2/booking/public/login-facebook';
 		
 		//3.Initialize application, create helper object and get fb sess
