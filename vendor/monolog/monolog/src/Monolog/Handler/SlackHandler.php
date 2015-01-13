@@ -12,6 +12,7 @@
 namespace Monolog\Handler;
 
 use Monolog\Logger;
+use Monolog\Formatter\LineFormatter;
 
 /**
  * Sends notifications through Slack API
@@ -40,20 +41,44 @@ class SlackHandler extends SocketHandler
     private $username;
 
     /**
+     * Emoji icon name
+     * @var string
+     */
+    private $iconEmoji;
+
+    /**
      * Whether the message should be added to Slack as attachment (plain text otherwise)
      * @var bool
      */
     private $useAttachment;
 
     /**
-     * @param string $token         Slack API token
-     * @param string $channel       Slack channel (encoded ID or name)
-     * @param string $username      Name of a bot
-     * @param bool   $useAttachment Whether the message should be added to Slack as attachment (plain text otherwise)
-     * @param int    $level         The minimum logging level at which this handler will be triggered
-     * @param bool   $bubble        Whether the messages that are handled can bubble up the stack or not
+     * Whether the the message that is added to Slack as attachment is in a short style (or not)
+     * @var bool
      */
-    public function __construct($token, $channel, $username = 'Monolog', $useAttachment = true, $level = Logger::CRITICAL, $bubble = true)
+    private $useShortAttachment;
+
+    /**
+     * Whether the attachment should include extra data (or not)
+     * @var bool
+     */
+    private $includeExtra;
+
+    /**
+     * @var LineFormatter
+     */
+    private $lineFormatter;
+
+    /**
+     * @param string      $token         Slack API token
+     * @param string      $channel       Slack channel (encoded ID or name)
+     * @param string      $username      Name of a bot
+     * @param bool        $useAttachment Whether the message should be added to Slack as attachment (plain text otherwise)
+     * @param string|null $iconEmoji     The emoji name to use (or null)
+     * @param int         $level         The minimum logging level at which this handler will be triggered
+     * @param bool        $bubble        Whether the messages that are handled can bubble up the stack or not
+     */
+    public function __construct($token, $channel, $username = 'Monolog', $useAttachment = true, $iconEmoji = null, $level = Logger::CRITICAL, $bubble = true, $useShortAttachment = false, $includeExtra = false)
     {
         if (!extension_loaded('openssl')) {
             throw new MissingExtensionException('The OpenSSL PHP extension is required to use the SlackHandler');
@@ -64,7 +89,13 @@ class SlackHandler extends SocketHandler
         $this->token = $token;
         $this->channel = $channel;
         $this->username = $username;
+        $this->iconEmoji = trim($iconEmoji, ':');
         $this->useAttachment = $useAttachment;
+        $this->useShortAttachment = $useShortAttachment;
+        $this->includeExtra = $includeExtra;
+        if ($this->includeExtra) {
+            $this->lineFormatter = new LineFormatter;
+        }
     }
 
     /**
@@ -97,28 +128,56 @@ class SlackHandler extends SocketHandler
         );
 
         if ($this->useAttachment) {
-            $dataArray['attachments'] = json_encode(
-                array(
-                    array(
-                        'fallback' => $record['message'],
-                        'color' => $this->getAttachmentColor($record['level']),
-                        'fields' => array(
-                            array(
-                                'title' => 'Message',
-                                'value' => $record['message'],
-                                'short' => false
-                            ),
-                            array(
-                                'title' => 'Level',
-                                'value' => $record['level_name'],
-                                'short' => true
-                            )
-                        )
-                    )
-                )
+            $attachment = array(
+                'fallback' => $record['message'],
+                'color' => $this->getAttachmentColor($record['level'])
             );
+
+            if ($this->useShortAttachment) {
+                $attachment['fields'] = array(
+                    array(
+                        'title' => $record['level_name'],
+                        'value' => $record['message'],
+                        'short' => false
+                    )
+                );
+            } else {
+                $attachment['fields'] = array(
+                    array(
+                        'title' => 'Message',
+                        'value' => $record['message'],
+                        'short' => false
+                    ),
+                    array(
+                        'title' => 'Level',
+                        'value' => $record['level_name'],
+                        'short' => true
+                    )
+                );
+            }
+
+            if ($this->includeExtra) {
+                $extra = '';
+                foreach ($record['extra'] as $var => $val) {
+                    $extra .= $var.': '.$this->lineFormatter->stringify($val)." | ";
+                }
+
+                $extra = rtrim($extra, " |");
+
+                $attachment['fields'][] = array(
+                    'title' => "Extra",
+                    'value' => $extra,
+                    'short' => false
+                );
+            }
+
+            $dataArray['attachments'] = json_encode(array($attachment));
         } else {
             $dataArray['text'] = $record['message'];
+        }
+
+        if ($this->iconEmoji) {
+            $dataArray['icon_emoji'] = ":{$this->iconEmoji}:";
         }
 
         return http_build_query($dataArray);
@@ -146,7 +205,7 @@ class SlackHandler extends SocketHandler
      *
      * @param array $record
      */
-    public function write(array $record)
+    protected function write(array $record)
     {
         parent::write($record);
         $this->closeSocket();
@@ -156,7 +215,7 @@ class SlackHandler extends SocketHandler
      * Returned a Slack message attachment color associated with
      * provided level.
      *
-     * @param  int     $level
+     * @param  int    $level
      * @return string
      */
     protected function getAttachmentColor($level)

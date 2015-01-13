@@ -14,7 +14,7 @@ namespace Symfony\Component\HttpFoundation\Tests;
 use Symfony\Component\HttpFoundation\Cookie;
 
 /**
- * CookieTest
+ * CookieTest.
  *
  * @author John Kary <john@johnkary.net>
  * @author Hugo Hamon <hugo.hamon@sensio.com>
@@ -38,7 +38,7 @@ class CookieTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidNames
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      * @covers Symfony\Component\HttpFoundation\Cookie::__construct
      */
     public function testInstantiationThrowsExceptionIfCookieNameContainsInvalidCharacters($name)
@@ -47,11 +47,11 @@ class CookieTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testInvalidExpiration()
     {
-        $cookie = new Cookie('MyCookie', 'foo','bar');
+        $cookie = new Cookie('MyCookie', 'foo', 'bar');
     }
 
     /**

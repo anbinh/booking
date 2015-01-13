@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Whoops' => array($vendorDir . '/filp/whoops/src'),
-    'Way\\Tests' => array($vendorDir . '/way/laravel-test-helpers/src'),
     'Way\\Generators' => array($vendorDir . '/way/generators/src'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Symfony\\Component\\Routing\\' => array($vendorDir . '/symfony/routing'),
@@ -25,12 +24,10 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Predis' => array($vendorDir . '/predis/predis/lib'),
     'Patchwork' => array($vendorDir . '/patchwork/utf8/class'),
-    'PHPParser' => array($vendorDir . '/nikic/php-parser/lib'),
     'Normalizer' => array($vendorDir . '/patchwork/utf8/class'),
-    'Mustache' => array($vendorDir . '/mustache/mustache/src'),
-    'Monolog' => array($vendorDir . '/monolog/monolog/src'),
-    'Intervention\\Image' => array($vendorDir . '/intervention/image/src'),
+    'Jeremeamia\\SuperClosure' => array($vendorDir . '/jeremeamia/SuperClosure/src'),
     'Illuminate' => array($vendorDir . '/laravel/framework/src'),
+    'Hybrid' => array($vendorDir . '/hybridauth/hybridauth/hybridauth'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
@@ -39,5 +36,5 @@ return array(
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
     'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib'),
     'ClassPreloader' => array($vendorDir . '/classpreloader/classpreloader/src'),
-    'Carbon' => array($vendorDir . '/nesbot/carbon'),
+    'Carbon' => array($vendorDir . '/nesbot/carbon/src'),
 );
