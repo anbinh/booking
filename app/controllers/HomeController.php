@@ -398,7 +398,7 @@ class HomeController extends BaseController {
 	{	
 		$app_id = '795327690540365';
 		$app_secret = '988eaa891818273370656bcbc0a5b134';
-		$redirect_url='http://localhost/Project2/booking/public/login-facebook';
+		$redirect_url=$_SERVER['HTTP_HOST'].'/login-facebook';
 		
 		//3.Initialize application, create helper object and get fb sess
 		FacebookSession::setDefaultApplication($app_id,$app_secret);
