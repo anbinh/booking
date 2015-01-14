@@ -1,13 +1,32 @@
 <?php namespace Illuminate\Support;
 
+use Patchwork\Utf8;
+use Illuminate\Support\Traits\MacroableTrait;
+
 class Str {
 
+	use MacroableTrait;
+
 	/**
-	 * The registered string macros.
+	 * The cache of snake-cased words.
 	 *
 	 * @var array
 	 */
-	protected static $macros = array();
+	protected static $snakeCache = [];
+
+	/**
+	 * The cache of camel-cased words.
+	 *
+	 * @var array
+	 */
+	protected static $camelCache = [];
+
+	/**
+	 * The cache of studly-cased words.
+	 *
+	 * @var array
+	 */
+	protected static $studlyCache = [];
 
 	/**
 	 * Transliterate a UTF-8 value to ASCII.
@@ -17,7 +36,7 @@ class Str {
 	 */
 	public static function ascii($value)
 	{
-		return \Patchwork\Utf8::toAscii($value);
+		return Utf8::toAscii($value);
 	}
 
 	/**
@@ -28,38 +47,43 @@ class Str {
 	 */
 	public static function camel($value)
 	{
-		return lcfirst(static::studly($value));
+		if (isset(static::$camelCache[$value]))
+		{
+			return static::$camelCache[$value];
+		}
+
+		return static::$camelCache[$value] = lcfirst(static::studly($value));
 	}
 
 	/**
-	 * Determine if a given string contains a given sub-string.
+	 * Determine if a given string contains a given substring.
 	 *
-	 * @param  string        $haystack
-	 * @param  string|array  $needle
+	 * @param  string  $haystack
+	 * @param  string|array  $needles
 	 * @return bool
 	 */
-	public static function contains($haystack, $needle)
+	public static function contains($haystack, $needles)
 	{
-		foreach ((array) $needle as $n)
+		foreach ((array) $needles as $needle)
 		{
-			if (strpos($haystack, $n) !== false) return true;
+			if ($needle != '' && strpos($haystack, $needle) !== false) return true;
 		}
 
 		return false;
 	}
 
 	/**
-	 * Determine if a given string ends with a given needle.
+	 * Determine if a given string ends with a given substring.
 	 *
-	 * @param string $haystack
-	 * @param string|array $needles
+	 * @param  string  $haystack
+	 * @param  string|array  $needles
 	 * @return bool
 	 */
 	public static function endsWith($haystack, $needles)
 	{
 		foreach ((array) $needles as $needle)
 		{
-			if ($needle == substr($haystack, strlen($haystack) - strlen($needle))) return true;
+			if ((string) $needle === substr($haystack, -strlen($needle))) return true;
 		}
 
 		return false;
@@ -74,7 +98,9 @@ class Str {
 	 */
 	public static function finish($value, $cap)
 	{
-		return rtrim($value, $cap).$cap;
+		$quoted = preg_quote($cap, '/');
+
+		return preg_replace('/(?:'.$quoted.')+$/', '', $value).$cap;
 	}
 
 	/**
@@ -93,14 +119,7 @@ class Str {
 		// Asterisks are translated into zero-or-more regular expression wildcards
 		// to make it convenient to check if the strings starts with the given
 		// pattern such as "library/*", making any string check convenient.
-		if ($pattern !== '/')
-		{
-			$pattern = str_replace('\*', '.*', $pattern).'\z';
-		}
-		else
-		{
-			$pattern = '/$';
-		}
+		$pattern = str_replace('\*', '.*', $pattern).'\z';
 
 		return (bool) preg_match('#^'.$pattern.'#', $value);
 	}
@@ -128,7 +147,7 @@ class Str {
 	{
 		if (mb_strlen($value) <= $limit) return $value;
 
-		return mb_substr($value, 0, $limit, 'UTF-8').$end;
+		return rtrim(mb_substr($value, 0, $limit, 'UTF-8')).$end;
 	}
 
 	/**
@@ -154,9 +173,7 @@ class Str {
 	{
 		preg_match('/^\s*+(?:\S++\s*+){1,'.$words.'}/u', $value, $matches);
 
-		if ( ! isset($matches[0])) return $value;
-
-		if (strlen($value) == strlen($matches[0])) return $value;
+		if ( ! isset($matches[0]) || strlen($value) === strlen($matches[0])) return $value;
 
 		return rtrim($matches[0]).$end;
 	}
@@ -177,7 +194,7 @@ class Str {
 	 * Get the plural form of an English word.
 	 *
 	 * @param  string  $value
-	 * @param  int  $count
+	 * @param  int     $count
 	 * @return string
 	 */
 	public static function plural($value, $count = 2)
@@ -188,8 +205,10 @@ class Str {
 	/**
 	 * Generate a more truly "random" alpha-numeric string.
 	 *
-	 * @param  int     $length
+	 * @param  int  $length
 	 * @return string
+	 *
+	 * @throws \RuntimeException
 	 */
 	public static function random($length = 16)
 	{
@@ -213,14 +232,14 @@ class Str {
 	 *
 	 * Should not be considered sufficient for cryptography, etc.
 	 *
-	 * @param  int     $length
+	 * @param  int  $length
 	 * @return string
 	 */
 	public static function quickRandom($length = 16)
 	{
 		$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-		return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+		return substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
 	}
 
 	/**
@@ -232,6 +251,17 @@ class Str {
 	public static function upper($value)
 	{
 		return mb_strtoupper($value);
+	}
+
+	/**
+	 * Convert the given string to title case.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	public static function title($value)
+	{
+		return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
 	}
 
 	/**
@@ -256,13 +286,13 @@ class Str {
 	{
 		$title = static::ascii($title);
 
-		// Remove all characters that are not the separator, letters, numbers, or whitespace.
-		$title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', mb_strtolower($title));
-
-		// Convert all dashes/undescores into separator
+		// Convert all dashes/underscores into separator
 		$flip = $separator == '-' ? '_' : '-';
 
 		$title = preg_replace('!['.preg_quote($flip).']+!u', $separator, $title);
+
+		// Remove all characters that are not the separator, letters, numbers, or whitespace.
+		$title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', mb_strtolower($title));
 
 		// Replace all separator characters and whitespace by a single separator
 		$title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title);
@@ -279,13 +309,23 @@ class Str {
 	 */
 	public static function snake($value, $delimiter = '_')
 	{
-		$replace = '$1'.$delimiter.'$2';
+		if (isset(static::$snakeCache[$value.$delimiter]))
+		{
+			return static::$snakeCache[$value.$delimiter];
+		}
 
-		return ctype_lower($value) ? $value : strtolower(preg_replace('/(.)([A-Z])/', $replace, $value));
+		if ( ! ctype_lower($value))
+		{
+			$replace = '$1'.$delimiter.'$2';
+
+			$value = strtolower(preg_replace('/(.)([A-Z])/', $replace, $value));
+		}
+
+		return static::$snakeCache[$value.$delimiter] = $value;
 	}
 
 	/**
-	 * Determine if a string starts with a given needle.
+	 * Determine if a given string starts with a given substring.
 	 *
 	 * @param  string  $haystack
 	 * @param  string|array  $needles
@@ -295,7 +335,7 @@ class Str {
 	{
 		foreach ((array) $needles as $needle)
 		{
-			if (strpos($haystack, $needle) === 0) return true;
+			if ($needle != '' && strpos($haystack, $needle) === 0) return true;
 		}
 
 		return false;
@@ -309,38 +349,14 @@ class Str {
 	 */
 	public static function studly($value)
 	{
-		$value = ucwords(str_replace(array('-', '_'), ' ', $value));
-
-		return str_replace(' ', '', $value);
-	}
-
-	/**
-	 * Register a custom string macro.
-	 *
-	 * @param  string    $name
-	 * @param  callable  $macro
-	 * @return void
-	 */
-	public static function macro($name, $macro)
-	{
-		static::$macros[$name] = $macro;
-	}
-
-	/**
-	 * Dynamically handle calls to the string class.
-	 *
-	 * @param  string  $method
-	 * @param  array   $parameters
-	 * @return mixed
-	 */
-	public static function __callStatic($method, $parameters)
-	{
-		if (isset(static::$macros[$method]))
+		if (isset(static::$studlyCache[$value]))
 		{
-			return call_user_func_array(static::$macros[$method], $parameters);
+			return static::$studlyCache[$value];
 		}
 
-		throw new \BadMethodCallException("Method {$method} does not exist.");
+		$value = ucwords(str_replace(array('-', '_'), ' ', $value));
+
+		return static::$studlyCache[$value] = str_replace(' ', '', $value);
 	}
 
 }

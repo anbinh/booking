@@ -90,13 +90,27 @@
 				</div>
 				<div class="form-fields-wrapper">
 					
-					<a href="./login-facebook" class="no-decoration" data-event-name="facebook log in attempt" onclick="">
+					<a href="./fbauth" class="no-decoration" data-event-name="facebook log in attempt" onclick="">
 						<div class="push-top center btn-default btn-facebook btn-face" id = "btn-facebook" >
 							<i class="fa fa-facebook-square"></i>
 							Log in with Facebook
 						</div>
 					</a>
+					<a href="./twitterAuth" class="no-decoration" data-event-name="facebook log in attempt" onclick="">
+						<div class="push-top center btn-default btn-facebook btn-face" id = "btn-facebook" >
+							<i class="fa fa-facebook-square"></i>
+							Log in with Twitter
+						</div>
+					</a>
+					<a href="./gauth" class="no-decoration" data-event-name="facebook log in attempt" onclick="">
+						<div class="push-top center btn-default btn-facebook btn-face" id = "btn-facebook" >
+							<i class="fa fa-facebook-square"></i>
+							Log in with Google
+						</div>
+					</a>
 				</div>
+				
+				
 			</div>
 		</form>
 	</div>

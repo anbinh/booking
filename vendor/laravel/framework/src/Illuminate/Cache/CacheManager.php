@@ -1,5 +1,6 @@
 <?php namespace Illuminate\Cache;
 
+use Closure;
 use Illuminate\Support\Manager;
 
 class CacheManager extends Manager {
@@ -51,6 +52,16 @@ class CacheManager extends Manager {
 	}
 
 	/**
+	 * Create an instance of the Null cache driver.
+	 *
+	 * @return \Illuminate\Cache\NullStore
+	 */
+	protected function createNullDriver()
+	{
+		return $this->repository(new NullStore);
+	}
+
+	/**
 	 * Create an instance of the WinCache cache driver.
 	 *
 	 * @return \Illuminate\Cache\WinCacheStore
@@ -58,6 +69,16 @@ class CacheManager extends Manager {
 	protected function createWincacheDriver()
 	{
 		return $this->repository(new WinCacheStore($this->getPrefix()));
+	}
+
+	/**
+	 * Create an instance of the XCache cache driver.
+	 *
+	 * @return \Illuminate\Cache\WinCacheStore
+	 */
+	protected function createXcacheDriver()
+	{
+		return $this->repository(new XCacheStore($this->getPrefix()));
 	}
 
 	/**
@@ -116,6 +137,17 @@ class CacheManager extends Manager {
 	}
 
 	/**
+	 * Set the cache "prefix" value.
+	 *
+	 * @param  string  $name
+	 * @return void
+	 */
+	public function setPrefix($name)
+	{
+		$this->app['config']['cache.prefix'] = $name;
+	}
+
+	/**
 	 * Create a new cache repository with the given implementation.
 	 *
 	 * @param  \Illuminate\Cache\StoreInterface  $store
@@ -131,9 +163,20 @@ class CacheManager extends Manager {
 	 *
 	 * @return string
 	 */
-	protected function getDefaultDriver()
+	public function getDefaultDriver()
 	{
 		return $this->app['config']['cache.driver'];
+	}
+
+	/**
+	 * Set the default cache driver name.
+	 *
+	 * @param  string  $name
+	 * @return void
+	 */
+	public function setDefaultDriver($name)
+	{
+		$this->app['config']['cache.driver'] = $name;
 	}
 
 }

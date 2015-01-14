@@ -140,4 +140,6 @@ Route::group(array('before'=>'check-language'), function(){
 	
 	Route::post('restore', 'HomeController@postForgetpass');
 //-----------login---facebook --///
-	Route::get('login-facebook', 'HomeController@loginfacebook');
+	Route::get('fbauth/{auth?}',array('as' => 'facebookAuth','uses'=>'AuthController@getFacebookLogin'));
+	Route::get('twitterAuth/{auth?}',array('as' => 'twitterAuth','uses'=>'AuthController@getTwitterLogin'));
+	Route::get('gauth/{auth?}',array('as' => 'googleAuth','uses'=>'AuthController@getGoogleLogin'));

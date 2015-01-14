@@ -1,34 +1,4 @@
 <?php
-/* INCLUSION OF LIBRARY FILEs*/
-	require_once( 'lib/Facebook/FacebookSession.php');
-	require_once( 'lib/Facebook/FacebookRequest.php' );
-	require_once( 'lib/Facebook/FacebookResponse.php' );
-	require_once( 'lib/Facebook/FacebookSDKException.php' );
-	require_once( 'lib/Facebook/FacebookRequestException.php' );
-	require_once( 'lib/Facebook/FacebookRedirectLoginHelper.php');
-	require_once( 'lib/Facebook/FacebookAuthorizationException.php' );
-	require_once( 'lib/Facebook/GraphObject.php' );
-	require_once( 'lib/Facebook/GraphUser.php' );
-	require_once( 'lib/Facebook/GraphSessionInfo.php' );
-	require_once( 'lib/Facebook/Entities/AccessToken.php');
-	require_once( 'lib/Facebook/HttpClients/FacebookCurl.php' );
-	require_once( 'lib/Facebook/HttpClients/FacebookHttpable.php');
-	require_once( 'lib/Facebook/HttpClients/FacebookCurlHttpClient.php');
-/* USE NAMESPACES */
-	
-	use Facebook\FacebookSession;
-	use Facebook\FacebookRedirectLoginHelper;
-	use Facebook\FacebookRequest;
-	use Facebook\FacebookResponse;
-	use Facebook\FacebookSDKException;
-	use Facebook\FacebookRequestException;
-	use Facebook\FacebookAuthorizationException;
-	use Facebook\GraphObject;
-	use Facebook\GraphUser;
-	use Facebook\GraphSessionInfo;
-	use Facebook\FacebookHttpable;
-	use Facebook\FacebookCurlHttpClient;
-	use Facebook\FacebookCurl;
 
 
 
@@ -307,6 +277,12 @@ class HomeController extends BaseController {
 	{
 		Auth::logout();
 		Session::put('facebook-login-session', false);
+		$fauth = new Hybrid_Auth(app_path().'/config/fb_auth.php');
+		$fauth->logoutAllProviders();
+		$fauth = new Hybrid_Auth(app_path().'/config/google_auth.php');
+		$fauth->logoutAllProviders();
+		$fauth = new Hybrid_Auth(app_path().'/config/twitterAuth.php');
+		$fauth->logoutAllProviders();
 		return Redirect::route('login-page');
 	}
 
@@ -396,91 +372,7 @@ class HomeController extends BaseController {
 	
 	public function loginfacebook()
 	{	
-		$app_id = '1568122293417956';
-		$app_secret = 'e5cf555ff6df8f9514ded64fb8ee4bec';
-		$redirect_url='http://localhost/Project2/booking/public/login-facebook';
 		
-		//3.Initialize application, create helper object and get fb sess
-		FacebookSession::setDefaultApplication($app_id,$app_secret);
-		$helper = new FacebookRedirectLoginHelper($redirect_url);
-		$sess = $helper->getSessionFromRedirect();
-		//4. if fb sess exists echo name
-		if(isset($sess)){
-			//create request object,execute and capture response
-			$request = new FacebookRequest($sess, 'GET', '/me');
-			// from response get graph object
-			$response = $request->execute();
-			$graph = $response->getGraphObject(GraphUser::className());
-			// use graph object methods to get user details
-			$ID= $graph->getId();//facebook ID
-			$email= $graph->getEmail();
-			$username = $graph->getName();
-			Session::put('facebook-login-session', true);
-			$v = Validator::make(
-				array('uid' => $ID),
-				array('uid' => 'required|unique:users')
-			);
-			
-			if($v->passes()) {
-				
-				$user = new User();
-				$user->username = $username;
-				$user->email = $email;
-				$user->uid = $ID;
-				$user->save();
-				
-				
-			}
-			return Redirect::route('landing-page');
-		}else{
-			return Redirect::to($helper->getLoginUrl());
-			//return Redirect::route('login-page');
-		//else echo login
-		//echo $helper->getLoginUrl(); die;
-		//echo '<a href='.$helper->getLoginUrl().'>Login with facebook</a>';
-		}
-		/*$app_id = '1568122293417956';
-		$app_secret = 'e5cf555ff6df8f9514ded64fb8ee4bec';
-		$redirect_url='http://localhost/Project2/booking/public/login-facebook';//fix later
-
-		FacebookSession::setDefaultApplication($app_id,$app_secret);
-		$helper = new FacebookRedirectLoginHelper($redirect_url);
-		$sess = $helper->getSessionFromRedirect();
-		//4. if fb sess exists echo name
-		if(isset($sess)) {
-			//create request object,execute and capture response
-			$request = new FacebookRequest($sess, 'GET', '/me');
-			// from response get graph object
-			$response = $request->execute();
-			$graph = $response->getGraphObject(GraphUser::className());
-			// use graph object methods to get user details
-			$ID= $graph->getId();//facebook ID
-			$email= $graph->getEmail();
-			$username = $graph->getName();
-			
-			
-			$v = Validator::make(
-				array('uid' => $ID),
-				array('uid' => 'required|unique:users')
-			);
-			
-			
-			if($v->passes()) {
-				$user = new User();
-				$user->username = $username;
-				$user->email = $email;
-				$user->uid = $ID;
-				$user->save();
-				return Redirect::route('landing-page');
-			} else {
-				//echo "exist";
-			}
-		} else {
-			return Redirect::route('login-page');
-		}
-
-			
-		Session::put('facebook-login-session', true);*/
 		
 		
 	

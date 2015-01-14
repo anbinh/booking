@@ -5,11 +5,11 @@
 		"framework",
 		"laravel"
 	],
+	"license" : "MIT",
+	"type" : "project",
 	"require" : {
-		"laravel/framework" : "4.0.*",
-		"way/generators" : "dev-master",
-		"intervention/image" : "dev-master",
-		"facebook/php-sdk" : "dev-master"
+		"laravel/framework" : "4.2.*",
+		"hybridauth/hybridauth" : "dev-master"
 	},
 	"autoload" : {
 		"classmap" : [
@@ -23,17 +23,16 @@
 	},
 	"scripts" : {
 		"post-install-cmd" : [
+			"php artisan clear-compiled",
 			"php artisan optimize"
 		],
-		"pre-update-cmd" : [
-			"php artisan clear-compiled"
-		],
 		"post-update-cmd" : [
+			"php artisan clear-compiled",
 			"php artisan optimize"
 		]
 	},
 	"config" : {
 		"preferred-install" : "dist"
 	},
-	"minimum-stability" : "dev"
+	"minimum-stability" : "stable"
 }

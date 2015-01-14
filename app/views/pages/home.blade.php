@@ -15,7 +15,7 @@
 							</h1>
 						</div>
 						
-						<div class="mainPitch"> 
+						<div class="mainPitch display-first"> 
 							<div  class="row">
 								<h3 style="font-size:20px">FIND SAFE, RELIABLE HELP IN YOUR NEIGHBORHOOD.</h3> 
 							</div>
