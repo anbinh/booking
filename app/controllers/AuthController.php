@@ -2,11 +2,6 @@
 
 class AuthController extends Controller {
 
-	/**
-	 * Setup the layout used by the controller.
-	 *
-	 * @return void
-	 */
 	protected function getFacebookLogin($auth = NULL)
 	{
 		if ($auth == "auth") {
@@ -64,7 +59,6 @@ class AuthController extends Controller {
 		$name = $profile->displayName;
 		$email = $profile->email;
 		$uid = $profile->identifier;
-		//return var_dump($profile);
 	
 		Session::put('facebook-login-session', true);
 		$v = Validator::make(
