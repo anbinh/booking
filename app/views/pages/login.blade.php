@@ -504,10 +504,10 @@
   margin: 0 auto;
   /*padding: 50px 30px;*/
   text-align: center;
-  background-color: #F0F2F5;
+  background-color: #FFF;
   -webkit-box-shadow: inset 0 0 20px 20px #F5F7FA;
   -moz-box-shadow: inset 0 0 20px 20px #F5F7FA;
-  box-shadow: inset 0 0 20px 20px #F5F7FA;
+  box-shadow: inset 0 0 20px 20px #FFF;
 }
 .pen-container:before,
 .pen-container:after {
