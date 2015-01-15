@@ -267,12 +267,12 @@
 		</div>
 	</section> 
 	</main>
-	<script src="{{ asset('home_page/js/include-landing.js?113') }}"></script>
+	<script src="{{ asset('home_page/js/include-landing.js?13') }}"></script>
 	<script src="{{ asset('home_page/js/jquery.min.js') }}"></script>
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 	<script src="{{ asset('home_page/js/imagesloaded.js') }}"></script>
 	<script src="{{ asset('home_page/js/skrollr.js') }}"></script>
 	<script src="{{ asset('home_page/js/_main.js') }}"></script>
-	<link rel="stylesheet" href="{{ asset('home_page/css/include-landing.css?12') }}">
+	<link rel="stylesheet" href="{{ asset('home_page/css/include-landing.css') }}">
 
 @stop
