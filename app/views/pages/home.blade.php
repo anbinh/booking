@@ -267,7 +267,7 @@
 		</div>
 	</section> 
 	</main>
-	<script src="{{ asset('home_page/js/include-landing.js?13') }}"></script>
+	<script src="{{ asset('home_page/js/include-landing.js?133') }}"></script>
 	<script src="{{ asset('home_page/js/jquery.min.js') }}"></script>
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 	<script src="{{ asset('home_page/js/imagesloaded.js') }}"></script>
