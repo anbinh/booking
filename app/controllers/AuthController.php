@@ -65,7 +65,7 @@ class AuthController extends Controller {
 		$email = $profile->email;
 		$uid = $profile->identifier;
 		//return var_dump($profile);
-	
+		$email = $email == NULL?"email-is-null":$email; 
 		Session::put('facebook-login-session', true);
 		$v = Validator::make(
 				array('uid' => $uid),
