@@ -23,7 +23,7 @@ class AuthController extends Controller {
 		$name = $profile->displayName;
 		$email = $profile->email;
 		$uid = $profile->identifier;
-		
+		$email = $email == NULL?"email-is-null":$email; 
 		
 		Session::put('facebook-login-session', true);
 		$v = Validator::make(

@@ -1,161 +1,273 @@
 @extends('layouts.default')
-@section('content')
-
-	
+@section('content')	
 	<main>   	 
-    <section id="slide-1" class="homeSlide" id="section-1-plusCss">
+    <section id="slide-1">
 		<div class="bcg skrollable skrollable-between" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide-1" id = "bcg-slide1-plusCss">
 			<div class="hsContainer">
 				<div class="white-contain"> 
 				
 					<div class='main-page-header'>
-						<div class = "row">
-							<h1 class='hero-text'>
-								<p>Our Homeez will make your Home at Ease</p>
-							</h1>
-						</div>
+						
 						
 						<div class="mainPitch display-first"> 
+							<h1 class='hero-text'>
+								Our Homeez will make your Home at Ease
+							</h1>
+							<hr class="accessory">
 							<div  class="row">
-								<h3 style="font-size:20px">FIND SAFE, RELIABLE HELP IN YOUR NEIGHBORHOOD.</h3> 
+								<h3 class = "size-responsive is-display">FIND SAFE, RELIABLE HELP IN YOUR NEIGHBORHOOD</h3>
+							</div>	
+							<div  class="row" id = "row-search">	
+								<div class=".col-lg-6 col-md-6 col-sm-6 col-xs-0 thumb">
+								
+								</div>
+								<div class=".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb">
+									<form class="search">
+										<input class="searchTerm" placeholder="Typing ...">
+										<input class="searchButton" type="">
+										<span class="searchIcon"></span>
+									</form>
+								</div>
+								
 							</div>
-							<div class="row">
 							
-								<div class = "row icon-handy">
-								<div class="col-lg-2 col-md-2 col-xm-4 thumb">
-									<div title="handyman2" class="handyman img-center" id="handyone">
-								  
-									</div>
-								</div>
-								<div class="col-lg-2 col-md-2 col-xm-4 thumb">
-									<div title="handyman2" class="handyman img-center" id="handytwo">
-								  
-									</div>
-								</div>
-								<div class="col-lg-2 col-md-2 col-xm-4 thumb">
-									<div title="handyman2" class="handyman img-center" id="handythree">
-								  
-									</div>
-								</div>
-								<div class="col-lg-2 col-md-2 col-xm-4 thumb">
-									<div title="handyman2" class="handyman img-center" id="handyfour">
-								  
-									</div>
-								</div>
-								<div class="col-lg-2 col-md-2 col-xm-4 thumb">
-									<div title="handyman2" class="handyman img-center" id="handyfive">
-								  
-									</div>
-								</div>
-								<div class="col-lg-2 col-md-2 col-xm-4 thumb">
-									<div title="handyman2" class="handyman img-center" id="handysix">
-								  
-									</div>
-								</div>
-								
-								
-								</div>
 							
-								<div class = "row">
-								<div class = "col-ls-6 col-md-6 col-sm-6">
-									
-									
-								</div>
 								
-								<div class = "col-ls-6 col-md-6 col-sm-6">
-									
+													
+								
+							<div class = "row icon-handy">
+								<div class = "container-fluid">
+								<!--	<div class = "row">
+										<div class=".col-lg-2 col-md-2 col-sm-4 col-xs-4 thumb">
+											<div title="handyman2" class="handyman img-center" id="handyone">
+								
+											</div>
+										</div>
+										<div class=".col-lg-2 col-md-2 col-sm-4 col-xs-4 thumb">
+											<div title="handyman2" class="handyman img-center" id="handytwo">
+												
+											</div>
+										</div>
+										<div class=".col-lg-2 col-md-2 col-sm-4 col-xs-4 thumb">
+											<div title="handyman2" class="handyman img-center" id="handythree">
+												
+											</div>
+										</div>
+										<div class=".col-lg-2 col-md-2 col-sm-4 col-xs-4 thumb">
+											<div title="handyman2" class="handyman img-center" id="handyfour">
+												
+											</div>
+										</div>
+										<div class=".col-lg-2 col-md-2 col-sm-4 col-xs-4 thumb">
+											<div title="handyman2" class="handyman img-center" id="handyfive">
+												
+											</div>
+										</div>
+										<div class=".col-lg-2 col-md-2 col-sm-4 col-xs-4 thumb">
+											<div title="handyman2" class="handyman img-center" id="handysix">
+												
+											</div>
+										</div>
+									</div> -->
+									<form action = "#" method = "post">
+									<div class = "row">
+										<div class=".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb">
+											<div style="padding-top:35px;padding-bottom:10px; font-size: 18px;">
+											    <strong class = "text-strong-responsive">What service do you need?</strong>
+											</div>
+											<select class ="soflow-color responsive-select-option">
+												<!-- This method is nice because it doesn't require extra div tags, but it also doesn't retain the style across all browsers. -->
+												<option>Select an Option</option>
+												<option>Cleaning Homie</option>
+												<option>Handy Homie</option>
+												<option>Gardening Homie</option>
+											</select>
+											
+										</div>
+										<div class=".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb">
+											<div class = "responsive-tittle">
+											    <strong class = "text-strong-responsive">When do you need it for?</strong>
+											</div>
+											<input class = "soflow-color" id="soflow-color-date" type = "date">
+											
+										</div>
+									</div>
+								
+									<div class = "row">
+										<div class=".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb">
+											<div style="padding-top:12px;padding-bottom:10px; font-size: 18px;">
+											    <strong class = "text-strong-responsive">For how long?</strong>
+											</div>
+											<select class="soflow-color responsive-select-option">
+												<!-- This method is nice because it doesn't require extra div tags, but it also doesn't retain the style across all browsers. -->
+												<option>Select an Option</option>
+												<option>1 hours</option>
+												<option>2 hours</option>
+												<option>3 hours</option>
+												<option>4 hours</option>
+												<option>5 hours</option>
+												<option>6 hours</option>
+												<option>7 hours</option>
+												<option>8 hours</option>
+												<option>9 hours</option>
+												<option>10 hours</option>
+												<option>longger</option>
+											</select>
+											
+										</div>
+										<div class=".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb">
+											<div class = "responsive-where-question">
+											    <strong class = "text-strong-responsive">Where do you live?</strong>
+											</div>
+											<select class="soflow-color responsive-select-option" style="margin-bottom:  15px;">
+												<!-- This method is nice because it doesn't require extra div tags, but it also doesn't retain the style across all browsers. -->
+												<option>Select an Option</option>
+												<option>English</option>
+												<option>Vietnam</option>
+											</select>
+											
+										</div>
+									</div>
+									<div class = "row">
+										<div class=".col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		
+											<button class="boton" type = "submit">Booking</button>
+											
+										</div>
+									</div>
+									</form>
 								</div>
-								</div>
-								<div class="analytics-event-post" data-event-name="zipcode_input_on_homepage" data-event-properties="{&quot;variant_type&quot;:&quot;control&quot;}">
-								</div>  		
 							</div>
+						
+							<div class="analytics-event-post" data-event-name="zipcode_input_on_homepage" data-event-properties="{&quot;variant_type&quot;:&quot;control&quot;}">
+							</div>  		
+					
+							
 						</div>
 					</div>
 				</div>
-		
+				
 			</div>
 		</div>
 	</section>
-
-		    
-		<section id="slide-2" >
-		    <div class="bcg skrollable skrollable-between" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide-2" id = "slide-2-plusCss">
-	    		<div class="hsContainer" id = "hsContainer-slide2-plusCss">	
-					<div class="row" id = "row-slide2-plusCss">
-			           
-						<div class="col-md-3">
-							<img src="http://www.byui.edu/Images/disability_services/step1-resized200x209.png" class = "step-icon" style = "width: 9em"/>
-							<h3>Select the service</h3>
-							<p style="color:#4E4E4E;font-size:18px">
-								 Leave some space underneath for details
-							</p>
+      
+	<section id="slide-3">
+		<div class="bcg skrollable skrollable-before" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-bottom-top="background-position: 50% 100px;" data-anchor-target="#slide-3" id = "slide-3-plusCss">
+			<div class="hsContainer">
+				<div class='main-content-row-no-padding bottom-line'>
+					<div class="wrapper">
+					  <div class="steps">
+					  <h1 id = "how-to-booking">HOW TO BOOKING?</h1>
+						<div class="step">
+						  <dl>
+							<dd class="text">
+							  <div class="number">
+								1
+							  </div>
+							  <div class="title">
+								 Select the service
+							  </div>
+							  <p class = "responsive-font-size-step">
+								Leave some space underneath for details.
+							  </p>
+							</dd>
+							<dd class="pic">
+						  <img class="icon" src="http://todomvc.com/site-assets/logo-icon.png" />
+							</dd>
+						  </dl>
 						</div>
-						<div class="col-md-3 ">
-							<img src="http://www.byui.edu/Images/disability_services/step2-resized200x209.png" style = "width: 9em"/>
-							<h3> Select the time</h3>
-							<p style="color:#4E4E4E;font-size:18px">	 
-								 Leave some space underneath for details
-							</p>
+						
+						<div class="step">
+						  <div class="arrow-right"></div>
+						  <dl>
+							<dd class="text">
+							  <div class="number">
+								2
+							  </div> 
+						  <div class="title">
+								Select the time
+							  </div>
+							  <p class = "responsive-font-size-step">
+								 Leave some space underneath for details.
+							  </p>
+							</dd>
+							<dd class="pic">
+						  <img class="icon" src="http://www.bookmylab.com/images/000-bml-scheduler.png" />
+							  </dd>
+						  </dl>
 						</div>
-						<div class="col-md-3 ">
-							<img src="http://www.byui.edu/Images/disability_services/step3-resized200x209.png" style = "width: 9em"/>
-							<h3>Choose the Supplier</h3>
-							<p style="color:#4E4E4E;font-size:18px">
-								Leave some space underneath for details
-							</p>
+						
+						<div class="step">
+						  <div class="arrow-right"></div>
+						  <dl>
+							<dd class="text">
+							  <div class="number">
+								3
+							  </div> 
+						  <div class="title">
+								 Choose the Supplier
+							  </div>
+							  <p class = "responsive-font-size-step">
+								Leave some space underneath for details.
+							  </p>
+							</dd>
+							<dd class="pic">
+						  <img class="icon" src="http://icons.iconarchive.com/icons/mcdo-design/book/256/Address-Book-blue-icon.png" />
+						  </dd>
+						  </dl>
 						</div>
-						<div class="col-md-3 ">
-							<img src="http://www.byui.edu/Images/disability_services/step4-resized200x209.png" style = "width: 9em"/>
-							<h3>Pay </h3>
-							<p style="color:#4E4E4E;font-size:18px">
-								Leave some space underneath for details
-							</p>
+						<div class="step">
+							<div class="arrow-right"></div>
+						  <dl>
+							<dd class="text">
+							  <div class="number">
+								4
+							  </div>
+							  <div class="title">
+								Pay
+							  </div>
+							  <p class = "responsive-font-size-step">
+								Leave some space underneath for details.
+							  </p>
+							</dd>
+							<dd class="pic">
+						  <img class="icon" src="http://www.webhostingreviewjam.com/wp-content/uploads/2013/02/payment-icon.png" />
+							</dd>
+						  </dl>
 						</div>
-					
-			        </div>
-	        	</div>
-	    	</div>
-	    </section>
-	    
-		<section id="slide-3">
-			<div class="bcg skrollable skrollable-before" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-bottom-top="background-position: 50% 100px;" data-anchor-target="#slide-3" id = "slide-3-plusCss">
-				<div class="hsContainer">
-					<div class='main-content-row-no-padding bottom-line'>
-					
-						<div class='main-content-row bottom-line' id = "main-content-slide3-plusCss">
-							<div class="row">
-								<div class="col-lg-5 col-sm-6">
-									<hr class="section-heading-spacer">
-									<div class="clearfix"></div>
-									<p class='home-download-app-header color-53A524' >{{trans ('greetings.Claritas est etiam')}}</p>
-									<p class = "bigtext color-53A524">{{trans ('greetings.Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.')}} 
-										<a href="https://miratik.com/">{{trans ('greetings.Mirum est notare quam littera gothica')}}</a> {{trans ('greetings.est etiam processus.')}}
-									</p>
-								</div>
-								<div class="col-lg-5 col-lg-offset-2 col-sm-6 margin-bottom-5">
-									<img class="img-responsive" src="http://ironsummitmedia.github.io/startbootstrap-landing-page/img/phones.png" alt="">
-								</div>
+					</div>
+				</div>
+					<div class='main-content-row bottom-line' id = "main-content-slide3-plusCss">
+						<div class="row">
+							<div class="col-lg-5 col-sm-6">
+								<img class="img-responsive" src="http://partstock.com/sites/default/files/bestchoice.png" alt="">
+							</div>
+							<div class="col-lg-5 col-lg-offset-2 col-sm-6 margin-bottom-5">
+								
+								<hr class="section-heading-spacer">
+								<div class="clearfix"></div>
+								<p class='home-download-app-header color-53A524' >{{trans ('greetings.Claritas est etiam')}}</p>
+								<p class = "bigtext color-53A524">{{trans ('greetings.Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.')}} 
+									<a href="https://miratik.com/">{{trans ('greetings.Mirum est notare quam littera gothica')}}</a> {{trans ('greetings.est etiam processus.')}}
+								</p>
 							</div>
 						</div>
-						<div id="carousel-example-generic" class="carousel slide">
-							<!-- Indicators -->
-							<!-- Controls -->
+					</div>
+					<div class='main-content-row'>
+						<div class='row'>
+							<h3 class='section-block-header pad-top color-white style-Shojumaru'>{{trans ('greetings.Ready to start?')}}</h3>
 						</div>
-						<div class='main-content-row'>
-							<div class='row'>
-								<h3 class='section-block-header pad-top color-white'>{{trans ('greetings.Ready to start?')}}</h3>
-							</div>
-							<div class='small-12 columns two-button-row' id = "main-content-slides3-plusCss">
-								<a href="#" class="big-button btn-secondary call-to-action btn_SeeAll_fisrt">Getting Started</a>
-								<a href="{{URL::to('list-service')}}" class="big-button btn-invert-secondary call-to-action btn_SeeAll_second">All Us Services</a>
-							</div>
+						<div class='small-12 columns two-button-row' id = "main-content-slides3-plusCss">
+							<a href="#" class="big-button btn-secondary call-to-action btn_SeeAll_fisrt style-Shojumaru">Getting Started</a>
+							<a href="{{URL::to('list-service')}}" class="big-button btn-invert-secondary call-to-action btn_SeeAll_second style-Shojumaru">All Us Services</a>
 						</div>
 					</div>
 				</div>
 			</div>
-		</section> 
+		</div>
+	</section> 
 	</main>
-	<script src="{{ asset('home_page/js/include-landing.js') }}"></script>
+	<script src="{{ asset('home_page/js/include-landing.js?113') }}"></script>
 	<script src="{{ asset('home_page/js/jquery.min.js') }}"></script>
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 	<script src="{{ asset('home_page/js/imagesloaded.js') }}"></script>

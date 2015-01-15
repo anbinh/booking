@@ -10,13 +10,13 @@ class AdminController extends BaseController {
     public function __construct()
     {
 
-    	$this->beforeFilter(function(){
+    	/*$this->beforeFilter(function(){
 			$user = Auth::user();
 
 			if($user->role == "0") {
 				return Redirect::to('dashboard');
 			}
-		});
+		});*/
 
     }
 

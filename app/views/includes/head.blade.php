@@ -36,7 +36,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         
     <link rel="stylesheet" href="{{ asset('home_page/css/normalize.css?12') }}">   
-    <link rel="stylesheet" href="{{ asset('home_page/css/main.css?12') }}">
+    <link rel="stylesheet" href="{{ asset('home_page/css/main.css?1') }}">
     <script src="{{ asset('home_page/js/ga.js') }}"></script>
     <script src="{{ asset('home_page/js/modernizr-2.7.1.min.js') }}"></script>
     <link href="{{ asset('home_page/css/include-head.css?12') }}" rel="stylesheet"> 
@@ -44,5 +44,3 @@
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900);
-@import url(http://weloveiconfonts.com/api/?family=entypo);

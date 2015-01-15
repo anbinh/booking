@@ -23,3 +23,7 @@
 #content-section-b-plusCss {
 	background-color: #53A524;
 }
+.appear-clearly-text {
+	position: absolute;
+	z-index: 1;
+}

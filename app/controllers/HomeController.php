@@ -370,11 +370,11 @@ class HomeController extends BaseController {
 		return View::make('home.user')->with("user", $user);
 	}
 	
-	public function loginfacebook()
+	public function postTask()
 	{	
 		
 		
-		
+		return View::make('pages.home');
 	
 	}
 	

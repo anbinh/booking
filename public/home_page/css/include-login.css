@@ -54,11 +54,7 @@
 	color:#FFF;
 }
 
-@media screen and (max-width: 871px){
-	.login-background {
-		height: 1100px;	
-	}
-}
+
 #btn-google {
 background-color: #3b5998;
 border: 1px solid #3b5998;
@@ -71,3 +67,37 @@ color: #fff;
 .login-block {
 	padding-bottom: 2em;
 }
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+	.login-background  {
+		height: 50em;
+	}
+}
+
+/* Portrait tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+	.login-background  {
+		height: 50em;
+	}
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+	.login-background  {
+		height: 90em;
+	}
+}
+/* Landscape phones and portrait tablets */
+@media (min-width: 481px) and (max-width: 767px) {
+	.login-background  {
+		height: 80em;
+	}
+}
+/* Landscape phones and smaller */
+@media (max-width: 480px) {
+	.login-background  {
+		height: 100em;
+	}
+}
+

@@ -15,7 +15,7 @@
 					<div class="content-section-a">
 						<div class="container">
 							<div class="col-lg-12 col-sm-12" style = "text-align: center;">            
-						        <div class="intro">
+						        <div class="intro appear-clearly-text">
 							  	<article>
 								<p>
 									Something will update soon...

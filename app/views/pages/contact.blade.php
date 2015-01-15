@@ -5,7 +5,7 @@
 			<div class="bcg skrollable skrollable-between" data-center="background-position: 50% 0px;" data-top-bottom="background-position: 50% -100px;" data-anchor-target="#slide-5" id = "skrollable-plusCss">
 				<div class="hsContainer">	
 					<!-- /Grab the id for home_cleaning service -->
-					
+					<div class='overlay'></div>
 					<div class='main-page-header'>
 						<h1 class='hero-text'>
 						<p>Contact with Us</p>
@@ -14,7 +14,7 @@
 					</div>	
 				
 					
-					<div class="content-section-b" id = "content-section-b-plusCss" style = "background-color: rgba(49, 134, 128, 0.8);">
+					<div class="content-section-b" id = "content-section-b-plusCss" style = "background-color: rgba(49, 134, 128, 0);">
 						<div class="container">
 							<div class="row container-row-plusCss">
 								<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">

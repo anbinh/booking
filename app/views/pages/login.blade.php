@@ -4,7 +4,7 @@
 <div class="main-body-container">
 <div class="login-background" style="background-image: url({{ asset('home_page/img/Wood_Wallpaper_by_stenosis.jpg') }});">
 <div class="row">
-	<div class = "col-lg-6 col-sm-6">
+	<div class = ".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb">
 		<form accept-charset="UTF-8" action="{{URL::to('login')}}" class="simple_form analytics-event" data-event-name="regular email log in attempt" id="new_user_session" method="post">
 			<div class="login-block" >
 				<p class="larger center color-53A524">Log in</p>
@@ -107,7 +107,7 @@
 				
 	</div>
 	
-	<div class = "col-lg-6 col-sm-6" style = "background-higher">
+	<div class = ".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb" style = "background-higher">
 		<div class="login-block" >
 				<a href={{URL::route('register-page')}}><p class="larger center color-53A524">Don't have a log-in? <br>Register now</p></a>
 				
@@ -118,15 +118,50 @@
 					
 				</div>
 				
-				
-				
+		
+		<ol class="annotation-list">
+			  <li>Lorem ipsum dolor sit amet.</li>
+			  <li>Lorem ipsum dolor.</li>
+			  <li>Lorem ipsum dolor sit amet, consectetur.</li>
+			  <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
+			  <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur fuga minus aperiam iste mollitia debitis rem cum eaque.</li>
+		</ol>		
 				
 		</div>
 	</div>
 </div>
 </div>
 </div>
+<style>
+	.annotation-list {
+	  counter-reset: annotation-list;
+	}
 
+	.annotation-list li {
+	  position: relative;
+	  margin: 0 0 1.5em 0;
+	  color: #0BB8E3;
+	  /*list-style: none;*/
+	}
+
+	.annotation-list li:before {
+	  position: absolute;
+	  top: -2px;
+	  left: -30px;
+	  width: 24px;
+	  height: 24px;
+	  border-radius: 50%;
+	  background-color: #f60;
+
+	  content: counter(annotation-list);
+	  counter-increment: annotation-list;
+
+	  color: #fff;
+	  text-align: center;
+	  text-shadow: 0px -1px 0px #888;
+	}
+
+</style>		
 <style type="text/css">
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900);
   @import url(http://weloveiconfonts.com/api/?family=entypo);
@@ -532,7 +567,7 @@
 }
 
   </style>
-<link rel="stylesheet" href="{{ asset('home_page/css/include-login.css?15') }}">
+<link rel="stylesheet" href="{{ asset('home_page/css/include-login.css?20') }}">
 
 
 @stop

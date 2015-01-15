@@ -14,7 +14,7 @@
 					</div>	
 					<div class="content-section-a">
 						<div class="container">
-							<div class="row">
+							<div class="row appear-clearly-text">
 								<h3><b>Orem ipsum</b></h3>
 								<h4 class = "big-text-110">Orem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.<h4>
 								<h3><b>Claritas</b></h3>

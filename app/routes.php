@@ -20,7 +20,7 @@ Route::get('logout', 'HomeController@logout');
 Route::get('forgetpass', 'HomeController@getForgetpass');
 Route::post('forgetpass', 'HomeController@postForgetpass');
 Route::get( 'confirm/{id_code}', array( 'uses' => 'HomeController@confirm' ));
-Route::get( 'changepass/{id_code}', array( 'uses' => 'HomeController@changepass' ));
+Route::get( 'changepass/{id_code}', array( 'uses' => 'HomeController@changepass' ));*/
 
 //route for profile pass change
 Route::get( 'dashboard/profile/passrequest', array( 'uses' => 'HomeController@getPassrequest' ));
@@ -60,7 +60,7 @@ Route::post('upload/image/{user_id}', array('uses' => 'ImageController@postUploa
 Route::post('upload/image', array('uses' => 'ImageController@postUpload'));
 
 Route::get('filenotfound', 'HomeController@get404');
-*/
+
 
 //-------------NEW----------------//
 Route::filter('check-language', function(){
@@ -75,6 +75,7 @@ Route::group(array('before'=>'check-language'), function(){
 	{
 		return View::make('pages.home');
 	}));
+	Route::post('/','HomeController@postTask');
 	
 	
 	Route::get('login',array ('as'=>'login-page', function()
