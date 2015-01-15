@@ -273,6 +273,6 @@
 	<script src="{{ asset('home_page/js/imagesloaded.js') }}"></script>
 	<script src="{{ asset('home_page/js/skrollr.js') }}"></script>
 	<script src="{{ asset('home_page/js/_main.js') }}"></script>
-	<link rel="stylesheet" href="{{ asset('home_page/css/include-landing.css') }}">
+	<link rel="stylesheet" href="{{ asset('home_page/css/include-landing.css?12') }}">
 
 @stop
