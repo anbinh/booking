@@ -462,7 +462,7 @@ select.soflow-color {
    font-size: inherit;
    /*margin: 20px;*/
    overflow: hidden;
-   padding: 5px 10px;
+   padding: 5px 5px;
    text-overflow: ellipsis;
    white-space: nowrap;
    width: 80%;
@@ -478,7 +478,9 @@ select.soflow-color {
    border-radius: 20px;
    padding-left: 15px;
 }
-
+#soflow-color-date:hover {
+background-image: url(),-webkit-linear-gradient(#2ECC71, #289E5A 58%, #2ECC71);
+}
 /*end date input*/
 /*search btn-has javascript*/
 .search {

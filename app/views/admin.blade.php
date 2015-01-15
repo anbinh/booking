@@ -12,24 +12,23 @@
     <title>Guusebump Admin</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="{{ asset('css/plugins/metisMenu/metisMenu.min.css') }}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/css/sb-admin-2.css" rel="stylesheet">
+    <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('font-awesome-4.1.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
-    <link href="/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/bootstrap-social.css') }}" rel="stylesheet" type="text/css">
 
     <!-- DataTables CSS -->
-    <link href="/css/plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="{{ asset('css/plugins/dataTables.bootstrap.css') }}" rel="stylesheet">
 
-    <link href="/css/dashboard_all.css" rel="stylesheet">
-
+    <link href="{{ asset('css/dashboard_all.css') }}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,25 +38,25 @@
     <![endif]-->
 
     <!-- jQuery Version 1.11.0 -->
-    <script src="/js/jquery-1.11.0.js"></script>
+    <script src="{{ asset('js/jquery-1.11.0.js') }}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="/js/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="{{ asset('js/plugins/metisMenu/metisMenu.min.js') }}"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="/js/sb-admin-2.js"></script>
+    <script src="{{ asset('js/sb-admin-2.js') }}"></script>
 
     <!-- DataTables JavaScript -->
-    <script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="{{ asset('js/plugins/dataTables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
 
-    <script src="/js/dashboard_all.js"></script>
-    <script src="/js/social_avatar.js"></script>
+    <script src="{{ asset('js/dashboard_all.js') }}"></script>
+    <script src="{{ asset('js/social_avatar.js') }}"></script>
 
-    <script src="/js/jquery.form.js"></script>
+    <script src="{{ asset('js/jquery.form.js') }}"></script>
 
 </head>
 
@@ -91,7 +90,7 @@
                         </li>
                         <li class="divider"></li>
                         -->
-                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="{{URL::to('logout')}}><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -126,7 +125,7 @@
                         </li>
                         @endif
                         <li>
-                            <a href="/logout"><i class="fa fa-files-o fa-fw"></i>Logout</span></a>
+                            <a href="{{URL::to('logout')}}"><i class="fa fa-files-o fa-fw"></i>Logout</span></a>
                         </li>
                     </ul>
                 </div>
