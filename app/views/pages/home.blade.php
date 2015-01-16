@@ -298,23 +298,20 @@
 		</div>
 	</section> 
 	</main>
-<<<<<<< HEAD
+
 	
 	
 	<script src="{{ asset('home_page/js/include-landing.js?240') }}"></script>
 	<!-- <script src="{{ asset('home_page/js/jquery.min.js') }}"></script> -->
-=======
 	<script src="{{ asset('home_page/js/include-landing.js?240') }}"></script>
-	<script src="{{ asset('home_page/js/jquery.min.js') }}"></script>
->>>>>>> 8c8960de98580e9bd80f31e23ddf67c55889a45e
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 	<script src="{{ asset('home_page/js/imagesloaded.js') }}"></script>
 	<script src="{{ asset('home_page/js/skrollr.js') }}"></script>
 	<script src="{{ asset('home_page/js/_main.js') }}"></script>
-<<<<<<< HEAD
+
 	<link rel="stylesheet" href="{{ asset('home_page/css/include-landing.css?2') }}">
-=======
+
 	<link rel="stylesheet" href="{{ asset('home_page/css/include-landing.css?24') }}">
->>>>>>> 8c8960de98580e9bd80f31e23ddf67c55889a45e
+
 
 @stop

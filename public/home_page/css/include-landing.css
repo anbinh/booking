@@ -836,6 +836,7 @@ hr {
 	}
 }
 /*end text welcome*/
+/*SET COLOR OF PLACEHOLDER*/
 #datepicker::-webkit-input-placeholder { /* WebKit browsers */
     color:    #FFF;
 }
@@ -848,3 +849,4 @@ hr {
 #datepicker:-ms-input-placeholder { /* Internet Explorer 10+ */
     color:    #FFF;
 }
+/*END SET COLOR OF PLACEHOLDER*/
