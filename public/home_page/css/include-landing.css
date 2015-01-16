@@ -836,3 +836,15 @@ hr {
 	}
 }
 /*end text welcome*/
+#datepicker::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #FFF;
+}
+#datepicker:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #FFF;
+}
+#datepicker::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #FFF;
+}
+#datepicker:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #FFF;
+}
