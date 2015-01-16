@@ -144,9 +144,3 @@ Route::group(array('before'=>'check-language'), function(){
 	Route::get('fbauth/{auth?}',array('as' => 'facebookAuth','uses'=>'AuthController@getFacebookLogin'));
 	Route::get('twitterAuth/{auth?}',array('as' => 'twitterAuth','uses'=>'AuthController@getTwitterLogin'));
 	Route::get('gauth/{auth?}',array('as' => 'googleAuth','uses'=>'AuthController@getGoogleLogin'));
-	
-	
-	Route::get('test',array ('as'=>'test-page', function()
-	{
-		return View::make('pages.test');
-	}));

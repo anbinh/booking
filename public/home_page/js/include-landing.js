@@ -4,10 +4,11 @@ var _gaq=[['_setAccount','UA-839919-3'],['_trackPageview']];
 		s.parentNode.insertBefore(g,s)}(document,'script'));
 		
 /*search button*/
-$(document).ready(function(){
+
 	$('.searchButton').on('click', function(e) {
 		e.preventDefault();
 		$('.searchTerm').animate({width: 'toggle'}).focus();
+		
 	});
-});
+
 /*end search button*/

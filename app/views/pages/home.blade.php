@@ -23,7 +23,7 @@
 								</div>
 								<div class=".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb">
 									<form class="search">
-										<input class="searchTerm" placeholder="Please type ...">
+										<input class="searchTerm" placeholder="Typing ...">
 										<input class="searchButton" type="">
 										<span class="searchIcon"></span>
 									</form>
@@ -88,41 +88,30 @@
 											<div class = "responsive-tittle">
 											    <strong class = "text-strong-responsive">When do you need it for?</strong>
 											</div>
- 
-								
-  											
-  											<!-- <p>Date: <input type="text" id="datepicker"></p> -->
-  											   <script>
-											    $(document).ready(function() {
-												    $("#datepicker").datepicker();
-												})
-											  </script>	
-											  <input id="datepicker" type = "text" placeholder = "mm/dd/yyyy" style = "-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-													-webkit-padding-end: 20px;
-													-webkit-padding-start: 2px;
-													background-position: 97% center;
-													background-repeat: no-repeat;
-													border: 1px solid #AAA;
-													font-size: inherit;
-													overflow: hidden;
-													padding: 5px 5px;
-													text-overflow: ellipsis;
-													white-space: nowrap;
-													width: 80%;
-													line-height: 25px;
-													color: #fff;
-													background-image: url(http://i62.tinypic.com/15xvbd5.png),-webkit-linear-gradient(#2ECC71, #289E5A 40%, #2ECC71);
-													background-color: #2ECC71;
-													border-radius: 20px;
-													padding-left: 15px;
-													">
+											
 													
-
+										  <input id="datepicker" type = "text" placeholder = "mm/dd/yyyy" style = "-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+												-webkit-padding-end: 20px;
+												-webkit-padding-start: 2px;
+												background-position: 97% center;
+												background-repeat: no-repeat;
+												border: 1px solid #AAA;
+												font-size: inherit;
+												overflow: hidden;
+												padding: 5px 5px;
+												text-overflow: ellipsis;
+												white-space: nowrap;
+												width: 80%;
+												line-height: 25px;
+												color: #fff;
+												background-image: url(http://i62.tinypic.com/15xvbd5.png),-webkit-linear-gradient(#2ECC71, #289E5A 40%, #2ECC71);
+												background-color: #2ECC71;
+												border-radius: 20px;
+												padding-left: 15px;
+												"/>
 											
 										</div>
 									</div>
-								
-									
 								
 									<div class = "row">
 										<div class=".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb">
@@ -298,20 +287,19 @@
 		</div>
 	</section> 
 	</main>
-
-	
-	
-	<script src="{{ asset('home_page/js/include-landing.js?240') }}"></script>
-	<!-- <script src="{{ asset('home_page/js/jquery.min.js') }}"></script> -->
-	<script src="{{ asset('home_page/js/include-landing.js?240') }}"></script>
+	<script src="{{ asset('home_page/js/include-landing.js?133') }}"></script>
+	 
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 	<script src="{{ asset('home_page/js/imagesloaded.js') }}"></script>
 	<script src="{{ asset('home_page/js/skrollr.js') }}"></script>
 	<script src="{{ asset('home_page/js/_main.js') }}"></script>
-
-	<link rel="stylesheet" href="{{ asset('home_page/css/include-landing.css?2') }}">
-
-	<link rel="stylesheet" href="{{ asset('home_page/css/include-landing.css?24') }}">
-
-
+	<link rel="stylesheet" href="{{ asset('home_page/css/include-landing.css') }}">
+	
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<script>
+			$("#datepicker").datepicker();
+	</script>
+	
 @stop
