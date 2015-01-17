@@ -4,7 +4,7 @@
 <div class="main-body-container">
 <div class="login-background" style="background-image: url({{ asset('home_page/img/Wood_Wallpaper_by_stenosis.jpg') }});">
 <div class="row">
-	<div class = ".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb">
+	<div class = ".col-lg-12 col-md-12 col-sm-12 col-xs-12 thumb">
 		<form accept-charset="UTF-8" action="{{URL::to('login-admin')}}" class="simple_form analytics-event" data-event-name="regular email log in attempt" id="new_user_session" method="post">
 			<div class="login-block" >
 				<p class="larger center color-53A524">Admin log in</p>
@@ -107,7 +107,7 @@
 				
 	</div>
 	
-	<div class = ".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb" style = "background-higher">
+	<!-- <div class = ".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb" style = "background-higher">
 		<div class="login-block" >
 				<a href={{URL::route('register-page')}}><p class="larger center color-53A524">Don't have a log-in? <br>Register now</p></a>
 				
@@ -128,7 +128,7 @@
 		</ol>		
 				
 		</div>
-	</div>
+	</div> -->
 </div>
 </div>
 </div>
