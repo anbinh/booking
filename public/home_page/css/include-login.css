@@ -47,14 +47,33 @@
 	font-size: 110%;	
 	margin-bottom: 5%;
 }
+#input-area-plusCss {
+	color: #009587; 
+	margin-bottom: 5%;
+}
+#input-city-plusCss {
+	color: #009587; 
+	margin-bottom: 5%;
+}
 #floating-label-plusCss {
 	color: #2ecc71;
 }
 .error {
 	color:#FFF;
 }
-
-
+.padding-zero {
+	padding-left: 0;
+	padding-right: 0;
+}
+.select-color {
+	color:#5BCC71;
+}
+.select-title {
+	color:#5BCC71;
+}
+.margin-bottom {
+	margin-bottom: 10%;
+}
 #btn-google {
 background-color: #3b5998;
 border: 1px solid #3b5998;

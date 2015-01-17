@@ -257,7 +257,41 @@
 						</div>
 					</div>
 				</div>
-					<div class='main-content-row bottom-line' id = "main-content-slide3-plusCss">
+				<div class='main-content-row bottom-line' id = "main-content-slide3-plusCss" style = "padding-bottom: 2em;">
+					<h1 id = "how-to-booking">Why list services on Homeez?</h1>
+					<div class="wrapper">
+						<div class="col-md-3 ">
+							<img src="{{ asset('home_page/img/82.png') }}"/>
+							<h4 style="color:#4E4E4E">Claritas est etiam processus</h4>
+							<p style="color:#4E4E4E;font-size:14px">
+								Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum
+							</p>
+						</div>
+						<div class="col-md-3 ">
+							<img src="{{ asset('home_page/img/82.png') }}"/>
+							<h4 style="color:#4E4E4E">Claritas est etiam processus</h4>
+							<p style="color:#4E4E4E;font-size:14px">
+								Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum
+							</p>
+						</div>
+						<div class="col-md-3 ">
+							<img src="{{ asset('home_page/img/82.png') }}"/>
+							<h4 style="color:#4E4E4E">Claritas est etiam processus</h4>
+							<p style="color:#4E4E4E;font-size:14px">
+								Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum
+							</p>
+						</div>
+						<div class="col-md-3 ">
+							<img src="{{ asset('home_page/img/82.png') }}"/>
+							<h4 style="color:#4E4E4E">Claritas est etiam processus</h4>
+							<p style="color:#4E4E4E;font-size:14px">
+								Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum
+							</p>
+						</div>
+					</div>
+				</div>
+				
+					<div class='main-content-row bottom-line' id = "main-content-slide3-plusCss" style = "background-color: rgb(244, 244, 244);">
 						<div class="row">
 							<div class="col-lg-5 col-sm-6">
 								<img class="img-responsive" src="http://partstock.com/sites/default/files/bestchoice.png" alt="">

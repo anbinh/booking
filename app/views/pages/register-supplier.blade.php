@@ -40,12 +40,65 @@
 			</div>
 			<div class="pad-top">
 				<div class="form-control-wrapper">
-					<input style = "color: #009587; font-size: 110%;" type="password" class="form-control empty" data-hint="" required name = "password_confirmation">
+					<input style = "color: #009587; font-size: 110%;" type="password" id = "input-email-plusCss"  class="form-control empty" data-hint="" required name = "password_confirmation">
 					<div class="hint"></div>
 					<div class="floating-label" id = "floating-label-plusCss">Re-Enter Password</div>
 					<span class="material-input"></span>
 				</div>
 			</div>
+			<div class="pad-top">
+				<div class="form-control-wrapper">
+					<input style = "color: #009587; font-size: 110%;" type="password" id = "input-email-plusCss" class="form-control empty" data-hint="" required name = "phone_number">
+					<div class="hint"></div>
+					<div class="floating-label" id = "floating-label-plusCss">Phone number</div>
+					<span class="material-input"></span>
+				</div>
+			</div>
+			<div class="pad-top">
+				<div class="form-control-wrapper">
+					<label for="select" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 control-label padding-zero select-title">Area:</label>
+            		<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 padding-zero">
+	                  <select class="form-control select-color margin-bottom" name = "area">
+						    <option>Dubai</option>
+	                  </select>
+					</div>
+				</div>
+			</div>
+			
+			<div class="pad-top">
+				<div class="form-control-wrapper">
+					<label for="select" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 control-label padding-zero select-title">City:</label>
+            		<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 padding-zero">
+	                  <select class="form-control select-color margin-bottom" name = "city">
+						    <option>Al Badaa</option>
+						    <option>Al Barsha</option>
+						    <option>Al Hamriya</option>
+						    <option>Al Hudaiba</option>
+						    <option>Al Jafeliah</option>
+						    <option>Al Karama</option>
+						    <option>Al Mankhool</option>
+						    <option>Al Qouz</option>
+						    <option>Al Refaa</option>
+						    <option>Al Sofouh</option>
+						    <option>Al Souq Al Kabeer</option>
+						    <option>Al Wasl</option>
+						    <option>Jumeirah</option>
+						    <option>Madinat Dubai Al Melaheyah</option>
+						    <option>Oud Metha</option>
+						    <option>Satwa</option>
+						    <option>Trade Center 1</option>
+						    <option>Trade Center 2</option>
+						    <option>Umm Hurair</option>
+						    <option>Umm  Suqeim</option>
+						    <option>Al Qouz (ALkhail Gate Project)</option>
+						    <option>Al Safa</option>
+	                  </select>
+					</div>
+				</div>
+			</div>
+			
+			
+			
 		</div>
 		
 		<div class="form-fields-wrapper">
@@ -55,6 +108,8 @@
 		</div>
 	</div>
 </form>
+      
+
 </div>
 </div>
 </div>

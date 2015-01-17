@@ -97,6 +97,9 @@ class HomeController extends BaseController {
 			$user = new User();
 			$user->username = $input['username'];
 			$user->email = $input['email'];
+			$user->area = $input['area'];
+			$user->city = $input['city'];
+			$user->phone_number = $input['phone_number'];
 			$user->password = $password;
 			$user->confirmation = $newcode;
 			$user->save();
@@ -163,12 +166,15 @@ class HomeController extends BaseController {
 			$user->username = $input['username'];
 			$user->email = $input['email'];
 			$user->password = $password;
+			$user->phone_number = $input['phone_number'];
+			$user->area = $input['area'];
+			$user->city = $input['city'];
 			$user->confirmation = $newcode;
 			$user->role = $role;
 			$user->save();
 	
 			//Send confirmation email
-			$data = array(
+			$data = array (
 					'email'     => $input['email'],
 					'clickUrl'  => URL::to('/') . '/confirm/' . $newcode
 			);

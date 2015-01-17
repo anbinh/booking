@@ -4,7 +4,7 @@
     <!-- Twitter Bootstrap -->
    	<link href="{{ asset('home_page/css/material/bootstrap.min.css') }}" rel="stylesheet"> 
 	<link rel="stylesheet" href="{{asset(' home_page/css/material/bootstrap.min.css', true) }}">
-    <!-- Material Design for Bootstrap -->
+<!-- Material Design for Bootstrap -->
     <link href="{{ asset('home_page/css/material/material-wfont.min.css') }}" rel="stylesheet">
     <link href="{{ asset('home_page/css/material/ripples.min.css') }}" rel="stylesheet">
  	<!-- jQuery -->
