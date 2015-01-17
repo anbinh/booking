@@ -50,7 +50,11 @@ class HomeController extends BaseController {
 					return Redirect::route('admin-page');
 				}
 				else {
-					return Redirect::route('landing-page');
+					if (Auth::user()->role == '2') {
+						return Redirect::route('supplier-page');
+					} else {
+						return Redirect::route('landing-page');
+					}
 				}
 
 			} else {
@@ -60,76 +64,7 @@ class HomeController extends BaseController {
 		}
 	}
 	
-	public function postLoginSupplier()
-	{
 	
-		$input = Input::all();
-	
-		$rules = array('email' => 'required', 'password' => 'required');
-	
-		$v = Validator::make($input, $rules);
-	
-		if($v->fails())
-		{
-	
-			return Redirect::route('login-supplier-page')->withErrors($v);
-	
-		} else {
-	
-			$credentials = array('email' => $input['email'], 'password' => $input['password'], 'confirmation' => '');
-	
-			$remember_me = (isset($input['remember_me'])) ? true : false;
-	
-			if(Auth::attempt($credentials, $remember_me))
-			{
-				if(Auth::user()->role == '1') {
-					return Redirect::route('admin-page');
-				}
-				else {
-					return Redirect::route('landing-page');
-				}
-	
-			} else {
-	
-				return Redirect::route('login-supplier-page')->with("success", "0");
-			}
-		}
-	}
-	
-	public function postLoginAdmin()
-	{
-		$input = Input::all();
-	
-		$rules = array('email' => 'required', 'password' => 'required');
-	
-		$v = Validator::make($input, $rules);
-	
-		if($v->fails())
-		{
-	
-			return Redirect::route('login-admin-page')->withErrors($v);
-	
-		} else {
-	
-			$credentials = array('email' => $input['email'], 'password' => $input['password'], 'confirmation' => '');
-	
-			$remember_me = (isset($input['remember_me'])) ? true : false;
-	
-			if(Auth::attempt($credentials, $remember_me))
-			{
-				if(Auth::user()->role == '1') {
-					return Redirect::route('admin-page');
-				}
-				else {
-					return Redirect::route('landing-page');
-				}
-	
-			} else {
-	
-				return Redirect::route('login-admin-page')->with("success", "0");
-			}
-		}
-	}
 
 	public function getRegister()
 	{
@@ -206,7 +141,7 @@ class HomeController extends BaseController {
 	public function postRegisterSupplier()
 	{
 		if(Auth::check()) {
-			return Redirect::route('landing-page');
+			return Redirect::route('admin-page');
 		}
 	
 		$input = Input::all();
@@ -222,12 +157,14 @@ class HomeController extends BaseController {
 		{
 			$password = $input['password'];
 			$password = Hash::make($password);
-	
+			$role = 2; 
+			
 			$user = new User();
 			$user->username = $input['username'];
 			$user->email = $input['email'];
 			$user->password = $password;
 			$user->confirmation = $newcode;
+			$user->role = $role;
 			$user->save();
 	
 			//Send confirmation email

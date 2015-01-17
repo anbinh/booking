@@ -5,7 +5,7 @@
 <div class="login-background" style="background-image: url({{ asset('home_page/img/Wood_Wallpaper_by_stenosis.jpg') }});">
 <div class="row">
 	<div class = ".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb">
-		<form accept-charset="UTF-8" action="{{URL::to('login-supplier')}}" class="simple_form analytics-event" data-event-name="regular email log in attempt" id="new_user_session" method="post">
+		<form accept-charset="UTF-8" action="{{URL::to('login')}}" class="simple_form analytics-event" data-event-name="regular email log in attempt" id="new_user_session" method="post">
 			<div class="login-block" >
 				<p class="larger center color-53A524">Supplier log in</p>
 				@if(Session::get("emailfirst") == "1")
@@ -109,7 +109,7 @@
 	
 	<div class = ".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb" style = "background-higher">
 		<div class="login-block" >
-				<a href={{URL::route('register-page')}}><p class="larger center color-53A524">Don't have a log-in? <br>Register now</p></a>
+				<a href={{URL::route('register-supplier-page')}}><p class="larger center color-53A524">Don't have a log-in? <br>Register now</p></a>
 				
 				<div class="even-medium center">
 					<a href={{URL::route('why-book-page')}} class="alt-link">Why register with us?</a>

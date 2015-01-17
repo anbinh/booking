@@ -171,6 +171,14 @@ Route::group(array('before'=>'check-language'), function(){
 	Route::get('logout', 'HomeController@logout');
 	Route::get( 'confirm/{id_code}', array( 'uses' => 'HomeController@confirm' ));
 	Route::get( 'changepass/{id_code}', array( 'uses' => 'HomeController@changepass' ));
+	Route::get('admin-page',array('as'=>'admin-page', function()
+	{
+		return View::make('pages.admin-page');
+	}));
+	Route::get('supplier-page',array('as'=>'supplier-page', function()
+	{
+		return View::make('pages.supplier-page');
+	}));
 	
 });
 
