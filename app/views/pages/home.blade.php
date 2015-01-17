@@ -17,7 +17,7 @@
 							<div  class="row">
 								<h3 class = "size-responsive is-display">FIND SAFE, RELIABLE HELP IN YOUR NEIGHBORHOOD</h3>
 							</div>	
-							<div  class="row" id = "row-search">	
+							<!-- <div  class="row" id = "row-search">	
 								<div class=".col-lg-6 col-md-6 col-sm-6 col-xs-0 thumb">
 								
 								</div>
@@ -29,7 +29,7 @@
 									</form>
 								</div>
 								
-							</div>
+							</div>  -->
 							
 							
 								
@@ -76,7 +76,7 @@
 											    <strong class = "text-strong-responsive">What service do you need?</strong>
 											</div>
 											<select class ="soflow-color responsive-select-option">
-												<!-- This method is nice because it doesn't require extra div tags, but it also doesn't retain the style across all browsers. -->
+										
 												<option>Select an Option</option>
 												<option>Cleaning Homie</option>
 												<option>Handy Homie</option>
@@ -119,7 +119,7 @@
 											    <strong class = "text-strong-responsive">For how long?</strong>
 											</div>
 											<select class="soflow-color responsive-select-option">
-												<!-- This method is nice because it doesn't require extra div tags, but it also doesn't retain the style across all browsers. -->
+											
 												<option>Select an Option</option>
 												<option>1 hours</option>
 												<option>2 hours</option>
@@ -140,7 +140,7 @@
 											    <strong class = "text-strong-responsive">Where do you live?</strong>
 											</div>
 											<select class="soflow-color responsive-select-option" style="margin-bottom:  15px;">
-												<!-- This method is nice because it doesn't require extra div tags, but it also doesn't retain the style across all browsers. -->
+											
 												<option>Select an Option</option>
 												<option>English</option>
 												<option>Vietnam</option>
@@ -177,7 +177,7 @@
 				<div class='main-content-row-no-padding bottom-line'>
 					<div class="wrapper">
 					  <div class="steps">
-					  <h1 id = "how-to-booking">HOW TO BOOKING?</h1>
+					  <h1 id = "how-to-booking">Simple and Easy booking process</h1>
 						<div class="step">
 						  <dl>
 							<dd class="text">

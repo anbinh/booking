@@ -59,6 +59,77 @@ class HomeController extends BaseController {
 			}
 		}
 	}
+	
+	public function postLoginSupplier()
+	{
+	
+		$input = Input::all();
+	
+		$rules = array('email' => 'required', 'password' => 'required');
+	
+		$v = Validator::make($input, $rules);
+	
+		if($v->fails())
+		{
+	
+			return Redirect::route('login-supplier-page')->withErrors($v);
+	
+		} else {
+	
+			$credentials = array('email' => $input['email'], 'password' => $input['password'], 'confirmation' => '');
+	
+			$remember_me = (isset($input['remember_me'])) ? true : false;
+	
+			if(Auth::attempt($credentials, $remember_me))
+			{
+				if(Auth::user()->role == '1') {
+					return Redirect::route('admin-page');
+				}
+				else {
+					return Redirect::route('landing-page');
+				}
+	
+			} else {
+	
+				return Redirect::route('login-supplier-page')->with("success", "0");
+			}
+		}
+	}
+	
+	public function postLoginAdmin()
+	{
+		$input = Input::all();
+	
+		$rules = array('email' => 'required', 'password' => 'required');
+	
+		$v = Validator::make($input, $rules);
+	
+		if($v->fails())
+		{
+	
+			return Redirect::route('login-admin-page')->withErrors($v);
+	
+		} else {
+	
+			$credentials = array('email' => $input['email'], 'password' => $input['password'], 'confirmation' => '');
+	
+			$remember_me = (isset($input['remember_me'])) ? true : false;
+	
+			if(Auth::attempt($credentials, $remember_me))
+			{
+				if(Auth::user()->role == '1') {
+					return Redirect::route('admin-page');
+				}
+				else {
+					return Redirect::route('landing-page');
+				}
+	
+			} else {
+	
+				return Redirect::route('login-admin-page')->with("success", "0");
+			}
+		}
+	}
 
 	public function getRegister()
 	{
@@ -129,6 +200,70 @@ class HomeController extends BaseController {
 
 			return Redirect::route('register-page')->withInput()->withErrors($v);
 
+		}
+	}
+	
+	public function postRegisterSupplier()
+	{
+		if(Auth::check()) {
+			return Redirect::route('landing-page');
+		}
+	
+		$input = Input::all();
+	
+		$rules = array('username' => 'required|unique:users', 'email' => 'required|unique:users|email', 'password' => 'required|confirmed');
+	
+		$v = Validator::make($input, $rules);
+	
+		//GENERATE $newcode - RANDOM STRING TO VERIFY SIGNUP
+		for($code_length = 25, $newcode = ''; strlen($newcode) < $code_length; $newcode .= chr(!rand(0, 2) ? rand(48, 57) : (!rand(0, 1) ? rand(65, 90) : rand(97, 122))));
+	
+		if($v->passes())
+		{
+			$password = $input['password'];
+			$password = Hash::make($password);
+	
+			$user = new User();
+			$user->username = $input['username'];
+			$user->email = $input['email'];
+			$user->password = $password;
+			$user->confirmation = $newcode;
+			$user->save();
+	
+			//Send confirmation email
+			$data = array(
+					'email'     => $input['email'],
+					'clickUrl'  => URL::to('/') . '/confirm/' . $newcode
+			);
+			 
+			//---new send email----//
+			try {
+				Mail::send('emails.signup', $data, function($message)
+				{
+					$message->to(Input::get('email'))->subject('Welcome');
+				});
+	
+			}
+			catch (Exception $e){
+				$to      = Input::get('email');
+				$subject = 'Welcome';
+				$message = View::make('emails.signup', $data)->render();
+				$headers = 'From: admin@homeez.com' . "\r\n" .
+						'Reply-To: admin@homeez.com' . "\r\n" .
+						'X-Mailer: PHP/' . phpversion() . "\r\n" .
+						'MIME-Version: 1.0' . "\r\n" .
+						'Content-Type: text/html; charset=ISO-8859-1\r\n';
+	
+				mail($to, $subject, $message, $headers);
+	
+			}
+			//redirect to confirmation alert
+			return Redirect::route('login-supplier-page')->with("emailfirst", "1");
+	
+		} else {
+	
+			return Redirect::route('register-supplier-page')->withInput()->withErrors($v);
+	
 		}
 	}
 

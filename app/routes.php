@@ -68,6 +68,38 @@ Route::filter('check-language', function(){
 		Session::set('locale','en');
 	}
 	Lang::setLocale(Session::get('locale'));
+	
+	if ( ! function_exists('cached_asset'))
+	{
+		function cached_asset($path, $bustQuery = false)
+		{
+			// Get the full path to the asset.
+			$realPath = public_path($path);
+	
+			if ( ! file_exists($realPath)) {
+				throw new LogicException("File not found at [{$realPath}]");
+			}
+	
+			// Get the last updated timestamp of the file.
+			$timestamp = filemtime($realPath);
+	
+			if ( ! $bustQuery) {
+				// Get the extension of the file.
+				$extension = pathinfo($realPath, PATHINFO_EXTENSION);
+	
+				// Strip the extension off of the path.
+				$stripped = substr($path, 0, -(strlen($extension) + 1));
+	
+				// Put the timestamp between the filename and the extension.
+				$path = implode('.', array($stripped, $timestamp, $extension));
+			} else {
+				// Append the timestamp to the path as a query string.
+				$path  .= '?' . $timestamp;
+			}
+	
+			return asset($path);
+		}
+	}
 
 });
 Route::group(array('before'=>'check-language'), function(){
@@ -82,10 +114,27 @@ Route::group(array('before'=>'check-language'), function(){
 	{
 		return View::make('pages.login');
 	}));
+	
+	Route::get('login-supplier',array ('as'=>'login-supplier-page', function()
+	{
+		return View::make('pages.login-supplier');
+	}));
+	
+	Route::get('login-admin',array ('as'=>'login-admin-page', function()
+	{
+		return View::make('pages.login-admin');
+	}));
+	
 	Route::get('register',array ('as'=>'register-page', function()
 	{
 		return View::make('pages.register');
 	}));
+	
+	Route::get('register-supplier',array ('as'=>'register-supplier-page', function()
+	{
+		return View::make('pages.register-supplier');
+	}));
+	
 	Route::get('restore',array('as'=>'restore-page', function()
 	{
 		return View::make('pages.restore');
@@ -136,8 +185,11 @@ Route::group(array('before'=>'check-language'), function(){
 	}));
 	
 	Route::post('login','HomeController@postLogin');
+	Route::post('login-supplier','HomeController@postLoginSupplier');
+	Route::post('login-admin','HomeController@postLoginAdmin');
 	
 	Route::post('register', 'HomeController@postRegister');
+	Route::post('register-supplier', 'HomeController@postRegisterSupplier');
 	
 	Route::post('restore', 'HomeController@postForgetpass');
 //-----------login---facebook --///
