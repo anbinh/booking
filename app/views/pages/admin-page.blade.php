@@ -470,7 +470,7 @@
 }
 
   </style>
-<link rel="stylesheet" href="{{ asset('home_page/css/include-login.css?20') }}">
+<link rel="stylesheet" href="{{ cached_asset('home_page/css/include-login.css', true) }}">
 
 
 @stop

@@ -180,6 +180,10 @@ Route::group(array('before'=>'check-language'), function(){
 		return View::make('pages.supplier-page');
 	}));
 	
+	
+	
+	
+	
 });
 
 	Route::get('language/english',array('as'=>'english-language', function()
@@ -204,3 +208,24 @@ Route::group(array('before'=>'check-language'), function(){
 	Route::get('fbauth/{auth?}',array('as' => 'facebookAuth','uses'=>'AuthController@getFacebookLogin'));
 	Route::get('twitterAuth/{auth?}',array('as' => 'twitterAuth','uses'=>'AuthController@getTwitterLogin'));
 	Route::get('gauth/{auth?}',array('as' => 'googleAuth','uses'=>'AuthController@getGoogleLogin'));
+//-----------select supplier ajax call-------------//]
+	/*Route::get('/ajax',array('as'=>'ajax', function()
+	{	if (Request::ajax()){
+			return "here ajax";
+		}
+	
+	}));
+	/*Route::post('/ajax', function(){
+		if (Request::ajax()){
+			$input = Input::all();
+			//var_dump($input['name_service']);
+			return View::make('pages.contact');
+		}
+	});*/	
+	
+		Route::post('/ajax', 'AjaxController@postSelectSupplier');
+		
+		Route::get('select-supplier',array('as'=>'select-supplier', function()
+		{
+			return View::make('ajax.select-supplier');
+		}));

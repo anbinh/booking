@@ -63,12 +63,12 @@
 		<!-- /.content-section-b -->	
 	</main>
 
-	<script src="{{ asset('home_page/js/jquery.min.js') }}"></script>
+	<script src="{{ cached_asset('home_page/js/jquery.min.js', true) }}"></script>
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-	<script src="{{ asset('home_page/js/imagesloaded.js') }}"></script>
-	<script src="{{ asset('home_page/js/skrollr.js') }}"></script>
-	<script src="{{ asset('home_page/js/_main.js') }}"></script>
+	<script src="{{ cached_asset('home_page/js/imagesloaded.js', true) }}"></script>
+	<script src="{{ cached_asset('home_page/js/skrollr.js', true) }}"></script>
+	<script src="{{ cached_asset('home_page/js/_main.js', true) }}"></script>
  
-	<link rel="stylesheet" href="{{ asset('home_page/css/include-about.css') }}">
-	<script src="{{ asset('home_page/js/include-about.js') }}"></script>
+	<link rel="stylesheet" href="{{ cached_asset('home_page/css/include-about.css', true) }}">
+	<script src="{{ cached_asset('home_page/js/include-about.js', true) }}"></script>
 @stop

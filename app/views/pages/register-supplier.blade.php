@@ -48,7 +48,7 @@
 			</div>
 			<div class="pad-top">
 				<div class="form-control-wrapper">
-					<input style = "color: #009587; font-size: 110%;" type="password" id = "input-email-plusCss" class="form-control empty" data-hint="" required name = "phone_number">
+					<input style = "color: #009587; font-size: 110%;" type="text" id = "input-email-plusCss" class="form-control empty" data-hint="" required name = "phone_number">
 					<div class="hint"></div>
 					<div class="floating-label" id = "floating-label-plusCss">Phone number</div>
 					<span class="material-input"></span>

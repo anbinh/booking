@@ -53,8 +53,8 @@
 
         
    </div>
-   <link rel="stylesheet" href="{{ asset('home_page/css/include-list-service.css') }}">
-   <link rel="stylesheet" href="{{ asset('home_page/css/include-FAQ.css') }}">
-   <script src="{{ asset('home_page/js/include-FAQ.js') }}"></script>
+   <link rel="stylesheet" href="{{ cached_asset('home_page/css/include-list-service.css', true) }}">
+   <link rel="stylesheet" href="{{ cached_asset('home_page/css/include-FAQ.css', true) }}">
+   <script src="{{ cached_asset('home_page/js/include-FAQ.js', true) }}"></script>
    
 @stop

@@ -1,3 +1,7 @@
+#white-box-booking {
+	background-color: #FFF;
+	opacity: 0.9;
+}
 .bigtext {
 	font-size: 120%;
 }
@@ -427,7 +431,7 @@ select.soflow-color {
    padding: 5px 10px;
    text-overflow: ellipsis;
    white-space: nowrap;
-   width: 80%;
+   width: 65%;
 }
 
 select.soflow-color {
@@ -578,49 +582,15 @@ hr {
 #row-search {
 	margin-bottom: 2%;
 }
-/*submit button*/
 
-
-.boton {
-  background: #2ECC71;
-  box-shadow: 0 0 0 5px #2ECC71;
-  border: 1px;  
-  border-radius: 100px;
-  margin: 20px;
-  font-size: 1.5em;
-  font-family: arial;
-  color: #fff;
-}
-
-.boton:hover {
-  background: transparent;
-  transition: all 0.8s;
-  color: #2ECC71;
-}
-
-.boton:active {
-  background: #126BCB;
-  transition:all 0.7s;
-}
-
-/*end submit button*/
 /*TEXT WELCOME*/
 /* Large desktops and laptops */
 @media (min-width: 1200px) {
-	.hero-text {
-		font-size: 2.7em;
+	#tittle-welcome {
+		font-size: 2.5em;
+		color: #000;
 	}
-	.mainPitch{
-		width: auto !important;
-		left: 15% !important;
-		right: 15% !important;
-	}
-	.size-responsive {
-		font-size: 1.6em;
-	}
-	.text-strong-responsive {
-		font-size: 1.1em;
-	}
+
 	.soflow-color {
 		margin-bottom: 5%;
 	}
@@ -628,18 +598,18 @@ hr {
 		height: 750px;
 	}
 	.boton {
-		width: 200px;
-		height: 50px; 
+		width: 5em;
+		height: 1.3em; 
 	}
-	.responsive-tittle {
-		padding-top:35px;
-		padding-bottom:10px; 
-		font-size: 18px;
+	.tittle-question {
+		text-font: 1.3em;
+		margin-top: 0em;
+		margin-bottom: 0.5em;
+		color: #000;
 	}
-	.responsive-where-question {
-		padding-top:12px;
-		padding-bottom:10px; 
-		font-size: 18px;
+	.text-question {
+		text-font: 1.1em;
+		color: #000;
 	}
 	.step {
 		height: 10em;
@@ -652,8 +622,9 @@ hr {
 
 /* Portrait tablets and medium desktops */
 @media (min-width: 992px) and (max-width: 1199px) {
-	.hero-text {
+	#tittle-welcome {
 		font-size: 2.5em;
+		color: #000;
 	}
 	.mainPitch{
 		width: auto !important;
@@ -663,8 +634,9 @@ hr {
 	.size-responsive {
 		font-size: 1.5em;
 	}
-	.text-strong-responsive {
+	.text-question {
 		font-size: 1.0em;
+		color: #000;
 	}
 	.soflow-color {
 		margin-bottom: 3%;
@@ -673,13 +645,14 @@ hr {
 		height: 750px;
 	}
 	.boton {
-		width: 200px;
-		height: 50px; 
+		width: 5em;
+		height: 1.3em;
 	}
-	.responsive-tittle {
+	.tittle-question {
 		padding-top:35px;
 		padding-bottom:10px; 
 		font-size: 18px;
+		color: #000;
 	}
 	.responsive-where-question {
 		padding-top:12px;
@@ -697,8 +670,9 @@ hr {
 
 /* Portrait tablets and small desktops */
 @media (min-width: 768px) and (max-width: 991px) {
-	.hero-text {
+	#tittle-welcome {
 		font-size: 2.3em;
+		color: #000;
 	}
 	.mainPitch{
 		width: auto !important;
@@ -708,8 +682,9 @@ hr {
 	.size-responsive {
 		font-size: 1.3em;
 	}
-	.text-strong-responsive {
+	.text-question {
 		font-size: 0.9em;
+		color: #000;
 	}
 	.soflow-color {
 		margin-bottom: 1%;
@@ -718,13 +693,14 @@ hr {
 		height: 850px;
 	}
 	.boton {
-		width: 200px;
-		height: 50px; 
+		width: 5em;
+		height: 1.3em;
 	}
-	.responsive-tittle {
+	.tittle-question {
 		padding-top:35px;
 		padding-bottom:10px; 
 		font-size: 18px;
+		color: #000;
 	}
 	.responsive-where-question {
 		padding-top:12px;
@@ -742,8 +718,9 @@ hr {
 
 /* Landscape phones and portrait tablets */
 @media (min-width: 481px) and (max-width: 767px) {
-	.hero-text {
-		font-size: 2.0em;
+	#tittle-welcome {
+		font-size: 2em;
+		color: #000;
 	}
 	.mainPitch{
 		width: auto !important;
@@ -753,8 +730,9 @@ hr {
 	.size-responsive {
 		font-size: 1.0em;
 	}
-	.text-strong-responsive {
+	.text-question {
 		font-size: 0.9em;
+		color: #000;
 	}
 	.soflow-color {
 		margin-bottom: 0%;
@@ -766,13 +744,14 @@ hr {
 		height: 800px;
 	}
 	.boton {
-		width: 6em;
-		height: 1.8em; 
+		width: 5em;
+		height: 1.3em;
 	}
-	.responsive-tittle {
+	.tittle-question {
 		padding-top:12px;
 		padding-bottom:10px; 
 		font-size: 18px;
+		color: #000;
 	}
 	.responsive-where-question {
 		padding-top:12px;
@@ -790,8 +769,9 @@ hr {
 
 /* Landscape phones and smaller */
 @media (max-width: 480px) {
-	.hero-text {
+	#tittle-welcome {
 		font-size: 1.7em;
+		color: #000;
 	}
 	.mainPitch{
 		width: auto !important;
@@ -801,8 +781,9 @@ hr {
 	.size-responsive {
 		font-size: 0.9em;
 	}
-	.text-strong-responsive {
+	.text-question {
 		font-size: 0.8em;
+		color: #000;
 	}
 	.soflow-color {
 		margin-bottom: 0%;
@@ -814,13 +795,14 @@ hr {
 		height: 800px;
 	}
 	.boton {
-		width: 6em;
-		height: 1.8em; 
+		width: 5em;
+		height: 1.3em;
 	}
-	.responsive-tittle {
+	.tittle-question {
 		padding-top:12px;
 		padding-bottom:10px; 
 		font-size: 18px;
+		color: #000;
 	}
 	.responsive-where-question {
 		padding-top:12px;
@@ -850,3 +832,32 @@ hr {
     color:    #FFF;
 }
 /*SET COLOR OF PLACEHOLDER*/
+#booking-button-container {
+	margin-left : auto;
+	margin-right : auto;
+	margin-top: 0;
+}
+/*submit button*/
+.boton {
+  background: #2ECC71;
+  box-shadow: 0 0 0 5px #2ECC71;
+  border: 1px;  
+  border-radius: 100px;
+  margin: 20px;
+  font-size: 1.5em;
+  font-family: arial;
+  color: #fff;
+}
+
+.boton:hover {
+  background: transparent;
+  transition: all 0.8s;
+  color: #2ECC71;
+}
+
+.boton:active {
+  background: #126BCB;
+  transition:all 0.7s;
+}
+
+/*end submit button*/
