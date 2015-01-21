@@ -1,3 +1,6 @@
-/vendor/
-/vendor/
+__MACOSX
+.DS_Store
+._.DS_Store
+.idea
+*.iml
 /vendor/

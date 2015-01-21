@@ -455,10 +455,9 @@ class HomeController extends BaseController {
 		return View::make('pages.home');
 	
 	}
-	
-	
-	
-	
-	
 
+	public function searchSuppliers()
+	{
+		return View::make('pages.search');
+	}
 }
