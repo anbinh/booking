@@ -109,7 +109,9 @@
                         -->
                         <?php
                             $user = Auth::user();
-                            $role = $user->role;
+                            if(!$user){
+                                $role = $user->role;
+                            }
                         ?>
                         @if($role=='1')
                         <li>

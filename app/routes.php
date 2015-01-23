@@ -44,7 +44,6 @@ Route::post('admin/changeuserpass/{user_id}', array('as' => 'admin.changeuserpas
 Route::get('admin/adduser', 'AdminController@getAddUser');
 Route::post('admin/adduser', 'AdminController@postAddUser');
 
-
 Route::get('user/{user_id}', array('uses' => 'HomeController@getUser'));
 
 
@@ -183,11 +182,6 @@ Route::group(array('before'=>'check-language'), function(){
 	{
 		return View::make('pages.supplier-page');
 	}));
-	
-	
-	
-	
-	
 });
 
 	Route::get('language/english',array('as'=>'english-language', function()
@@ -227,9 +221,9 @@ Route::group(array('before'=>'check-language'), function(){
 		}
 	});*/	
 	
-		Route::post('/ajax', 'AjaxController@postSelectSupplier');
-		
-		Route::get('select-supplier',array('as'=>'select-supplier', function()
-		{
-			return View::make('ajax.select-supplier');
-		}));
+Route::post('/ajax', 'AjaxController@postSelectSupplier');
+
+Route::get('select-supplier',array('as'=>'select-supplier', function()
+{
+	return View::make('ajax.select-supplier');
+}));
