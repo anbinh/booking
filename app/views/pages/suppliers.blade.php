@@ -236,6 +236,11 @@
         content: none;
     }
 
+    div#ui-datepicker-div { z-index: 999999 !important; }
+    input#datepicker{
+        width: 90%!important;
+        float: right;
+    }
 
     #filter-result-form td{
         padding-right: 20px;
@@ -264,15 +269,14 @@
             </div>
         </div>
         <div class="row" style="padding: 0 0 100px;background-color: #ffffff;color: rgba(0,0,0,.84); padding-top:20px">
-            <div class="col-md-4" style="padding-left: 30px">
+            <div class="col-md-3" style="padding-left: 30px">
                 <div class="row" >
                     <div class="col-md-12" style="border: 1px solid;">
                         <h3>Modify your search</h3>
                         <form class="form-horizontal">
-                            <fieldset>
                                 <div class="form-group">
-                                    <label for="service" class="col-lg-2 control-label">Service</label>
-                                    <div class="col-lg-10">
+                                    <label for="service" class="col-lg-4 col-md-4 col-xs-4">Service</label>
+                                    <div class="col-lg-8 col-md-8 col-xs-8">
                                         <select class="form-control" id="service">
                                             <option value="-1" selected>Select an Option</option>
                                             <option value="cleaning_homie">Cleaning Homie</option>
@@ -282,8 +286,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="datepicker" class="col-lg-2 control-label">Date</label>
-                                    <div class="col-lg-10">
+                                    <label for="datepicker" class="col-lg-3 col-md-3 col-xs-3 control-label">Date</label>
+                                    <div class="col-lg-9 col-md-9 col-xs-9">
                                         <input id="datepicker" type="text" placeholder="mm/dd/yyyy" style="-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 												-webkit-padding-end: 20px;
 												-webkit-padding-start: 2px;
@@ -305,20 +309,19 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="long_service" class="col-lg-2 control-label">Number of hours</label>
-                                    <div class="col-lg-10">
+                                    <label for="long_service" class="col-lg-8 col-md-8 col-xs-8">Number of hours</label>
+                                    <div class="col-lg-4 col-md-4 col-xs-4" style="padding-left: 5px;padding-right: 10px">
                                         <select class="form-control" id="long_service">
-                                            <option value="-1" selected>Select an Option</option>
-                                            <option value="1">1 hours</option>
-                                            <option value="2">2 hours</option>
-                                            <option value="3">3 hours</option>
-                                            <option value="4">4 hours</option>
-                                            <option value="5">5 hours</option>
-                                            <option value="6">6 hours</option>
-                                            <option value="7">7 hours</option>
-                                            <option value="8">8 hours</option>
-                                            <option value="9">9 hours</option>
-                                            <option value="10">10 hours</option>
+                                            <option value="1" selected>1 Hours</option>
+                                            <option value="2">2 Hours</option>
+                                            <option value="3">3 Hours</option>
+                                            <option value="4">4 Hours</option>
+                                            <option value="5">5 Hours</option>
+                                            <option value="6">6 Hours</option>
+                                            <option value="7">7 Hours</option>
+                                            <option value="8">8 Hours</option>
+                                            <option value="9">9 Hours</option>
+                                            <option value="10">10 Hours</option>
                                             <option value="longer">longer</option>
                                         </select>
                                     </div>
@@ -328,69 +331,6 @@
                                         <button type="submit" class="btn btn-primary">Modify search</button>
                                     </div>
                                 </div>
-                            </fieldset>
-                        </form><h3>Modify your search</h3>
-                        <form class="form-horizontal">
-                            <fieldset>
-                                <div class="form-group">
-                                    <label for="service" class="col-lg-2 control-label">Service</label>
-                                    <div class="col-lg-10">
-                                        <select class="form-control" id="service">
-                                            <option value="-1" selected>Select an Option</option>
-                                            <option value="cleaning_homie">Cleaning Homie</option>
-                                            <option value="handy_homie">Handy Homie</option>
-                                            <option value="gardening homie">Gardening Homie</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="datepicker" class="col-lg-2 control-label">Date</label>
-                                    <div class="col-lg-10">
-                                        <input id="datepicker" type="text" placeholder="mm/dd/yyyy" style="-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-												-webkit-padding-end: 20px;
-												-webkit-padding-start: 2px;
-												background-position: 97% center;
-												background-repeat: no-repeat;
-												border: 1px solid #AAA;
-												font-size: inherit;
-												overflow: hidden;
-												padding: 5px 5px;
-												text-overflow: ellipsis;
-												white-space: nowrap;
-												width: 65%;
-												line-height: 25px;
-												color: #fff;
-												background-image: url(http://i62.tinypic.com/15xvbd5.png),-webkit-linear-gradient(#2ECC71, #289E5A 40%, #2ECC71);
-												background-color: #2ECC71;
-												border-radius: 20px;
-												padding-left: 15px;" name="date"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="long_service" class="col-lg-2 control-label">Number of hours</label>
-                                    <div class="col-lg-10">
-                                        <select class="form-control" id="long_service">
-                                            <option value="-1" selected>Select an Option</option>
-                                            <option value="1">1 hours</option>
-                                            <option value="2">2 hours</option>
-                                            <option value="3">3 hours</option>
-                                            <option value="4">4 hours</option>
-                                            <option value="5">5 hours</option>
-                                            <option value="6">6 hours</option>
-                                            <option value="7">7 hours</option>
-                                            <option value="8">8 hours</option>
-                                            <option value="9">9 hours</option>
-                                            <option value="10">10 hours</option>
-                                            <option value="longer">longer</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-10 col-lg-offset-2">
-                                        <button type="submit" class="btn btn-primary">Modify search</button>
-                                    </div>
-                                </div>
-                            </fieldset>
                         </form>
                     </div>
                 </div>
@@ -405,7 +345,9 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <div class="filter-result-star" data-average="4" data-id="1"></div>
+                                                    <div class="filter-result-star" data-average="8" data-id="2" title="poor">
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <input type="checkbox" name="filter-star" value="1">
@@ -413,7 +355,10 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div class="filter-result-star" data-average="8" data-id="2"></div>
+                                                    <div class="filter-result-star" data-average="8" data-id="2" title="poor">
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="2" src="/css/icons/star-on.png" title="poor">
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <input type="checkbox" name="filter-star" value="2">
@@ -421,7 +366,11 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div class="filter-result-star" data-average="12" data-id="3"></div>
+                                                    <div class="filter-result-star" data-average="8" data-id="2" title="poor">
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <input type="checkbox" name="filter-star" value="3">
@@ -429,7 +378,12 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div class="filter-result-star" data-average=16 data-id="4"></div>
+                                                    <div class="filter-result-star" data-average="8" data-id="2" title="poor">
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <input type="checkbox" name="filter-star" value="4">
@@ -437,7 +391,13 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div class="filter-result-star" data-average="20" data-id="5"></div>
+                                                    <div class="filter-result-star" data-average="8" data-id="2" title="poor">
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <input type="checkbox" name="filter-star" value="5">
@@ -467,7 +427,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <h2 style="padding-top: 20px">We found these suppliers who meet your requirement</h2>
                 <div class="container-fluid" id="result-supplier">
                     <div class="row">
@@ -484,7 +444,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="bg-info center">USD 200</div>
-                            <button class="btn btn-primary btn-sm">Book Now</button>
+                            <button class="btn btn-primary btn-sm col-md-12">Book Now</button>
                         </div>
                     </div>
                     <div class="row">
@@ -531,15 +491,15 @@
             length: 5,
             isDisabled: false
         });
-        $("div.filter-result-star").raty({
-            number: function() {
-                return $(this).attr('data-id');
-            },
-            score :function(){
-                return $(this).attr('data-id');
-            },
-            readOnly: true
-        });
+//        $("div.filter-result-star").raty({
+//            number: function() {
+//                return $(this).attr('data-id');
+//            },
+//            score :function(){
+//                return $(this).attr('data-id');
+//            },
+//            readOnly: true
+//        });
         $( "#slider-range" ).slider({
             range: true,
             min: 0,
