@@ -373,6 +373,17 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-2">
+                                    <p>
+                                        <label for="amount">Price range:</label>
+                                        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                    </p>
+                                    <div id="slider-range"></div>
+                                    <input type="hidden" id="from-price" name="from-price" value="0">
+                                    <input type="hidden" id="to-price" name="to-price" value="500">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-2">
                                     <button type="submit" class="btn btn-primary">Filter result</button>
                                 </div>
                             </div>
@@ -452,8 +463,20 @@
                 return $(this).attr('data-id');
             },
             readOnly: true
-
         });
+        $( "#slider-range" ).slider({
+            range: true,
+            min: 0,
+            max: 500,
+            values: [ 0, 500 ],
+            slide: function( event, ui ) {
+                $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                $("input#from-price").val(ui.values[ 0 ])
+                $("input#to-price").val(ui.values[ 1 ])
+            }
+        });
+        $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - $" + $( "#slider-range" ).slider( "values", 1 ) );
     });
 </script>
 @stop
