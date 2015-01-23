@@ -241,6 +241,16 @@
         padding-right: 20px;
     }
 
+    #result-supplier div.row{
+        padding-top: 20px;
+        border: 1px solid;
+        margin-top: 20px;
+    }
+
+    #result-supplier div.row:first-child{
+        margin-top: 0px;
+    }
+
 
 </style>
     <div class="main-body-container" style="padding-top: 80px;padding-bottom: 20px">
@@ -253,27 +263,28 @@
                 </ol>
             </div>
         </div>
-        <div class="row" style="padding: 0 0 100px;background-color: #ffffff;color: rgba(0,0,0,.84);">
+        <div class="row" style="padding: 0 0 100px;background-color: #ffffff;color: rgba(0,0,0,.84); padding-top:20px">
             <div class="col-md-4" style="padding-left: 30px">
-                <div class="row">
-                    <h3>Modify your search</h3>
-                    <form class="form-horizontal">
-                        <fieldset>
-                            <div class="form-group">
-                                <label for="service" class="col-lg-2 control-label">Service</label>
-                                <div class="col-lg-10">
-                                    <select class="form-control" id="service">
-                                        <option value="-1" selected>Select an Option</option>
-                                        <option value="cleaning_homie">Cleaning Homie</option>
-                                        <option value="handy_homie">Handy Homie</option>
-                                        <option value="gardening homie">Gardening Homie</option>
-                                    </select>
+                <div class="row" >
+                    <div class="col-md-12" style="border: 1px solid;">
+                        <h3>Modify your search</h3>
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="service" class="col-lg-2 control-label">Service</label>
+                                    <div class="col-lg-10">
+                                        <select class="form-control" id="service">
+                                            <option value="-1" selected>Select an Option</option>
+                                            <option value="cleaning_homie">Cleaning Homie</option>
+                                            <option value="handy_homie">Handy Homie</option>
+                                            <option value="gardening homie">Gardening Homie</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="datepicker" class="col-lg-2 control-label">Date</label>
-                                <div class="col-lg-10">
-                                    <input id="datepicker" type="text" placeholder="mm/dd/yyyy" style="-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+                                <div class="form-group">
+                                    <label for="datepicker" class="col-lg-2 control-label">Date</label>
+                                    <div class="col-lg-10">
+                                        <input id="datepicker" type="text" placeholder="mm/dd/yyyy" style="-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 												-webkit-padding-end: 20px;
 												-webkit-padding-start: 2px;
 												background-position: 97% center;
@@ -291,109 +302,174 @@
 												background-color: #2ECC71;
 												border-radius: 20px;
 												padding-left: 15px;" name="date"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="long_service" class="col-lg-2 control-label">Number of hours</label>
-                                <div class="col-lg-10">
-                                    <select class="form-control" id="long_service">
-                                        <option value="-1" selected>Select an Option</option>
-                                        <option value="1">1 hours</option>
-                                        <option value="2">2 hours</option>
-                                        <option value="3">3 hours</option>
-                                        <option value="4">4 hours</option>
-                                        <option value="5">5 hours</option>
-                                        <option value="6">6 hours</option>
-                                        <option value="7">7 hours</option>
-                                        <option value="8">8 hours</option>
-                                        <option value="9">9 hours</option>
-                                        <option value="10">10 hours</option>
-                                        <option value="longer">longer</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label for="long_service" class="col-lg-2 control-label">Number of hours</label>
+                                    <div class="col-lg-10">
+                                        <select class="form-control" id="long_service">
+                                            <option value="-1" selected>Select an Option</option>
+                                            <option value="1">1 hours</option>
+                                            <option value="2">2 hours</option>
+                                            <option value="3">3 hours</option>
+                                            <option value="4">4 hours</option>
+                                            <option value="5">5 hours</option>
+                                            <option value="6">6 hours</option>
+                                            <option value="7">7 hours</option>
+                                            <option value="8">8 hours</option>
+                                            <option value="9">9 hours</option>
+                                            <option value="10">10 hours</option>
+                                            <option value="longer">longer</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-10 col-lg-offset-2">
-                                    <button type="submit" class="btn btn-primary">Modify search</button>
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-2">
+                                        <button type="submit" class="btn btn-primary">Modify search</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </fieldset>
-                    </form>
+                            </fieldset>
+                        </form><h3>Modify your search</h3>
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="service" class="col-lg-2 control-label">Service</label>
+                                    <div class="col-lg-10">
+                                        <select class="form-control" id="service">
+                                            <option value="-1" selected>Select an Option</option>
+                                            <option value="cleaning_homie">Cleaning Homie</option>
+                                            <option value="handy_homie">Handy Homie</option>
+                                            <option value="gardening homie">Gardening Homie</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="datepicker" class="col-lg-2 control-label">Date</label>
+                                    <div class="col-lg-10">
+                                        <input id="datepicker" type="text" placeholder="mm/dd/yyyy" style="-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+												-webkit-padding-end: 20px;
+												-webkit-padding-start: 2px;
+												background-position: 97% center;
+												background-repeat: no-repeat;
+												border: 1px solid #AAA;
+												font-size: inherit;
+												overflow: hidden;
+												padding: 5px 5px;
+												text-overflow: ellipsis;
+												white-space: nowrap;
+												width: 65%;
+												line-height: 25px;
+												color: #fff;
+												background-image: url(http://i62.tinypic.com/15xvbd5.png),-webkit-linear-gradient(#2ECC71, #289E5A 40%, #2ECC71);
+												background-color: #2ECC71;
+												border-radius: 20px;
+												padding-left: 15px;" name="date"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="long_service" class="col-lg-2 control-label">Number of hours</label>
+                                    <div class="col-lg-10">
+                                        <select class="form-control" id="long_service">
+                                            <option value="-1" selected>Select an Option</option>
+                                            <option value="1">1 hours</option>
+                                            <option value="2">2 hours</option>
+                                            <option value="3">3 hours</option>
+                                            <option value="4">4 hours</option>
+                                            <option value="5">5 hours</option>
+                                            <option value="6">6 hours</option>
+                                            <option value="7">7 hours</option>
+                                            <option value="8">8 hours</option>
+                                            <option value="9">9 hours</option>
+                                            <option value="10">10 hours</option>
+                                            <option value="longer">longer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-2">
+                                        <button type="submit" class="btn btn-primary">Modify search</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
                 </div>
-                <div class="row">
-                    <h3>Filter search results</h3>
-                    <form class="form-horizontal" id="filter-result-form">
-                        <fieldset>
-                            <div class="form-group">
-                                <label for="service" class="col-lg-2 control-label">By ranking: </label>
-                                <div class="col-lg-10">
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <div class="filter-result-star" data-average="4" data-id="1"></div>
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" name="filter-star" value="1">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="filter-result-star" data-average="8" data-id="2"></div>
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" name="filter-star" value="2">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="filter-result-star" data-average="12" data-id="3"></div>
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" name="filter-star" value="3">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="filter-result-star" data-average=16 data-id="4"></div>
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" name="filter-star" value="4">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="filter-result-star" data-average="20" data-id="5"></div>
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" name="filter-star" value="5">
-                                            </td>
-                                        </tr>
-                                    </table>
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-12" style="border: 1px solid;">
+                        <h3>Filter search results</h3>
+                        <form class="form-horizontal" id="filter-result-form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="service" class="col-lg-2 control-label">By ranking: </label>
+                                    <div class="col-lg-10">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="filter-result-star" data-average="4" data-id="1"></div>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" name="filter-star" value="1">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="filter-result-star" data-average="8" data-id="2"></div>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" name="filter-star" value="2">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="filter-result-star" data-average="12" data-id="3"></div>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" name="filter-star" value="3">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="filter-result-star" data-average=16 data-id="4"></div>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" name="filter-star" value="4">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="filter-result-star" data-average="20" data-id="5"></div>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" name="filter-star" value="5">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-10 col-lg-offset-2">
-                                    <p>
-                                        <label for="amount">Price range:</label>
-                                        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                                    </p>
-                                    <div id="slider-range"></div>
-                                    <input type="hidden" id="from-price" name="from-price" value="0">
-                                    <input type="hidden" id="to-price" name="to-price" value="500">
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-2">
+                                        <p>
+                                            <label for="amount">Price range:</label>
+                                            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                        </p>
+                                        <div id="slider-range"></div>
+                                        <input type="hidden" id="from-price" name="from-price" value="0">
+                                        <input type="hidden" id="to-price" name="to-price" value="500">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-10 col-lg-offset-2">
-                                    <button type="submit" class="btn btn-primary">Filter result</button>
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-2">
+                                        <button type="submit" class="btn btn-primary">Filter result</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </fieldset>
-                    </form>
+                            </fieldset>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="col-md-8">
                 <h2 style="padding-top: 20px">We found these suppliers who meet your requirement</h2>
-                <div class="container-fluid">
+                <div class="container-fluid" id="result-supplier">
                     <div class="row">
                         <div class="col-md-3">
                             <a href="#" class="thumbnail">
