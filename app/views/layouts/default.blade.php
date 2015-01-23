@@ -9,5 +9,7 @@
     @yield('content')
     
     @include('includes.footer')
+
+    @yield('jsfile')
 </body>
 </html>

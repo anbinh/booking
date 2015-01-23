@@ -147,6 +147,10 @@ Route::group(array('before'=>'check-language'), function(){
 	{
 		return View::make('pages.suppliers');
 	}));
+	Route::get('suppliers-review',array('as'=>'suppliers-review', function()
+	{
+		return View::make('pages.suppliers-review');
+	}));
 	Route::get('terms',array ('as'=>'terms-page', function()
 	{
 		return View::make('pages.termsOfService');

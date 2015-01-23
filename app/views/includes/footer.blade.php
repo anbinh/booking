@@ -45,3 +45,15 @@
             </div>
         </div>
     </footer>
+
+<script src="{{ cached_asset('/home_page/js/jquery.min.js', true) }}"></script>
+{{--<!--<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>-->--}}
+<script src="{{ cached_asset('/home_page/js/imagesloaded.js', true) }}"></script>
+<script src="{{ cached_asset('/home_page/js/skrollr.js', true) }}"></script>
+<script src="{{ cached_asset('/home_page/js/_main.js', true) }}"></script>
+
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="{{ cached_asset('js/jRating.jquery.min.js', true) }}"></script>
+<script src="{{ cached_asset('js/jquery.raty.js', true) }}"></script>
