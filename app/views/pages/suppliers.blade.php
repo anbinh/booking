@@ -23,7 +23,6 @@
                         <form class="form-horizontal">
                             <div class="form-group">
                                 <label for="service" class="col-lg-4 col-md-4 col-xs-4">Service</label>
-
                                 <div class="col-lg-8 col-md-8 col-xs-8">
                                     <select class="form-control" id="service">
                                         <option value="-1" selected>Select an Option</option>
@@ -88,7 +87,7 @@
                         <form class="form-horizontal" id="filter-result-form">
                             <fieldset>
                                 <div class="form-group">
-                                    <label for="service" class="col-lg-12 control-label">By ranking: </label>
+                                    <label for="service" class="col-lg-12 control-label" style="text-align:left">By ranking: </label>
                                     <div class="col-lg-12">
                                         <table>
                                             <tr>
@@ -180,16 +179,27 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-lg-10 col-lg-offset-2">
-                                        <p>
-                                            <label for="amount">Price range:</label>
-                                            <input type="text" id="amount" readonly
-                                                   style="border:0; color:#f6931f; font-weight:bold;">
-                                        </p>
-
-                                        <div id="slider-range"></div>
-                                        <input type="hidden" id="from-price" name="from-price" value="0">
-                                        <input type="hidden" id="to-price" name="to-price" value="500">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 centered">
+                                                <p>
+                                                    <label for="amount">Price range:</label>
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 centered">
+                                                <p>
+                                                    <input type="text" id="amount" readonly
+                                                           style="border:0; color:#f6931f; font-weight:bold;">
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div id="slider-range"></div>
+                                                <input type="hidden" id="from-price" name="from-price" value="0">
+                                                <input type="hidden" id="to-price" name="to-price" value="500">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group centered">
