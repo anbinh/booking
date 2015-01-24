@@ -3,7 +3,7 @@
     <link href="{{ cached_asset('/css/jRating.jquery.css', true) }}" rel="stylesheet"/>
     <link href="{{ cached_asset('/css/supplier.css', true) }}" rel="stylesheet"/>
     <div class="main-body-container" style="padding-top: 80px;padding-bottom: 20px">
-        <div class="row">
+        <div class="row progress-status-bar">
             <div class="col-md-12">
                 <ol class="steps">
                     <li class="steps__item steps__item--active steps__item--first"><a href="#" class="steps__link">Select
@@ -18,9 +18,8 @@
         <div class="row" style="padding: 0 0 100px;background-color: #ffffff;color: rgba(0,0,0,.84); padding-top:20px">
             <div class="col-md-3" style="padding-left: 30px">
                 <div class="row">
-                    <div class="col-md-12" style="border: 1px solid;">
+                    <div class="col-md-12">
                         <h3>Modify your search</h3>
-
                         <form class="form-horizontal">
                             <div class="form-group">
                                 <label for="service" class="col-lg-4 col-md-4 col-xs-4">Service</label>
@@ -86,7 +85,7 @@
                     </div>
                 </div>
                 <div class="row" style="margin-top: 20px">
-                    <div class="col-md-12" style="border: 1px solid;">
+                    <div class="col-md-12">
                         <h3>Filter search results</h3>
 
                         <form class="form-horizontal" id="filter-result-form">
@@ -104,7 +103,11 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="checkbox" name="filter-star" value="1">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="filter-star" value="1">
+                                                        </label>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -116,7 +119,11 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="checkbox" name="filter-star" value="2">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="filter-star" value="2">
+                                                        </label>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -129,7 +136,11 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="checkbox" name="filter-star" value="3">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="filter-star" value="3">
+                                                        </label>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -143,7 +154,11 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="checkbox" name="filter-star" value="4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="filter-star" value="4">
+                                                        </label>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -158,7 +173,11 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="checkbox" name="filter-star" value="5">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="filter-star" value="5">
+                                                        </label>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </table>
@@ -224,7 +243,8 @@
                                     </div>
                                     <div class="col-md-3 vcenter" style="width: 23%">
                                         <div class="bg-info center">USD 200</div>
-                                        <button class="btn btn-primary btn-sm col-md-12">Book Now</button>
+                                        <a class="btn btn-default btn-primary col-md-12" href="{{route('suppliers-confirm');}}" role="button">Book Now</a>
+                                        {{--<button class="btn btn-primary btn-sm col-md-12"></button>--}}
                                     </div>
                                 </div>
                                 @if($i % 3 == 0)

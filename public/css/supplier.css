@@ -88,7 +88,7 @@
 @media (max-width: 767px) {
     .steps__item {
         width: 100% !important;
-        border: 1px solid #ccc;
+        border: 1px solcid #ccc;
         border-bottom: none;
         padding: 1em 0;
     }
@@ -219,12 +219,12 @@ input#datepicker{
 }
 
 #filter-result-form td{
-    padding-right: 20px;
+    padding-right: 15px;
 }
 
 #result-supplier div.row-result{
     padding-top: 20px;
-    border: 1px solid;
+    /*border: 1px solid;*/
     margin-top: 20px;
 }
 
@@ -236,4 +236,13 @@ input#datepicker{
     display: inline-block;
     vertical-align: middle;
     float: none;
+}
+
+div.progress-status-bar div.col-md-12{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.form-horizontal .checkbox{
+    padding-top:0px;
 }

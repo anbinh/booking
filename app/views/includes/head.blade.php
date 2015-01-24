@@ -11,6 +11,7 @@
 	<link href="{{ cached_asset('/home_page/css/application.css', true) }}" media="all" rel="stylesheet" type="text/css" />
 	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" media="screen" rel="stylesheet" type="text/css" />
 	<link href="{{ cached_asset('/home_page/css/ng-dialog.min.css', true) }}" media="screen" rel="stylesheet" type="text/css" />
+    <link href="{{ cached_asset('/css/bootstrap-social.css', true) }}" media="screen" rel="stylesheet" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -21,3 +22,4 @@
     <link href="{{ cached_asset('/home_page/css/include-head.css', true) }}" rel="stylesheet">
     {{--<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>--}}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
