@@ -19,5 +19,5 @@
     <link rel="stylesheet" href="{{ cached_asset('/home_page/css/normalize.css', true) }}">
     <link rel="stylesheet" href="{{ cached_asset('/home_page/css/main.css', true) }}">
     <link href="{{ cached_asset('/home_page/css/include-head.css', true) }}" rel="stylesheet">
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-
+    {{--<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>--}}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">

@@ -1,7 +1,9 @@
 /**
  * Created by thinhvoxuan on 1/24/15.
  */
+
 $("#datepicker").datepicker();
+//$("#datepicker").attr("placeholder", " ");
 
 $(document).ready(function () {
     // simple jRating call
@@ -35,4 +37,5 @@ $(document).ready(function () {
     " - $" + $("#slider-range").slider("values", 1));
 
     $('button.button-instant-enabled').popover({ trigger: "hover" });
+
 });
