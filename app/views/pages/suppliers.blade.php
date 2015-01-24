@@ -227,11 +227,15 @@
                                         <button class="btn btn-primary btn-sm col-md-12">Book Now</button>
                                     </div>
                                 </div>
-                                @if($i % 3 ==0)
+                                @if($i % 3 == 0)
                                     <div class="row">
-                                        <div class="col-md-4 col-md-offset-6"
-                                             title="You can book services from this supplier without waiting for their confirmation">
-                                            <b>Instant booking enabled!</b></div>
+                                        <div class="col-md-4 col-md-offset-6">
+                                            <button type="button" class="btn btn-default button-instant-enabled"
+                                                    data-container="body" data-toggle="popover"
+                                                    data-placement="bottom" data-content="You can book services from this supplier without waiting for their confirmation">
+                                                <b>Instant booking enabled!</b>
+                                            </button>
+                                        </div>
                                     </div>
                                 @endif
                             </div>

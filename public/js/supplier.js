@@ -2,6 +2,7 @@
  * Created by thinhvoxuan on 1/24/15.
  */
 $("#datepicker").datepicker();
+
 $(document).ready(function () {
     // simple jRating call
     $(".basic").jRating({
@@ -32,4 +33,6 @@ $(document).ready(function () {
     });
     $("#amount").val("$" + $("#slider-range").slider("values", 0) +
     " - $" + $("#slider-range").slider("values", 1));
+
+    $('button.button-instant-enabled').popover({ trigger: "hover" });
 });
