@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="review-content col-md-12">
                         @for($i =0; $i< 10; $i++)
-                            <div class="row" style="margin-left: 0; margin-right: 0; margin-bottom: 15px; border: 1px solid; padding-bottom: 15px">
+                            <div class="row" style="margin-left: 0; margin-right: 0; margin-bottom: 15px; padding-bottom: 15px">
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-3">
