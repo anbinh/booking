@@ -4,7 +4,6 @@
     <link href="{{ cached_asset('/css/supplier.css', true) }}" rel="stylesheet"/>
     <link href="{{ cached_asset('/css/supplier-confirm.css', true) }}" rel="stylesheet"/>
 @stop
-
 @section('content')
     <div class="main-body-container" style="padding-top: 80px;padding-bottom: 20px">
         <div class="row progress-status-bar">
@@ -60,7 +59,7 @@
                                         <h3 class="inline-block pull-right">AED xxxxxx</h3>
                                     </div>
                                 </div>
-                                <form class="form-horizontal" action="#" method="post">
+                                <form class="form-horizontal" action="#" method="get">
                                     <div class="form-group">
                                         <label for="promotion_code" class="col-sm-6 control-label text-aglign-left">Enter
                                             promotion code</label>
@@ -72,12 +71,11 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="promotion_code" class="col-sm-12 control-label text-aglign-left">Do
+                                        <label for="other_required" class="col-sm-12 control-label text-aglign-left">Do
                                             you have any specific requests/requirements from the supplier?
                                         </label>
-
                                         <div class="col-sm-12">
-                                            <textarea class="form-control" placeholder="" name="promotion_code"
+                                            <textarea class="form-control" placeholder="" name="other_required"
                                                       rows="3"></textarea>
                                         </div>
                                     </div>
@@ -89,7 +87,6 @@
                                             </button>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
