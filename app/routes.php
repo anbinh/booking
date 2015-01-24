@@ -155,6 +155,10 @@ Route::group(array('before'=>'check-language'), function(){
 	{
 		return View::make('pages.suppliers-confirm-withoutlogin');
 	}));
+	Route::get('suppliers-confirm-login',array('as'=>'suppliers-confirm-login', function()
+	{
+		return View::make('pages.suppliers-confirm-login');
+	}));
 	Route::get('terms',array ('as'=>'terms-page', function()
 	{
 		return View::make('pages.termsOfService');

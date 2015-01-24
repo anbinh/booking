@@ -20,7 +20,7 @@
                             <div class="col-md-3 vcenter">
                                 <h3>name of supplier</h3>
                             </div>
-                            <div class="col-md-3 col-md-offset-3 vcenter" style="width: 23%">
+                            <div class="col-md-3 pull-right vcenter" style="width: 23%">
                                 <a class="btn btn-default btn-primary" href="{{route('suppliers');}}" role="button">Back to results</a>
                             </div>
                         </div>

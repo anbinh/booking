@@ -1,3 +1,11 @@
+div.main-element-container{
+    background-color: #ffffff;
+    color: rgba(0,0,0,.84);
+    padding-top:20px;
+    padding-left: 35px;
+    padding-right: 35px;
+
+}
 a.confirmation-text{
     font-size: 14px;
 }
@@ -5,4 +13,23 @@ a.confirmation-text{
 div.social-login i.fa{
     top: 5px;
     left:5px;
+}
+
+.form-horizontal  label.text-aglign-left{
+    text-align: left !important;
+}
+
+*.text-center{
+    text-align: center!important;
+}
+
+*.clear-visited-style:visited{
+    color: #fff;
+}
+
+div.social-login a.btn-social{
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

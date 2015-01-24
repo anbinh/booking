@@ -36,7 +36,7 @@
                                 <label for="datepicker" class="col-lg-3 col-md-3 col-xs-3 control-label">Date</label>
                                 <div class="col-lg-9 col-md-9 col-xs-9">
                                     {{--<input id="datepicker" type="text">--}}
-                                    <input id="datepicker" type="text" placeholder="" style="-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+                                    <input id="datepicker" type="text" placeholder="dd/mm/yyyy" style="-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 												-webkit-padding-end: 20px;
 												-webkit-padding-start: 2px;
 												background-position: 97% center;
