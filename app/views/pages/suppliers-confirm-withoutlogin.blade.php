@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="confirm-header col-md-12">
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-12">
                                 <p class="text-center ">
                                     So you want to book a <b>Cleaning homie</b> from <b>[Supplier name]</b> for <b> 5 hours </b> at <b> 19:00 hours </b>
                                     on <b> 25/12/2015 </b>?
