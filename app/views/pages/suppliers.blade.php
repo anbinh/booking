@@ -76,10 +76,8 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-lg-10 col-lg-offset-2">
+                            <div class="form-group centered">
                                     <button type="submit" class="btn btn-primary">Modify search</button>
-                                </div>
                             </div>
                         </form>
                     </div>
@@ -87,19 +85,17 @@
                 <div class="row" style="margin-top: 20px">
                     <div class="col-md-12">
                         <h3>Filter search results</h3>
-
                         <form class="form-horizontal" id="filter-result-form">
                             <fieldset>
                                 <div class="form-group">
-                                    <label for="service" class="col-lg-2 control-label">By ranking: </label>
-
-                                    <div class="col-lg-10">
+                                    <label for="service" class="col-lg-12 control-label">By ranking: </label>
+                                    <div class="col-lg-12">
                                         <table>
                                             <tr>
                                                 <td>
                                                     <div class="filter-result-star" data-average="8" data-id="2"
                                                          title="poor">
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
                                                     </div>
                                                 </td>
                                                 <td>
@@ -114,8 +110,8 @@
                                                 <td>
                                                     <div class="filter-result-star" data-average="8" data-id="2"
                                                          title="poor">
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                        <img alt="2" src="/css/icons/star-on.png" title="poor">
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
+                                                        <img alt="2" src="/css/icons/star-on-small.png" title="poor">
                                                     </div>
                                                 </td>
                                                 <td>
@@ -130,9 +126,9 @@
                                                 <td>
                                                     <div class="filter-result-star" data-average="8" data-id="2"
                                                          title="poor">
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
                                                     </div>
                                                 </td>
                                                 <td>
@@ -147,10 +143,10 @@
                                                 <td>
                                                     <div class="filter-result-star" data-average="8" data-id="2"
                                                          title="poor">
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
                                                     </div>
                                                 </td>
                                                 <td>
@@ -165,11 +161,11 @@
                                                 <td>
                                                     <div class="filter-result-star" data-average="8" data-id="2"
                                                          title="poor">
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
+                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
                                                     </div>
                                                 </td>
                                                 <td>
@@ -196,10 +192,8 @@
                                         <input type="hidden" id="to-price" name="to-price" value="500">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-lg-10 col-lg-offset-2">
-                                        <button type="submit" class="btn btn-primary">Filter result</button>
-                                    </div>
+                                <div class="form-group centered">
+                                    <button type="submit" class="btn btn-primary">Filter result</button>
                                 </div>
                             </fieldset>
                         </form>
@@ -208,7 +202,6 @@
             </div>
             <div class="col-md-9">
                 <h2 style="padding-top: 20px">We found these suppliers who meet your requirement</h2>
-
                 <div class="container-fluid" id="result-supplier">
                     @for($i =0; $i < 10; $i++)
                         <div class="row row-result">
