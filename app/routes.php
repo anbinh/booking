@@ -163,6 +163,14 @@ Route::group(array('before'=>'check-language'), function(){
 	{
 		return View::make('pages.suppliers-checkout-instant');
 	}));
+	Route::get('suppliers-finish',array('as'=>'suppliers-finish', function()
+	{
+		return View::make('pages.suppliers-finish');
+	}));
+	Route::get('suppliers-finish-notinstant',array('as'=>'suppliers-finish-notinstant', function()
+	{
+		return View::make('pages.suppliers-finish-notinstant');
+	}));
 	Route::get('terms',array ('as'=>'terms-page', function()
 	{
 		return View::make('pages.termsOfService');

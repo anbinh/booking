@@ -4,6 +4,7 @@ div.main-element-container{
     padding-top:20px;
     padding-left: 35px;
     padding-right: 35px;
+    min-height: 300px;
 }
 
 .steps {
