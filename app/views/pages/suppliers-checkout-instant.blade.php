@@ -44,10 +44,7 @@
                         </div>
                     </div>
                     <div class="col-sm-4 text-center finished-bottom">
-                        <button type="submit"
-                                class="btn btn-default btn-primary" style="width: 80%">
-                            Finish
-                        </button>
+                        <a class="btn btn-default btn-primary" style="width: 80%" href="{{route('suppliers-finish');}}" role="button">Finish</a>
                     </div>
                     <footer class="footer-note">
                         <small>*5% credit card charge will apply (the evil bank wants it!)</small>
