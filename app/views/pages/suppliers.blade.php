@@ -11,7 +11,7 @@
                     <li class="steps__item" disabled="disabled"><a href="#" class="steps__link">Confirm the booking</a>
                     </li>
                     <li class="steps__item steps__item--last" disabled="disabled"><a href="#"
-                                                                                     class="steps__link">Pay</a></li>
+                                                                                     class="steps__link">Check out</a></li>
                 </ol>
             </div>
         </div>

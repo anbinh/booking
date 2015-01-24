@@ -1,3 +1,11 @@
+div.main-element-container{
+    background-color: #ffffff;
+    color: rgba(0,0,0,.84);
+    padding-top:20px;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
 .steps {
     -webkit-user-select: none;
     -moz-user-select: none;

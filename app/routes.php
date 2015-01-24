@@ -159,6 +159,10 @@ Route::group(array('before'=>'check-language'), function(){
 	{
 		return View::make('pages.suppliers-confirm-login');
 	}));
+	Route::get('suppliers-checkout-instant',array('as'=>'suppliers-checkout-instant', function()
+	{
+		return View::make('pages.suppliers-checkout-instant');
+	}));
 	Route::get('terms',array ('as'=>'terms-page', function()
 	{
 		return View::make('pages.termsOfService');

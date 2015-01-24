@@ -1,0 +1,22 @@
+div.review-review{
+    min-height: 300px;
+}
+
+h3.payment-header{
+    margin-bottom: 0px;
+}
+
+div.radio{
+    display: inline-block;
+}
+footer.footer-note{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
+div.finished-bottom{
+    position: absolute;
+    bottom: 10px;
+    right: 0px;
+}
