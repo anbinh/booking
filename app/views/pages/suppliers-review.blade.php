@@ -3,7 +3,7 @@
 <link href="{{ cached_asset('css/jRating.jquery.css', true) }}" rel="stylesheet"/>
 <link href="{{ cached_asset('/css/supplier.css', true) }}" rel="stylesheet"/>
     <div class="main-body-container" style="padding-top: 80px;padding-bottom: 20px">
-        <div class="row" style="background-color: #ffffff;color: rgba(0,0,0,.84); padding-top:20px">
+        <div class="row row main-element-container">
             <div class="review-review col-md-12">
                 <div class="row">
                     <div class="review-header col-md-12">
@@ -32,14 +32,15 @@
                             <div class="row" style="margin-left: 0; margin-right: 0; margin-bottom: 15px; padding-bottom: 15px">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <p>"CUSTOMER NAME" said:</p>
                                         </div>
                                         <div class="col-md-6">
                                             <p>Title of review (e.g. Horrible service, rude staff)</p>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div>
+                                                <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
                                                 <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
                                                 <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
                                                 <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
@@ -54,7 +55,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2 col-md-offset-10">
-                                            mm/yy
+                                            mm/yyyy
                                         </div>
                                     </div>
                                 </div>
