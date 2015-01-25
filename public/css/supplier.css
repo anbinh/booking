@@ -235,6 +235,7 @@ input#datepicker, input#timepicker{
     padding-top: 20px;
     /*border: 1px solid;*/
     margin-top: 20px;
+    min-height: 150px;
 }
 
 #result-supplier div.row-result:first-child{
