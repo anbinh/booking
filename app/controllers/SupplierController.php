@@ -25,7 +25,7 @@ class SupplierController extends BaseController {
 		$services = Service::all();
 		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
 		if($service_selected == -1){
-			$suppliers = Supplier::all()->take(10);
+//			$suppliers = Supplier::all()->take(10);
 		}else{
 			$suppliers = Service::find($service_selected)->getSupplier->take(10);
 		}
@@ -69,7 +69,7 @@ class SupplierController extends BaseController {
 	public function confirmSupplier($id_code){
 		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
 		if($service_selected == -1){
-			//TODO: add flash message
+			Session::flash('error', 'Not selected SERVICE yets');
 			return Redirect::route('suppliers');
 		}
 
@@ -98,6 +98,10 @@ class SupplierController extends BaseController {
 
 	public function checkoutSupplier($id_code){
 		$sup = Supplier::find($id_code);
+		Session::forget(self::$DURATION_SELECTED);
+		Session::forget(self::$TIME_SELECTED);
+		Session::forget(self::$DATE_SELECTED);
+		Session::forget(self::$SERVICE_SELECTED_ID);
 		if($sup->instance){
 		 	$view = 'pages.suppliers-checkout-instant';
 		}else{

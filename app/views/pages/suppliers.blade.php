@@ -17,6 +17,7 @@
         </div>
         <div class="row" style="padding: 0 0 100px;background-color: #ffffff;color: rgba(0,0,0,.84); padding-top:20px">
             <div class="col-md-3" style="padding-left: 30px">
+                @if(Session::has('error'))<h5>{{Session::get('error')}}</h5>@endif
                 <div class="row">
                     <div class="col-md-12">
                         <h3>Modify your search</h3>
