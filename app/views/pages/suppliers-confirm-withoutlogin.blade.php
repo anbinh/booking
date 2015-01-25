@@ -28,8 +28,8 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <p class="text-center ">
-                                    So you want to book a <b>Cleaning homie</b> from <b>[Supplier name]</b> for <b> 5 hours </b> at <b> 19:00 hours </b>
-                                    on <b> 25/12/2015 </b>?
+                                    So you want to book a <b>{{$service->name}}</b> from <b>[{{$supplier->company_name}}]</b> for <b> {{$duration_selected}} hours </b> at <b> {{$time_selected}} </b>
+                                    on <b> {{$date_selected}} </b>?
                                 </p>
                             </div>
                         </div>

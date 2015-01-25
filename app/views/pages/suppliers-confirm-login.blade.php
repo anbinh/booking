@@ -27,19 +27,19 @@
                         <h3 style="text-decoration:underline">Booking details</h3>
                         <ul>
                             <li>
-                                Supplier: XXXX
+                                Supplier: {{$supplier->company_name}}
                             </li>
                             <li>
-                                Service: Cleaning Homie
+                                Service: {{$service->name}}
                             </li>
                             <li>
-                                Date: dd/mm/yyyy
+                                Date: {{$date_selected}}
                             </li>
                             <li>
-                                Time: mm/hh am
+                                Time: {{$time_selected}}
                             </li>
                             <li>
-                                Number of hours: XX
+                                Number of hours: {{$duration_selected}}
                             </li>
                         </ul>
                         <div class="row">
@@ -80,10 +80,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-12 text-center">
-                                    <button type="submit"
-                                            class="btn btn-default btn-primary" style="width: 80%">
-                                        Process to checkout
-                                    </button>
+                                    <a class="btn btn-default btn-primary confirmation-text" style="width: 80%"
+                                       href="{{route('suppliers-checkout', ['id_code' => $supplier->id])}}" role="button">Process to checkout</a>
                                 </div>
                             </div>
                         </form>

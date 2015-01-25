@@ -20,15 +20,22 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h3>Modify your search</h3>
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" method="post" action="{{route('suppliers-post-search')}}">
                             <div class="form-group">
                                 <label for="service" class="col-lg-4 col-md-4 col-xs-4">Service</label>
                                 <div class="col-lg-8 col-md-8 col-xs-8">
-                                    <select class="form-control" id="service">
-                                        <option value="-1" selected>Select an Option</option>
-                                        <option value="cleaning_homie">Cleaning Homie</option>
-                                        <option value="handy_homie">Handy Homie</option>
-                                        <option value="gardening homie">Gardening Homie</option>
+                                    <select class="form-control" id="service" name="service">
+                                        <option value="-1"
+                                                @if($service_selected == -1)
+                                                    selected
+                                                @endif
+                                                >Select an Option</option>
+                                        @foreach ($services as $s)
+                                            <option name="service" value="{{$s->id}}"
+                                            @if($service_selected == $s->id) selected @endif>
+                                                {{ $s->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -36,7 +43,7 @@
                                 <label for="datepicker" class="col-lg-3 col-md-3 col-xs-3 control-label">Date</label>
                                 <div class="col-lg-9 col-md-9 col-xs-9">
                                     {{--<input id="datepicker" type="text">--}}
-                                    <input id="datepicker" type="text" placeholder="dd/mm/yyyy" style="-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+                                    <input id="datepicker" type="text" value="{{$date_selected}}" placeholder="dd/mm/yyyy" style="-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 												-webkit-padding-end: 20px;
 												-webkit-padding-start: 2px;
 												background-position: 97% center;
@@ -60,7 +67,7 @@
                                 <label for="timepicker" class="col-lg-3 col-md-3 col-xs-3 control-label">Time</label>
                                 <div class="col-lg-9 col-md-9 col-xs-9">
                                     {{--<input id="datepicker" type="text">--}}
-                                    <input id="timepicker" type="text" placeholder="hh/mm" style="-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+                                    <input id="timepicker" type="text" value="{{$time_selected}}"  placeholder="hh/mm" style="-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 												-webkit-padding-end: 20px;
 												-webkit-padding-start: 2px;
 												background-position: 97% center;
@@ -84,18 +91,13 @@
                                 <label for="long_service" class="col-lg-8 col-md-8 col-xs-8">Number of hours</label>
 
                                 <div class="col-lg-4 col-md-4 col-xs-4" style="padding-left: 5px;padding-right: 10px">
-                                    <select class="form-control" id="long_service">
-                                        <option value="1" selected>1 Hours</option>
-                                        <option value="2">2 Hours</option>
-                                        <option value="3">3 Hours</option>
-                                        <option value="4">4 Hours</option>
-                                        <option value="5">5 Hours</option>
-                                        <option value="6">6 Hours</option>
-                                        <option value="7">7 Hours</option>
-                                        <option value="8">8 Hours</option>
-                                        <option value="9">9 Hours</option>
-                                        <option value="10">10 Hours</option>
-                                        <option value="longer">longer</option>
+                                    <select class="form-control" id="long_service" name="duration">
+                                        @for($i = 1; $i < 11; $i++)
+                                            <option value="{{$i}}"
+                                                @if($i == $duration_selected) selected @endif> {{$i}} Hours</option>
+                                        @endfor
+                                        <option value="11"
+                                            @if(11 == $duration_selected) selected @endif>longer</option>
                                     </select>
                                 </div>
                             </div>
@@ -237,7 +239,7 @@
             <div class="col-md-9">
                 <h2 style="padding-top: 20px">We found these suppliers who meet your requirement</h2>
                 <div class="container-fluid" id="result-supplier">
-                    @for($i =0; $i < 10; $i++)
+                    @foreach($suppliers as $s)
                         <div class="row row-result">
                             <div class="col-md-12">
                                 <div class="row">
@@ -252,7 +254,7 @@
                                     <div class="col-md-3 vcenter">
                                         <div class="row">
                                             <div class="col-md-12 vcenter">
-                                                <h3>name of supplier</h3>
+                                                <h3>{{$s->company_name}}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -264,17 +266,17 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <h3><a href="{{route('suppliers-review');}}">Read reviews</a></h3>
+                                                <h3><a href="{{route('suppliers-review', ['id_code'=> $s->id]);}}">Read reviews</a></h3>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3 vcenter" style="width: 23%">
-                                        <div class="bg-info center">USD 200</div>
-                                        <a class="btn btn-default btn-primary col-md-12" href="{{route('suppliers-confirm');}}" role="button">Book Now</a>
+                                        <div class="bg-info center">AED {{$s->rate_per_hour}}</div>
+                                        <a class="btn btn-default btn-primary col-md-12" href="{{route('suppliers-confirm', ['id_code'=>$s->id])}}" role="button">Book Now</a>
                                         {{--<button class="btn btn-primary btn-sm col-md-12"></button>--}}
                                     </div>
                                 </div>
-                                @if($i % 3 == 0)
+                                @if($s->instance != 0)
                                     <div class="row">
                                         <div class="col-md-4 col-md-offset-6">
                                             <button type="button" class="btn btn-default button-instant-enabled"
@@ -288,7 +290,7 @@
                             </div>
 
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
         </div>

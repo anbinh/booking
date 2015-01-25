@@ -178,14 +178,12 @@ class HomeController extends BaseController {
 					'email'     => $input['email'],
 					'clickUrl'  => URL::to('/') . '/confirm/' . $newcode
 			);
-			 
 			//---new send email----//
 			try {
 				Mail::send('emails.signup', $data, function($message)
 				{
 					$message->to(Input::get('email'))->subject('Welcome');
 				});
-	
 			}
 			catch (Exception $e){
 				$to      = Input::get('email');

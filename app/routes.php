@@ -143,34 +143,53 @@ Route::group(array('before'=>'check-language'), function(){
 	{
 		return View::make('pages.aboutUs');
 	}));
-	Route::get('suppliers',array('as'=>'suppliers', function()
-	{
-		return View::make('pages.suppliers');
-	}));
-	Route::get('suppliers-review',array('as'=>'suppliers-review', function()
-	{
-		return View::make('pages.suppliers-review');
-	}));
-	Route::get('suppliers-confirm',array('as'=>'suppliers-confirm', function()
-	{
-		return View::make('pages.suppliers-confirm-withoutlogin');
-	}));
-	Route::get('suppliers-confirm-login',array('as'=>'suppliers-confirm-login', function()
-	{
-		return View::make('pages.suppliers-confirm-login');
-	}));
-	Route::get('suppliers-checkout-instant',array('as'=>'suppliers-checkout-instant', function()
-	{
-		return View::make('pages.suppliers-checkout-instant');
-	}));
+//	Route::get('suppliers',array('as'=>'suppliers', function()
+//	{
+//		return View::make('pages.suppliers');
+//	}));
+	Route::get('suppliers', array('uses' => 'SupplierController@getSupplier',
+		'as'=>'suppliers'));
+
+	Route::post('suppliers', array('uses' => 'SupplierController@postSupplier',
+		'as'=>'suppliers-post-search'));
+
+//	Route::get('suppliers-review/{id_code}',array('as'=>'suppliers-review', function()
+//	{
+//		return View::make('pages.suppliers-review');
+//	}));
+	Route::get('suppliers-review/{id_code}', array('uses' => 'SupplierController@reviewSupplier',
+		'as'=>'suppliers-review'));
+
+//	Route::get('suppliers-confirm',array('as'=>'suppliers-confirm', function()
+//	{
+//		return View::make('pages.suppliers-confirm-withoutlogin');
+//	}));
+//	Route::get('suppliers-confirm-login',array('as'=>'suppliers-confirm-login', function()
+//	{
+//		return View::make('pages.suppliers-confirm-login');
+//	}));
+
+	Route::get('suppliers-confirm/{id_code}', array('uses' => 'SupplierController@confirmSupplier',
+		'as'=>'suppliers-confirm'));
+
+//	Route::get('suppliers-checkout-instant',array('as'=>'suppliers-checkout-instant', function()
+//	{
+//		return View::make('pages.suppliers-checkout-instant');
+//	}));
+//	Route::get('suppliers-checkout-notinstant',array('as'=>'suppliers-finish-notinstant', function()
+//	{
+//		return View::make('pages.suppliers-finish-notinstant');
+//	}));
+
+	Route::get('suppliers-checkout/{id_code}', array('uses' => 'SupplierController@checkoutSupplier',
+		'as'=>'suppliers-checkout'));
+
 	Route::get('suppliers-finish',array('as'=>'suppliers-finish', function()
 	{
 		return View::make('pages.suppliers-finish');
 	}));
-	Route::get('suppliers-finish-notinstant',array('as'=>'suppliers-finish-notinstant', function()
-	{
-		return View::make('pages.suppliers-finish-notinstant');
-	}));
+
+
 	Route::get('terms',array ('as'=>'terms-page', function()
 	{
 		return View::make('pages.termsOfService');

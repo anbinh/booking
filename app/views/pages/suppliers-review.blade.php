@@ -18,7 +18,7 @@
                                 </a>
                             </div>
                             <div class="col-md-3 vcenter">
-                                <h3>name of supplier</h3>
+                                <h3>{{$supplier->company_name}}</h3>
                             </div>
                             <div class="col-md-3 pull-right vcenter" style="width: 23%">
                                 <a class="btn btn-default btn-primary" href="{{route('suppliers');}}" role="button">Back to results</a>
@@ -28,15 +28,16 @@
                 </div>
                 <div class="row">
                     <div class="review-content col-md-12">
-                        @for($i =0; $i< 10; $i++)
+                        {{--@for($i =0; $i< 10; $i++)--}}
+                        @foreach($reviews as $re)
                             <div class="row" style="margin-left: 0; margin-right: 0; margin-bottom: 15px; padding-bottom: 15px">
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <p>"CUSTOMER NAME" said:</p>
+                                            <p>{{$re->username}} said:</p>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>Title of review (e.g. Horrible service, rude staff)</p>
+                                            <p>{{$re->review_title}}</p>
                                         </div>
                                         <div class="col-md-2">
                                             <div>
@@ -50,17 +51,18 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            Way nor furnished sir procuring therefore but. Warmth far manner myself active are cannot called. Set her half end girl rich met. Me allowance departure an curiosity ye. In no talking address excited it conduct. Husbands debating replying overcame blessing he it me to domestic.
+                                            {{$re->review_content}}
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-2 col-md-offset-10">
-                                            mm/yyyy
+                                        <div class="col-md-3 pull-right">
+                                            {{explode(" ",$re->created_at)[0]}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        @endfor
+                        {{--@endfor--}}
+                        @endforeach
                     </div>
                 </div>
             </div>
