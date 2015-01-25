@@ -66,3 +66,4 @@
 <script src="{{ cached_asset('/home_page/js/_main.js', true) }}"></script>
 <script src="{{ cached_asset('js/jRating.jquery.min.js', true) }}"></script>
 <script src="{{ cached_asset('js/jquery.raty.js', true) }}"></script>
+<script src="{{ cached_asset('/home_page/js/bootstrap-clockpicker.min.js', true) }}"></script>

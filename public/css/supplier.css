@@ -222,7 +222,7 @@ div.main-element-container{
 }
 
 div#ui-datepicker-div { z-index: 999999 !important; }
-input#datepicker{
+input#datepicker, input#timepicker{
     width: 90%!important;
     float: right;
 }

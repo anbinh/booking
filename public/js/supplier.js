@@ -3,6 +3,9 @@
  */
 
 $("#datepicker").datepicker();
+$("input#timepicker").clockpicker({
+    autoclose: true
+});
 //$("#datepicker").attr("placeholder", " ");
 
 $(document).ready(function () {
