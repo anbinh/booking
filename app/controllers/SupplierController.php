@@ -7,6 +7,10 @@ class SupplierController extends BaseController {
 	public static $DATE_SELECTED = "date_selected";
 	public static $TIME_SELECTED = "time_selected";
 	public static $DURATION_SELECTED = "duration_selected";
+	public static $FILTER_STAR = "filter_star";
+	public static $FROM_PRICE = "from_price";
+	public static $TO_PRICE = "to_price";
+	public static $MAX_PRICE = 500;
 
     public function __construct()
     {
@@ -30,7 +34,7 @@ class SupplierController extends BaseController {
 			$suppliers = Service::find($service_selected)->getSupplier->take(10);
 		}
 		$date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
-		$time_selected = Session::get(self::$TIME_SELECTED, "00:00");
+		$time_selected = Session::get(self::$TIME_SELECTED, "12:00");
 		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
 		return View::make('pages.suppliers',
 			array(
@@ -42,12 +46,21 @@ class SupplierController extends BaseController {
 				'duration_selected' => $duration_selected
 		));
 	}
+
 	public function postSupplier(){
 		$input = Input::all();
 		Session::put(self::$SERVICE_SELECTED_ID, $input['service']);
 		Session::put(self::$DATE_SELECTED, $input['date']);
 		Session::put(self::$TIME_SELECTED, $input['time']);
 		Session::put(self::$DURATION_SELECTED, $input['duration']);
+		return Redirect::route('suppliers');
+	}
+
+	public function postFiltetSupplier(){
+		$input = Input::all();
+		Session::put(self::$FILTER_STAR, $input['filter-star']);
+		Session::put(self::$FROM_PRICE, $input['from-price']);
+		Session::put(self::$TO_PRICE, $input['to_price']);
 		return Redirect::route('suppliers');
 	}
 
@@ -59,11 +72,8 @@ class SupplierController extends BaseController {
 			->join('users', 'users.id', '=', 'task.user_id')
 			->where('supplier.id', '=', $id_code)
 			->get();
-
 //		var_dump($reviews[0]);
 //		die();
-
-
 		return View::make('pages.suppliers-review',
 			array(
 				'supplier' => $sup,

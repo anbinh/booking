@@ -111,97 +111,31 @@
                 <div class="row" style="margin-top: 20px">
                     <div class="col-md-12">
                         <h3>Filter search results</h3>
-                        <form class="form-horizontal" id="filter-result-form">
+                        <form class="form-horizontal" action="{{route('suppliers-post-filter')}}" method="post" id="filter-result-form">
                             <fieldset>
                                 <div class="form-group">
                                     <label for="service" class="col-lg-12 control-label" style="text-align:left">By ranking: </label>
                                     <div class="col-lg-12">
                                         <table>
-                                            <tr>
-                                                <td>
-                                                    <div class="filter-result-star" data-average="8" data-id="2"
-                                                         title="poor">
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="filter-star" value="1">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="filter-result-star" data-average="8" data-id="2"
-                                                         title="poor">
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                        <img alt="2" src="/css/icons/star-on-small.png" title="poor">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="filter-star" value="2">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="filter-result-star" data-average="8" data-id="2"
-                                                         title="poor">
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="filter-star" value="3">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="filter-result-star" data-average="8" data-id="2"
-                                                         title="poor">
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="filter-star" value="4">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="filter-result-star" data-average="8" data-id="2"
-                                                         title="poor">
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                        <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="filter-star" value="5">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            @for($i = 1; $i<=5; $i++)
+                                                <tr>
+                                                    <td>
+                                                        <div class="filter-result-star" data-average="8" data-id="2"
+                                                             title="poor">
+                                                            @for($j = 1; $j<=$i; $j++)
+                                                                <img alt="1" src="/css/icons/star-on-small.png" title="poor">&nbsp;
+                                                            @endfor
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="filter-star[]" value="{{$i}}" checked>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endfor
                                         </table>
                                     </div>
                                 </div>

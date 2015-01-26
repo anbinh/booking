@@ -147,11 +147,17 @@ Route::group(array('before'=>'check-language'), function(){
 //	{
 //		return View::make('pages.suppliers');
 //	}));
+
+	/*
+	 * make a booking
+	 */
 	Route::get('suppliers', array('uses' => 'SupplierController@getSupplier',
 		'as'=>'suppliers'));
 
 	Route::post('suppliers', array('uses' => 'SupplierController@postSupplier',
 		'as'=>'suppliers-post-search'));
+	Route::post('suppliers-filter', array('uses' => 'SupplierController@postFiltetSupplier',
+		'as'=>'suppliers-post-filter'));
 
 //	Route::get('suppliers-review/{id_code}',array('as'=>'suppliers-review', function()
 //	{
@@ -191,7 +197,36 @@ Route::group(array('before'=>'check-language'), function(){
 	{
 		return View::make('pages.suppliers-finish');
 	}));
+	/*
+	 * end a booking
+	 */
 
+	/*
+	 * user pages
+	 */
+	Route::get('dashboard',array('as'=>'user-dashboard', function()
+	{
+		return View::make('pages.user-dashboard');
+	}));
+	Route::get('profile',array('as'=>'user-profile', function()
+	{
+		return View::make('pages.user-profile');
+	}));
+	Route::get('booking',array('as'=>'user-current-booking', function()
+	{
+		return View::make('pages.user-current-booking');
+	}));
+	Route::get('past-booking',array('as'=>'user-past-booking', function()
+	{
+		return View::make('pages.user-past-booking');
+	}));
+	Route::get('feedback',array('as'=>'user-feedback', function()
+	{
+		return View::make('pages.user-feedback');
+	}));
+	/*
+	 * end user profile
+	 */
 
 	Route::get('terms',array ('as'=>'terms-page', function()
 	{
