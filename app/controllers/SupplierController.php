@@ -84,7 +84,7 @@ class SupplierController extends BaseController {
 		$time_selected = Session::get(self::$TIME_SELECTED, "00:00");
 		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
 
-		if(Auth::check() || true){
+		if(Auth::check()){
 			$view = 'pages.suppliers-confirm-login';
 		}else{
 			$view = 'pages.suppliers-confirm-withoutlogin';
