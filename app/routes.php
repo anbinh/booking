@@ -184,6 +184,9 @@ Route::group(array('before'=>'check-language'), function(){
 	Route::get('suppliers-checkout/{id_code}', array('uses' => 'SupplierController@checkoutSupplier',
 		'as'=>'suppliers-checkout'));
 
+	Route::get('suppliers-calc', array('uses' => 'SupplierController@reCalcSupplierRate',
+		'as'=>'suppliers-calc'));
+
 	Route::get('suppliers-finish',array('as'=>'suppliers-finish', function()
 	{
 		return View::make('pages.suppliers-finish');

@@ -41,11 +41,9 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div>
+                                                @for($i = 0; $i < $re->rating_start; $i++)
                                                 <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
-                                                <img alt="1" src="/css/icons/star-on.png" title="poor">&nbsp;
+                                                @endfor
                                             </div>
                                         </div>
                                     </div>

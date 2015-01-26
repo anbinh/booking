@@ -262,7 +262,7 @@
                                     <div class="col-md-3 vcenter">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="basic" data-average="12" data-id="1"></div>
+                                                <div class="basic" data-average="{{$s->star_rate * 4}}" data-id="1"></div>
                                             </div>
                                         </div>
                                         <div class="row">

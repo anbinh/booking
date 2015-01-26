@@ -25,7 +25,7 @@ class SupplierController extends BaseController {
 		$services = Service::all();
 		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
 		if($service_selected == -1){
-//			$suppliers = Supplier::all()->take(10);
+			$suppliers = [];
 		}else{
 			$suppliers = Service::find($service_selected)->getSupplier->take(10);
 		}
@@ -59,6 +59,11 @@ class SupplierController extends BaseController {
 			->join('users', 'users.id', '=', 'task.user_id')
 			->where('supplier.id', '=', $id_code)
 			->get();
+
+//		var_dump($reviews[0]);
+//		die();
+
+
 		return View::make('pages.suppliers-review',
 			array(
 				'supplier' => $sup,
@@ -111,4 +116,25 @@ class SupplierController extends BaseController {
 
 	}
 
+	public function reCalcSupplierRate(){
+		$suppliers = Supplier::all();
+		foreach($suppliers as $sup){
+			$this->reCalcEachSupplierRate($sup);
+		}
+	}
+
+	public function reCalcEachSupplierRate($sup){
+		$total = 0;
+		$reviews = DB::table('review')
+			->join('task', 'review.task_id', '=', 'task.id')
+			->join('supplier', 'task.supplier_id', '=', 'supplier.id')
+			->join('users', 'users.id', '=', 'task.user_id')
+			->where('supplier.id', '=', $sup->id)
+			->get();
+		foreach($reviews as $re) $total += $re->rating_start;
+		if ($total != 0) $avg = round($total/count($reviews)+0.49);
+		else $avg = 0;
+		$sup->star_rate = $avg;
+		return $sup->save();
+	}
 }
