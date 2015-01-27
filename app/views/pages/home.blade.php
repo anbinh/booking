@@ -27,9 +27,7 @@ function select_supplier() {
 				
 				
 					<div class='main-page-header'>
-						
-						
-						<div class="row" id = "white-box-booking"> 
+						<div class="row" id = "white-box-booking">
 							<h1 id='tittle-welcome'>
 								Our Homeez will make your Home at Ease
 							</h1>
@@ -58,8 +56,6 @@ function select_supplier() {
 											<div>
 											    <strong class = "text-question">When do you need it for?</strong>
 											</div>
-											
-													
 										  <input id="datepicker" type = "text" placeholder = "mm/dd/yyyy" style = "-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 												-webkit-padding-end: 20px;
 												-webkit-padding-start: 2px;

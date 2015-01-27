@@ -143,11 +143,15 @@ Route::group(array('before' => 'check-language'), function () {
     /*
      * make a booking
      */
-    Route::get('suppliers', array('uses' => 'SupplierController@getSupplier',
-        'as' => 'suppliers'));
 
     Route::post('suppliers', array('uses' => 'SupplierController@postSupplier',
         'as' => 'suppliers-post-search'));
+
+    Route::get('suppliers', array('uses' => 'SupplierController@getSupplier',
+        'as' => 'suppliers'));
+
+    Route::get('requestSupplier/{service_id}', array('uses' =>'SupplierController@requestSupplier',
+        'as' => 'requestSupplier'));
 
     Route::post('suppliers-filter', array('uses' => 'SupplierController@postFiltetSupplier',
         'as' => 'suppliers-post-filter'));
@@ -205,9 +209,9 @@ Route::group(array('before' => 'check-language'), function () {
         Route::get('dashboard', array('as' => 'user-dashboard', function () {
             return View::make('pages.user-dashboard');
         }));
-        Route::get('profile', array('as' => 'user-profile', function () {
-            return View::make('pages.user-profile');
-        }));
+
+        Route::get('profile', array('as' => 'user-profile',
+            'uses' => 'DashboardController@updateProfile'));
 
 //        Route::get('dashboard.booking', array('as' => 'user-current-booking', function () {
 //            return View::make('pages.user-current-booking');

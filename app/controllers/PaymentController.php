@@ -61,17 +61,17 @@ class SupplierController extends BaseController {
      */
 	public function getSupplier(){
 		$services = Service::all();
+
 		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
-
-		if($service_selected == -1){
-			$suppliers = [];
-		}else{
-			$suppliers = Service::find($service_selected)->getSupplier->take(10);
-		}
-
 		$date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
 		$time_selected = Session::get(self::$TIME_SELECTED, "12:00");
 		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
+
+		$suppliers = $this->apiGetService($service_selected);
+
+		var_dump($suppliers);
+		die();
+
 		return View::make('pages.suppliers',
 			array(
 				'services' => $services,
@@ -208,6 +208,8 @@ class SupplierController extends BaseController {
 		return View::make('pages.suppliers-finish', ['reference_code' => $task->id]);
 	}
 
+
+
 	public function reCalcSupplierRate(){
 		$suppliers = Supplier::all();
 		foreach($suppliers as $sup){
@@ -230,7 +232,9 @@ class SupplierController extends BaseController {
 		return $sup->save();
 	}
 
+
 	public function apiGetService(){
+
 
 
 	}
