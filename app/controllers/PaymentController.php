@@ -75,7 +75,7 @@ class PaymentController extends BaseController {
 			}
 		}
 		return Response::json(array(
-			'error' => $xml_obj->result,
+			'error' => $data,
 			'response' => 200),
 			200
 		);
@@ -101,36 +101,89 @@ class PaymentController extends BaseController {
 //
 //	}
 
-	public function voidPurchaseBooking(){
-		die('to be defined');
+	public function voidPurchaseBooking($id){
+		$payment = PaymentHistory::find($id);
+
+		$body = $this->generateVoidPurchaseBodyRequest(
+			$this->merchantid,
+			$this->password,
+			$payment['track_id'],
+			'USD',
+			$payment['cardholder_name'],
+			'cc',
+			$payment['cc_brand'],
+			$payment['card_number'],
+			$payment['expmoth'],
+			$payment['expyear'],
+			$payment['cvv2'],
+			$payment['bill_amount'],
+			$payment['tranid']
+		);
+
+		$header  = "POST HTTP/1.0 \r\n";
+		$header .= "Content-type: text/xml \r\n";
+		$header .= "Content-length: ".strlen($body)." \r\n";
+		$header .= "Content-transfer-encoding: text \r\n";
+		$header .= "Connection: close \r\n\r\n";
+		$header .= $body;
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_URL, $this->gatewayurl);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: close'));
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		$data = curl_exec($ch);
+		$xml_obj = simplexml_load_string($data);
+		$response_tranid = $xml_obj->tranid;
+		$response_authcode = $xml_obj->authcode;
+		$reponse_customer_token = $xml_obj->customer_token;
+
+		if($xml_obj->result == 'Successful' && $xml_obj->responsecode == '0'){
+			return Response::json(array(
+				'error' => false,
+				'response' => 200),
+				200
+			);
+		}
+		return Response::json(array(
+			'error' => $data,
+			'response' => 200),
+			200
+		);
 	}
 
 
-	public function generateVoidPurchaseBodyRequest(){
+	public function generateVoidPurchaseBodyRequest($merchantid, $password, $track_id,
+													$currencycode, $cardholder_name,
+												$ccType, $cc_brand, $bill_cc, $expmonth,
+												$expyear, $cvv2, $bill_amount, $transid){
 		$post_string = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 		$post_string .= '<request>';
 		$post_string .= '<account_identifier></account_identifier>';
-		$post_string .= '<merchantid>CKODUBAPITEST</merchantid>';
-		$post_string .= '<password>Password1!</password>';
+		$post_string .= "<merchantid>$merchantid</merchantid>";
+		$post_string .= "<password>$password</password>";
 		$post_string .= '<action>3</action>';
-		$post_string .= '<trackid>1122-001</trackid>';
-		$post_string .= '<transid>40356555</transid>';
-		$post_string .= '<bill_currencycode>USD</bill_currencycode>';
-		$post_string .= '<bill_cardholder>SOME NAME</bill_cardholder>';
+		$post_string .= "<trackid>$track_id</trackid>";
+		$post_string .= "<transid>$transid</transid>";
+		$post_string .= "<bill_currencycode>$currencycode</bill_currencycode>";
+		$post_string .= "<bill_cardholder>$cardholder_name</bill_cardholder>";
 		$post_string .= '<bill_cc_type>CC</bill_cc_type>';
-		$post_string .= '<bill_cc_brand>VISA</bill_cc_brand>';
-		$post_string .= '<bill_cc>4543474002249996</bill_cc>';
-		$post_string .= '<bill_expmonth>06</bill_expmonth>';
-		$post_string .= '<bill_expyear>2017</bill_expyear>';
-		$post_string .= '<bill_cvv2>956</bill_cvv2>';
+		$post_string .= "<bill_cc_brand>$cc_brand</bill_cc_brand>";
+		$post_string .= "<bill_cc>$bill_cc</bill_cc>";
+		$post_string .= "<bill_expmonth>$expmonth</bill_expmonth>";
+		$post_string .= "<bill_expyear>$expyear</bill_expyear>";
+		$post_string .= "<bill_cvv2>$cvv2</bill_cvv2>";
 		$post_string .= '<bill_address>Billing Address</bill_address>';
 		$post_string .= '<bill_address2>Billing Address 2</bill_address2>';
 		$post_string .= '<bill_postal>Billing Postal</bill_postal>';
 		$post_string .= '<bill_city>Billing city</bill_city>';
 		$post_string .= '<bill_state>Billing state</bill_state>';
-		$post_string .= '<bill_email>omkar61422@gmail.com</bill_email>';
+		$post_string .= '<bill_email>test@gmail.com</bill_email>';
 		$post_string .= '<bill_country>USA</bill_country>';
-		$post_string .= '<bill_amount>1.00</bill_amount>';
+		$post_string .= "<bill_amount>$bill_amount</bill_amount>";
 		$post_string .= '<bill_phone>44-12312331312</bill_phone>';
 		$post_string .= '<bill_fax>44-12312331312</bill_fax>';
 		$post_string .= '<bill_customerip>123.123.123.200</bill_customerip>';
@@ -150,11 +203,12 @@ class PaymentController extends BaseController {
 		$post_string .= '<udf3></udf3>';
 		$post_string .= '<udf4></udf4>';
 		$post_string .= '<udf5></udf5>';
-		$post_string .= '<merchantcustomerid>21</merchantcustomerid>';
-		$post_string .= '<product_desc>booking</product_desc>';
-		$post_string .= '<product_quantity>1</product_quantity>';
-		$post_string .= '<product_unitcost>1</product_unitcost>';
+		$post_string .= '<merchantcustomerid></merchantcustomerid>';
+		$post_string .= '<product_desc></product_desc>';
+		$post_string .= '<product_quantity></product_quantity>';
+		$post_string .= '<product_unitcost></product_unitcost>';
 		$post_string .= '</request>';
+		return $post_string;
 	}
 
 	public function generatePurchaseBodyRequest($merchantid, $password, $track_id, $currencycode, $cardholder_name,
