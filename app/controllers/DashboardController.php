@@ -313,9 +313,11 @@ class DashboardController extends \BaseController {
 	public function managerBooking(){
 		$user  =  Auth::user();
 		$query = DB::table(Task::$table_name);
-		$query->where('user_id', '=', $user->id);
-		$query->where('date', '>', date("Y-m-d H:i:s"));
-		$query->orderBy('date', 'asc');
+		$query->join('service', 'task.service_id', '=', 'service.id')
+			->join('supplier', 'task.supplier_id', '=', 'supplier.id');
+		$query->where('task.user_id', '=', $user->id);
+		$query->where('task.date', '>', date("Y-m-d H:i:s"));
+		$query->orderBy('task.date', 'asc');
 		$task = $query->get();
 		return View::make('pages.user-current-booking',[
 			'tasks' => $task,
