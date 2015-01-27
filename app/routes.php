@@ -160,6 +160,8 @@ Route::group(array('before' => 'check-language'), function () {
 //   making a booking Rest API
     Route::get('api/suppliers/{service_id}', array('uses' => 'SupplierController@apigetSupplier',
         'as' => 'api_suppliers'));
+
+    Route::post('api/booking/{id_code}', array('uses' =>'SupplierController@apiCheckoutSupplier','as' => 'api_make_booking'));
 //	Route::get('suppliers-review/{id_code}',array('as'=>'suppliers-review', function()
 //	{
 //		return View::make('pages.suppliers-review');
@@ -234,6 +236,8 @@ Route::group(array('before' => 'check-language'), function () {
             return View::make('pages.user-feedback');
         }));
     });
+//  Post feedback
+//    Route::post('feedback',array('as =>user-post-feedback','uses'=>'HomeController@postFeedback'));
 
     Route::get('terms', array('as' => 'terms-page', function () {
         return View::make('pages.termsOfService');
@@ -262,6 +266,7 @@ Route::group(array('before' => 'check-language'), function () {
     Route::get('supplier-page', array('as' => 'supplier-page', function () {
         return View::make('pages.supplier-page');
     }));
+
 });
 
 Route::get('language/english', array('as' => 'english-language', function () {
@@ -288,6 +293,8 @@ Route::post('restore', 'HomeController@postForgetpass');
 Route::get('fbauth/{auth?}', array('as' => 'facebookAuth', 'uses' => 'AuthController@getFacebookLogin'));
 Route::get('twitterAuth/{auth?}', array('as' => 'twitterAuth', 'uses' => 'AuthController@getTwitterLogin'));
 Route::get('gauth/{auth?}', array('as' => 'googleAuth', 'uses' => 'AuthController@getGoogleLogin'));
+
+
 //-----------select supplier ajax call-------------//]
 /*Route::get('/ajax',array('as'=>'ajax', function()
 {	if (Request::ajax()){

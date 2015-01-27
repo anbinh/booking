@@ -167,36 +167,81 @@ class SupplierController extends BaseController {
 		$promotion_code = $all_input['promotion_code'];
 		$other_required = $all_input['other_required'];
 
-		$task = new Task;
-		$task->user_id = Auth::user()->id;
-		$task->service_id = $service_selected;
-		$task->supplier_id = $id_code;
-		$task->date = DateTime::createFromFormat('m/d/Y h:i:s', $date_selected.' 00:00:00');
-		$task->starting_time = strtotime($time_begin);
-		$task->note = $other_required;
-		$task->promotion_code = $promotion_code;
-		$task->duration = $duration;
-        $save_status = $task->save();
-
-        if (Request::ajax()){
-            $result = array('error' => false);
-            if(!$save_status){
-                $result['id_code'] = $id_code;
-                $result['error'] = true;
-            } else {
-                $result['id_code'] = $task->id;
-                self::removeFilterSession();
-            }
-            return Response::json($result,200);
-
-        }else {
-            if(!$save_status){
+        $task = $this->addTask($service_selected,$id_code,$date_selected,$time_begin,$duration,$promotion_code,$other_required);
+            if($task == null){
                 return Redirect::route('suppliers-confirm', ['id_code' => $id_code]);
             }
             self::removeFilterSession();
             return Redirect::route('suppliers-finish', ['id_code' => $task->id]);
-        }
+
 	}
+
+    public function apiCheckoutSupplier($id_code){
+        $sup = Supplier::find($id_code);
+        $duration = Input::get(self::$DURATION_SELECTED);
+        $time_begin = Input::get(self::$TIME_SELECTED);
+        $date_selected = Input::get(self::$DATE_SELECTED);
+        $service_selected  = Input::get(self::$SERVICE_SELECTED_ID);
+
+        $result = array('error' => false);
+        if(!Input::has(self::$DURATION_SELECTED)){
+            $result['error'] =true;
+            $result['message'] = 'missing '.self::$DURATION_SELECTED;
+        }
+        if(!Input::has(self::$TIME_SELECTED)){
+            $result['error'] =true;
+            $result['message'] = 'missing '.self::$TIME_SELECTED;
+        }
+        if(!Input::has(self::$DATE_SELECTED)){
+            $result['error'] =true;
+            $result['message'] = 'missing '.self::$DATE_SELECTED;
+        }
+        if(!Input::has(self::$SERVICE_SELECTED_ID)){
+            $result['error'] =true;
+            $result['message'] = 'missing '.self::$SERVICE_SELECTED_ID;
+        }
+        if(Input::has('promotion_code')){
+            $promotion_code = Input::get('promotion_code');
+
+        } else {
+            $promotion_code = '';
+        }
+        if(Input::has('other_required')){
+            $other_required = Input::get('other_required');
+        } else {
+            $other_required = '';
+        }
+        if(!$result['error']){
+            $task = $this->addTask($service_selected,$id_code,$date_selected,$time_begin,$duration,$promotion_code,$other_required);
+            if($task == null) {
+                $result['error'] =true;
+                $result['message'] = "save new task failed ";
+                $result['id_code'] = $id_code;
+            } else {
+                $result['error'] = false;
+                $result['id_code'] = $task->id;
+            }
+        }
+        return Response::json($result,200);
+    }
+
+    protected function addTask($service_selected,$id_code,$date_selected,$time_begin,$duration,$promotion_code,$other_required){
+        $task = new Task;
+        $task->user_id = Auth::user()->id;
+        $task->service_id = $service_selected;
+        $task->supplier_id = $id_code;
+        $task->date = DateTime::createFromFormat('m/d/Y h:i:s', $date_selected.' 00:00:00');
+        $task->starting_time = strtotime($time_begin);
+        $task->note = $other_required;
+        $task->promotion_code = $promotion_code;
+        $task->duration = $duration;
+        if($task->save()){
+            return $task;
+        }else {
+            return null;
+        }
+
+    }
 
 
 	public static function removeFilterSession(){
