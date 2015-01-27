@@ -519,7 +519,7 @@ class DashboardController extends \BaseController {
 
 		}
 		return View::make('pages.user-profile',[
-			'allNationals' => $this->nationals,
+			'nationals' => $this->nationals,
 			'user' => $user,
 		]);
 	}

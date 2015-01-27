@@ -235,6 +235,11 @@ Route::group(array('before' => 'check-language'), function () {
         Route::get('feedback', array('as' => 'user-feedback', function () {
             return View::make('pages.user-feedback');
         }));
+
+        Route::post('purchase', array('as' => 'payment-purchase',
+            'uses' => 'PaymentController@purchaseBooking'));
+        Route::get('void-purchase/{id}', array('as' => 'payment-void-purchase',
+            'uses' => 'PaymentController@voidPurchaseBooking'));
     });
 //  Post feedback
 //    Route::post('feedback',array('as =>user-post-feedback','uses'=>'HomeController@postFeedback'));

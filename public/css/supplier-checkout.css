@@ -10,13 +10,14 @@ div.radio{
     display: inline-block;
 }
 footer.footer-note{
-    position: absolute;
+    /*position: absolute;*/
     bottom: 0px;
     left: 0px;
 }
 
 div.finished-bottom{
-    position: absolute;
-    bottom: 10px;
-    right: 0px;
+    /*position: absolute;*/
+    /*bottom: 10px;*/
+    /*right: 0px;*/
+    float: right;
 }

@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <form class="form-horizontal" action="#" method="post">
+                    <form class="form-horizontal" action="" method="post">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="name" class="col-sm-5 control-label text-aglign-left">*How happy does Homeez make you?
@@ -43,7 +43,7 @@
                                 <label for="name" class="col-sm-5 control-label text-aglign-left">What do you like about Homeez?
                                 </label>
                                 <div class="col-sm-7">
-                                    <textarea class="form-control" placeholder="" name="other_required"
+                                    <textarea class="form-control" placeholder="" name="title"
                                               rows="3"></textarea>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
 
                                 </label>
                                 <div class="col-sm-7">
-                                    <textarea class="form-control" placeholder="" name="other_required"
+                                    <textarea class="form-control" placeholder="" name="content"
                                               rows="3"></textarea>
                                 </div>
                             </div>

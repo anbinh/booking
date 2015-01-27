@@ -46,7 +46,7 @@
                     There was an error communicating with Facebook.
                 </div>
                 @endif
-                
+
 				@if($errors->any())
 				<div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -70,7 +70,7 @@
                             {{ HTML::link('forgetpass', 'Forgot your password?', array('style' => 'display:inline;margin-top:10px')) }}
                             {{ Form::submit('Login', array('class' => 'btn btn-success')) }}
                             {{ HTML::link('register', 'Register', array('class' => 'btn btn-primary')) }}
-                            
+
                         </div>
                     </fieldset>
                 {{ Form::close() }}

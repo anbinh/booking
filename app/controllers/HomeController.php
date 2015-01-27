@@ -452,8 +452,6 @@ class HomeController extends BaseController {
 	
 	public function postTask()
 	{	
-		
-		
 		return View::make('pages.home');
 	
 	}
@@ -462,4 +460,15 @@ class HomeController extends BaseController {
 	{
 		return View::make('pages.search');
 	}
+
+    public  function postFeedback(){
+        $inputs = Input::all();
+        $promotion_code = $inputs['rating-star-input'];
+        $title = $inputs['title'];
+        $content = $inputs['content'];
+
+
+
+
+    }
 }

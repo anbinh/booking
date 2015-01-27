@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('content')	
+@section('content')
 
 <div class="main-body-container">
 <div class="login-background" style="background-image: url({{ asset('home_page/img/Wood_Wallpaper_by_stenosis.jpg') }});">
@@ -43,7 +43,7 @@
 							There was an error communicating with Facebook.
 						</div>
 						@endif
-						
+
 						@if($errors->any())
 						<div class="alert alert-danger alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -57,7 +57,7 @@
 							<input name = "email" id = "input-email-plusCss" type="email" class="form-control empty" data-hint="A valid email should contains @" required><div class="hint">A valid email should contains @</div>
 							<div class="floating-label" id = "floating-label-plusCss">Email</div>
 							<span class="material-input"></span>
-						</div>			
+						</div>
 					</div>
 					<div class="pad-top">
 						<div class="form-control-wrapper">
@@ -68,7 +68,7 @@
 					</div>
 				</div>
 				<div class="even-medium center">
-					
+
 				</div>
 				<div class="even-medium center">
 					<a href={{URL::route('register-page')}} class="alt-link">Create a new account</a>
@@ -76,11 +76,11 @@
 				<div class="even-medium center">
 					<a href={{URL::route('restore-page')}} class="alt-link">Forgot password?</a>
 				</div>
-				
-				
+
+
 				<div class="form-fields-wrapper">
 					<div class="form-steps-bottom"></div>
-					
+
 					<input class="button btn-full push-top btn-primary" name="commit" type="submit" value="Log in" id = "btn-submit" id = "btn-submit">
 				</div>
 				<div class="pad-top2">
@@ -97,34 +97,34 @@
 						</div>
 					</div>
 
-					
+
 				</div>
-				
-				
+
+
 			</div>
 		</form>
 	</div>
-	
+
 	<div class = ".col-lg-6 col-md-6 col-sm-6 col-xs-12 thumb" style = "background-higher">
 		<div class="login-block" >
 				<a href={{URL::route('register-page')}}><p class="larger center color-53A524">Don't have a log-in? <br>Register now</p></a>
-				
+
 				<div class="even-medium center">
 					<a href={{URL::route('why-book-page')}} class="alt-link">Why register with us?</a>
 				</div>
 				<div class="even-medium center">
-					
+
 				</div>
-				
-		
+
+
 		<ol class="annotation-list">
 			  <li>Lorem ipsum dolor sit amet.</li>
 			  <li>Lorem ipsum dolor.</li>
 			  <li>Lorem ipsum dolor sit amet, consectetur.</li>
 			  <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
 			  <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur fuga minus aperiam iste mollitia debitis rem cum eaque.</li>
-		</ol>		
-				
+		</ol>
+
 		</div>
 	</div>
 </div>
@@ -159,12 +159,12 @@
 	  text-shadow: 0px -1px 0px #888;
 	}
 
-</style>		
+</style>
 <style type="text/css">
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900);
   @import url(http://weloveiconfonts.com/api/?family=entypo);
 
-   
+
 
 #twitter {
   outline: 0 none;
