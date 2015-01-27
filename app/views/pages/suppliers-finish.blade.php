@@ -23,7 +23,7 @@
         <div class="row main-element-container">
             <div class="review-review col-md-12">
                 <div class="row">
-                    <h3><b>Your booking is complete! (REF #: 2342343)</b></h3>
+                    <h3><b>Your booking is complete! (REF #: {{$reference_code}})</b></h3>
                     <h3><b>Thank you for using Homeez!</b></h3>
                 </div>
             </div>

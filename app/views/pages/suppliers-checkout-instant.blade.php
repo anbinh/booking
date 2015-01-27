@@ -27,25 +27,27 @@
                     <h3><b>The supplier you chose is Instant booking enabled!!!</b></h3>
                     <h3>This is your last step of the booking.</h3>
                     <h3 class="payment-header"><b>How would you like to pay?</b></h3>
-                    <div class="col-md-12">
-                        <div class="sample1">
-                            <div class="radio radio-success">
-                                <label>
-                                    <input type="radio" name="sample1" value="option1" checked=""><span class="circle"></span><span class="check"></span>
-                                    Credit card*
-                                </label>
-                            </div>
-                            <div class="radio radio-success">
-                                <label>
-                                    <input type="radio" name="sample1" value="option1"><span class="circle"></span><span class="check"></span>
-                                    Cash on delivery
-                                </label>
+                    <form method="post" action="{{route('suppliers-done', ['id_code' => $task->id])}}">
+                        <div class="col-md-12">
+                            <div class="sample1">
+                                <div class="radio radio-success">
+                                    <label>
+                                        <input type="radio" name="payment" value="0" checked=""><span class="circle"></span><span class="check"></span>
+                                        Credit card*
+                                    </label>
+                                </div>
+                                <div class="radio radio-success">
+                                    <label>
+                                        <input type="radio" name="payment" value="1"><span class="circle"></span><span class="check"></span>
+                                        Cash on delivery
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-4 text-center finished-bottom">
-                        <a class="btn btn-default btn-primary" style="width: 80%" href="{{route('suppliers-finish');}}" role="button">Finish</a>
-                    </div>
+                        <div class="col-sm-4 text-center finished-bottom">
+                            <button type="submit" style="width: 80%" class="btn btn-default btn-primary">Finished<div class="ripple-wrapper"></div></button>
+                        </div>
+                    </form>
                     <footer class="footer-note">
                         <small>*5% credit card charge will apply (the evil bank wants it!)</small>
                     </footer>

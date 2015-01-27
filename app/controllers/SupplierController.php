@@ -82,6 +82,7 @@ class SupplierController extends BaseController {
 	}
 
 	public function confirmSupplier($id_code){
+
 		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
 		if($service_selected == -1){
 			Session::flash('error', 'Not selected SERVICE yets');
@@ -111,20 +112,59 @@ class SupplierController extends BaseController {
 			]);
 	}
 
+	//var_dump(gmdate('h:i', 1422327000));
+
 	public function checkoutSupplier($id_code){
 		$sup = Supplier::find($id_code);
-		Session::forget(self::$DURATION_SELECTED);
-		Session::forget(self::$TIME_SELECTED);
-		Session::forget(self::$DATE_SELECTED);
-		Session::forget(self::$SERVICE_SELECTED_ID);
+		$duration = Session::get(self::$DURATION_SELECTED);
+		$time_begin = Session::get(self::$TIME_SELECTED);
+		$date_selected = Session::get(self::$DATE_SELECTED);
+		$service_selected  = Session::get(self::$SERVICE_SELECTED_ID);
+
+		$all_input = Input::all();
+		$promotion_code = $all_input['promotion_code'];
+		$other_required = $all_input['other_required'];
+
+		$task = new Task;
+		$task->user_id = Auth::user()->id;
+		$task->service_id = $service_selected;
+		$task->supplier_id = $id_code;
+		$task->date = DateTime::createFromFormat('m/d/Y h:i:s', $date_selected.' 00:00:00');
+		$task->starting_time = strtotime($time_begin);
+		$task->note = $other_required;
+		$task->promotion_code = $promotion_code;
+		$task->duration = $duration;
+
+		if(!$task->save()){
+			return Redirect::route('suppliers-confirm', ['id_code' => $id_code]);
+		}
+		return Redirect::route('suppliers-finish', ['id_code' => $task->id]);
+	}
+
+	public function finishedSupplier($id_code){
+		$task = Task::find($id_code);
+		$sup  = Supplier::find($task->supplier_id);
 		if($sup->instance){
-		 	$view = 'pages.suppliers-checkout-instant';
+			$view = 'pages.suppliers-checkout-instant';
 		}else{
 			$view = 'pages.suppliers-finish-notinstant';
 		}
-		return View::make($view);
-
+		return View::make($view,[
+			'task' => $task,
+			'supplier '=> $sup
+		]);
 	}
+
+	public function doneSupplier($id_code){
+		$task = Task::find($id_code);
+		$input = Input::all();
+		var_dump($input);
+		$task->payment_type = $input['payment'];
+		$task->status = Task::$STATUS_CONFIRM;
+		return View::make('pages.suppliers-finish', ['reference_code' => $task->id]);
+	}
+
+
 
 	public function reCalcSupplierRate(){
 		$suppliers = Supplier::all();

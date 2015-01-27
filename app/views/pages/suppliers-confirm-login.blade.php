@@ -57,11 +57,11 @@
                                 <h3 class="inline-block pull-right">AED xxxxxx</h3>
                             </div>
                         </div>
-                        <form class="form-horizontal" action="#" method="get">
+                        <form class="form-horizontal" action="{{route('suppliers-checkout', ['id_code'=> $supplier->id]);}}" method="post">
+                            <form class="form-horizontal" action="#" method="post">
                             <div class="form-group">
                                 <label for="promotion_code" class="col-sm-6 control-label text-aglign-left">Enter
                                     promotion code</label>
-
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control" name="promotion_code"
                                            id="promotion_code"
@@ -80,8 +80,9 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-12 text-center">
-                                    <a class="btn btn-default btn-primary confirmation-text" style="width: 80%"
-                                       href="{{route('suppliers-checkout', ['id_code' => $supplier->id])}}" role="button">Process to checkout</a>
+                                    <button type="submit" class="btn btn-primary confirmation-text">Process to checkout</button>
+                                    {{--<a class="btn btn-default btn-primary confirmation-text" style="width: 80%"--}}
+                                       {{--href="{{route('suppliers-checkout', ['id_code' => $supplier->id])}}" role="button">Process to checkout</a>--}}
                                 </div>
                             </div>
                         </form>
