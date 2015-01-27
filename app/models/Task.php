@@ -18,4 +18,6 @@ class Task extends Eloquent {
 	public static $STATUS_DECLINE = 2;
 	public static $STATUS_PROPOSE = 3;
 
+	public static $table_name = 'task';
+
 }

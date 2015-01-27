@@ -12,8 +12,8 @@
                         <ul class="nav navbar-nav">
                             <li><a href="{{route('user-dashboard')}}">Make a new booking</a></li>
                             <li><a href="{{route('user-profile')}}">My profile</a></li>
-                            <li class="active"><a href="{{route('user-current-booking')}}">Manage bookings</a></li>
-                            <li><a href="{{route('user-past-booking')}}">Past bookings</a></li>
+                            <li @if(!isset($hidden) || !$hidden)class="active" @endif><a href="{{route('user-current-booking')}}">Manage bookings</a></li>
+                            <li @if(isset($hidden) && $hidden)class="active" @endif><a href="{{route('user-past-booking')}}">Past bookings</a></li>
                             <li ><a href="{{route('user-feedback')}}">Give us feedback</a></li>
                         </ul>
                     </div>
@@ -34,22 +34,26 @@
                                     <th>Starting</th>
                                     <th>Payment</th>
                                     <th>Note</th>
-                                    <th></th>
-                                    <th></th>
+                                    @if(!isset($hidden) || !$hidden)
+                                        <th></th>
+                                        <th></th>
+                                    @endif
                                 </thead>
-                                @for($i  = 0; $i< 10; $i ++)
+                                @foreach($tasks as $t)
                                 <tr>
-                                    <td>Cleaning</td>
-                                    <td>XXXXXX</td>
-                                    <td>01/26/2014</td>
-                                    <td>3</td>
-                                    <td>12:06</td>
-                                    <td>cash</td>
-                                    <td>Nothing</td>
-                                    <td><button  class="btn btn-primary padding-20">Change</button></td>
-                                    <td><button  class="btn btn-primary padding-20">Cancel</button></td>
+                                    <td>{{$t->name}}</td>
+                                    <td>{{$t->company_name}}</td>
+                                    <td>{{explode(' ',$t->date)[0]}}</td>
+                                    <td>{{$t->duration}}</td>
+                                    <td>{{gmdate('H:i', $t->starting_time)}}</td>
+                                    <td>{{$t->payment_type}}</td>
+                                    <td>{{$t->note}}</td>
+                                    @if(!isset($hidden) || !$hidden)
+                                        <td><button class="btn btn-primary padding-20">Change</button></td>
+                                        <td><button class="btn btn-primary padding-20">Cancel</button></td>
+                                    @endif
                                 </tr>
-                                @endfor
+                                @endforeach
                             </table>
                         </div>
                     </div>

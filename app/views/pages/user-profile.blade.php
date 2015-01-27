@@ -254,7 +254,7 @@
                                 </label>
                                 <div class="col-sm-7">
                                     <input type="password" class="form-control" name="currentPassword" id="currentPassword"
-                                           required="required" placeholder="Your name">
+                                           required="required" placeholder="">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -271,7 +271,7 @@
 
                                 <div class="col-sm-7">
                                     <input type="password" class="form-control" name="confirmPassword"
-                                           id="confirmPassword" placeholder="Your another address">
+                                           id="confirmPassword" placeholder="">
                                 </div>
                             </div>
                         </div>

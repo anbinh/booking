@@ -138,7 +138,17 @@ class SupplierController extends BaseController {
 		if(!$task->save()){
 			return Redirect::route('suppliers-confirm', ['id_code' => $id_code]);
 		}
+
+		self::removeFilterSession();
 		return Redirect::route('suppliers-finish', ['id_code' => $task->id]);
+	}
+
+
+	public static function removeFilterSession(){
+		Session::forget(self::$DURATION_SELECTED);
+		Session::forget(self::$TIME_SELECTED);
+		Session::forget(self::$DATE_SELECTED);
+		Session::forget(self::$SERVICE_SELECTED_ID);
 	}
 
 	public function finishedSupplier($id_code){
@@ -158,7 +168,6 @@ class SupplierController extends BaseController {
 	public function doneSupplier($id_code){
 		$task = Task::find($id_code);
 		$input = Input::all();
-		var_dump($input);
 		$task->payment_type = $input['payment'];
 		$task->status = Task::$STATUS_CONFIRM;
 		return View::make('pages.suppliers-finish', ['reference_code' => $task->id]);

@@ -308,7 +308,37 @@ class DashboardController extends \BaseController {
 		$lyrics = preg_replace('/Send(.*?)to your Cell Ad/i', "", $lyrics);
 
 		return json_encode(array("lyrics" => $lyrics));
+	}
 
+	public function managerBooking(){
+		$user  =  Auth::user();
+		$query = DB::table(Task::$table_name);
+		$query->where('user_id', '=', $user->id);
+		$query->where('date', '>', date("Y-m-d H:i:s"));
+		$query->orderBy('date', 'asc');
+		$task = $query->get();
+		return View::make('pages.user-current-booking',[
+			'tasks' => $task,
+			'hidden' => false
+		]);
+	}
+
+	public function pastBooking(){
+		$user  =  Auth::user();
+		$query = DB::table(Task::$table_name);
+		$query->join('service', 'task.service_id', '=', 'service.id')
+			->join('supplier', 'task.supplier_id', '=', 'supplier.id');
+
+		$query->where('task.user_id', '=', $user->id);
+		$query->where('task.date', '<', date("Y-m-d H:i:s"));
+		$query->orderBy('task.date', 'asc');
+
+		$task = $query->get();
+
+		return View::make('pages.user-current-booking',[
+			'tasks' => $task,
+			'hidden' => true
+		]);
 	}
 	
 

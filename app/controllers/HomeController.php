@@ -27,6 +27,8 @@ class HomeController extends BaseController {
 	public function postLogin()
 	{	
 		$input = Input::all();
+
+
 		$rules = array('email' => 'required', 'password' => 'required');
 		$v = Validator::make($input, $rules);
 		if($v->fails())
@@ -37,6 +39,10 @@ class HomeController extends BaseController {
 			$remember_me = (isset($input['remember_me'])) ? true : false;
 			if(Auth::attempt($credentials, $remember_me))
 			{
+				if(isset($input['returnURL'])){
+					return Redirect::to($input['returnURL']);
+				}
+
 				if(Auth::user()->role == '1') {
 					return Redirect::route('admin-page');
 				}
@@ -69,6 +75,10 @@ class HomeController extends BaseController {
 		
 		$input = Input::all();
 
+
+//		var_dump($input);
+//		die();
+
 		$rules = array('username' => 'required|unique:users', 'email' => 'required|unique:users|email', 'password' => 'required|confirmed');
 
 		$v = Validator::make($input, $rules);
@@ -84,9 +94,9 @@ class HomeController extends BaseController {
 			$user = new User();
 			$user->username = $input['username'];
 			$user->email = $input['email'];
-			$user->area = $input['area'];
-			$user->city = $input['city'];
-			$user->phone_number = $input['phone_number'];
+			$user->area = isset($input['area']) ? $input['area'] : "";
+			$user->city = isset($input['city']) ? $input['city'] : "";
+			$user->phone_number = isset($input['phone_number'])? $input['phone_number'] : "";
 			$user->password = $password;
 			$user->confirmation = $newcode;
 			$user->save();
@@ -118,13 +128,18 @@ class HomeController extends BaseController {
 		    	mail($to, $subject, $message, $headers);
 		    		
 		    }
+
+			$credentials = array('email' => $input['email'], 'password' => $input['password']);
+			$remember_me = (isset($input['remember_me'])) ? true : false;
+			if(Auth::attempt($credentials, $remember_me)){
+				if(isset($input['returnURL'])){
+					return Redirect::to($input['returnURL']);
+				}
+				return Redirect::route('login-page')->with("emailfirst", "1");
+			}
 		    //redirect to confirmation alert
-			return Redirect::route('login-page')->with("emailfirst", "1");
-
 		} else {
-
 			return Redirect::route('register-page')->withInput()->withErrors($v);
-
 		}
 	}
 	
@@ -340,12 +355,14 @@ class HomeController extends BaseController {
 	{
 		Auth::logout();
 		Session::put('facebook-login-session', false);
+		SupplierController::removeFilterSession();
 		$fauth = new Hybrid_Auth(app_path().'/config/fb_auth.php');
 		$fauth->logoutAllProviders();
 		$fauth = new Hybrid_Auth(app_path().'/config/google_auth.php');
 		$fauth->logoutAllProviders();
 		$fauth = new Hybrid_Auth(app_path().'/config/twitterAuth.php');
 		$fauth->logoutAllProviders();
+
 		return Redirect::route('login-page');
 	}
 

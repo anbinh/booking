@@ -1,4 +1,5 @@
 @extends('layouts.default')
+
 @section('cssfile')
 @stop
 

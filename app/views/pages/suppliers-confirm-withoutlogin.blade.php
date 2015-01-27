@@ -64,7 +64,6 @@
                                     <div class="form-group">
                                         <label for="password"
                                                class="col-sm-4 control-label text-aglign-left">Password:</label>
-
                                         <div class="col-sm-8">
                                             <input type="password" class="form-control" name="password"
                                                    required="required" id="password" placeholder="Password">
@@ -76,6 +75,7 @@
                                             password?</a>
                                         </div>
                                         <div class="col-sm-12">
+                                            <input type="hidden" name="returnURL" value="{{Request::url()}}"/>
                                             <button type="submit" class="btn btn-default btn-primary col-md-4 pull-right">
                                                 Sign in
                                             </button>
@@ -84,13 +84,13 @@
                                     <div class="form-group social-login">
                                         <div class="col-md-12 text-center">
                                             <a class="btn btn-social btn-facebook clear-visited-style"
-                                               href="{{route('facebookAuth')}}">
+                                               href="{{route('facebookAuth')."?returnURL=".Request::url() }}">
                                                 <i class="fa fa-facebook"></i> Sign in with Facebook
                                             </a>
                                         </div>
                                         <div class="col-md-12 text-center">
                                             <a class="btn btn-social btn-google-plus clear-visited-style"
-                                               href="{{route('googleAuth')}}">
+                                               href="{{route('googleAuth')."?returnURL=".Request::url()}}">
                                                 <i class="fa fa-google-plus"></i>Sign in with Google
                                             </a>
                                         </div>
@@ -99,11 +99,11 @@
                             </div>
                             <div class="confirm-signin col-md-6">
                                 <h3 style="text-decoration:underline">Create a new account</h3>
-                                <form class="form-horizontal" action="{{route('login-page')}}" method="post">
+                                <form class="form-horizontal" action="{{route('user-register')}}" method="post">
                                     <div class="form-group">
-                                        <label for="name" class="col-sm-4 control-label text-aglign-left">Name: </label>
+                                        <label for="username" class="col-sm-4 control-label text-aglign-left">Name: </label>
                                         <div class="col-sm-8">
-                                            <input type="email" class="form-control" name="name" id="name"
+                                            <input type="text" class="form-control" name="username" id="username"
                                                    required="required" placeholder="Your name">
                                         </div>
                                     </div>
@@ -116,11 +116,11 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="phone"
+                                        <label for="phone_number"
                                                class="col-sm-4 control-label text-aglign-left">Phone number:</label>
                                         <div class="col-sm-8">
-                                            <input type="tel" class="form-control" name="phone"
-                                                   required="required" id="phone" placeholder="Your phone number">
+                                            <input type="tel" class="form-control" name="phone_number"
+                                                   required="required" id="phone_number" placeholder="Your phone number">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -132,14 +132,15 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="password-confirm"
+                                        <label for="password_confirmation"
                                                class="col-sm-4 control-label text-aglign-left">Confirm password:</label>
                                         <div class="col-sm-8">
-                                            <input type="password" class="form-control" name="password-confirm"
-                                                   required="required" id="password-confirm" placeholder="Confirm Password">
+                                            <input type="password" class="form-control" name="password_confirmation"
+                                                   required="required" id="password_confirmation" placeholder="Confirm Password">
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <input type="hidden" name="returnURL" value="{{Request::url()}}"/>
                                         <button type="submit" class="btn btn-default btn-primary col-md-4 pull-right">
                                             Create now
                                         </button>

@@ -17,6 +17,9 @@ class AuthController extends Controller {
 			}
 		
 		}
+
+		$input = Input::all();
+
 		$oauth = new Hybrid_Auth(app_path().'/config/fb_auth.php');
 		$provider = $oauth->authenticate('Facebook');//here go to the "base_url".
 		$profile = $provider->getUserProfile();
@@ -32,16 +35,18 @@ class AuthController extends Controller {
 		);
 				
 		if($v->passes()) {
-	
 			$user = new User();
 			$user->username = $name;
 			$user->email = $email;
 			$user->uid = $uid;
 			$user->uid = $uid;
 			$user->save();
-	
-	
 		}
+
+		if(isset($input['returnURL'])){
+			return Redirect::to($input['returnURL']);
+		}
+
 		return Redirect::route('landing-page');
 	}
 	
@@ -196,15 +201,17 @@ class AuthController extends Controller {
 		);
 	
 		if($v->passes()) {
-	
 			$user = new User();
 			$user->username = $name;
 			$user->email = $email;
 			$user->uid = $uid;
 			$user->save();
-	
-	
 		}
+
+		if(isset($input['returnURL'])){
+			return Redirect::to($input['returnURL']);
+		}
+
 		return Redirect::route('landing-page');
 	}
 	
