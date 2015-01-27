@@ -35,15 +35,10 @@ class HomeController extends BaseController {
 
 		if($v->fails())
 		{
-
 			return Redirect::route('login-page')->withErrors($v);
-
-		} else { 
-
-			$credentials = array('email' => $input['email'], 'password' => $input['password'], 'confirmation' => '');
-
+		} else {
+			$credentials = array('email' => $input['email'], 'password' => $input['password']);
 			$remember_me = (isset($input['remember_me'])) ? true : false;
-
 			if(Auth::attempt($credentials, $remember_me))
 			{
 				if(Auth::user()->role == '1') {
@@ -56,15 +51,11 @@ class HomeController extends BaseController {
 						return Redirect::route('landing-page');
 					}
 				}
-
 			} else {
-
 				return Redirect::route('login-page')->with("success", "0");
 			}
 		}
 	}
-	
-	
 
 	public function getRegister()
 	{
