@@ -26,13 +26,9 @@ class HomeController extends BaseController {
 
 	public function postLogin()
 	{	
-		
 		$input = Input::all();
-
 		$rules = array('email' => 'required', 'password' => 'required');
-
 		$v = Validator::make($input, $rules);
-
 		if($v->fails())
 		{
 			return Redirect::route('login-page')->withErrors($v);
