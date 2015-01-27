@@ -176,13 +176,26 @@ class SupplierController extends BaseController {
 		$task->note = $other_required;
 		$task->promotion_code = $promotion_code;
 		$task->duration = $duration;
+        $save_status = $task->save();
 
-		if(!$task->save()){
-			return Redirect::route('suppliers-confirm', ['id_code' => $id_code]);
-		}
+        if (Request::ajax()){
+            $result = array('error' => false);
+            if(!$save_status){
+                $result['id_code'] = $id_code;
+                $result['error'] = true;
+            } else {
+                $result['id_code'] = $task->id;
+                self::removeFilterSession();
+            }
+            return Response::json($result,200);
 
-		self::removeFilterSession();
-		return Redirect::route('suppliers-finish', ['id_code' => $task->id]);
+        }else {
+            if(!$save_status){
+                return Redirect::route('suppliers-confirm', ['id_code' => $id_code]);
+            }
+            self::removeFilterSession();
+            return Redirect::route('suppliers-finish', ['id_code' => $task->id]);
+        }
 	}
 
 
