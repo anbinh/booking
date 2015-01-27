@@ -312,3 +312,6 @@ Route::post('/ajax', 'AjaxController@postSelectSupplier');
 Route::get('select-supplier', array('as' => 'select-supplier', function () {
     return View::make('ajax.select-supplier');
 }));
+
+// TRI
+Route::get('tri/test/{user_id}', 'APISupplierController@getUserById');
