@@ -18,10 +18,9 @@
 			<div class="navbar-collapse collapse" style ="background-color: #2ecc71;">
 				<ul class="nav navbar-nav navbar-right" style ="padding-top: 0px; padding-right: 20px;">
 				 	<li><a href={{URL::route('about-page')}}> About Us</a></li>
-				 	<li><a href=@if((Auth::check()) || (Session::get('facebook-login-session'))){{URL::to('logout')}}@else {{URL::to('why-book-with-us')}} @endif>@if((Auth::check()) || (Session::get('facebook-login-session'))) My Dashboard @else  Why book with us? @endif</a></li>
+				 	<li><a href=@if((Auth::check()) || (Session::get('facebook-login-session'))){{ route('user-dashboard')}}@else {{URL::to('why-book-with-us')}} @endif>@if((Auth::check()) || (Session::get('facebook-login-session'))) My Dashboard @else  Why book with us? @endif</a></li>
 					<li><a href=@if((Auth::check()) || (Session::get('facebook-login-session'))){{URL::to('logout')}}@else {{URL::to('login')}} @endif>@if((Auth::check()) || (Session::get('facebook-login-session'))) Sign-out @else Sign-in @endif</a></li>
-					
-	                 <li><a href={{URL::route('FAQ-page')}}> FAQ</a></li>
+	                <li><a href={{URL::route('FAQ-page')}}> FAQ</a></li>
 	                
 		            
 	                <li class="dropdown">
