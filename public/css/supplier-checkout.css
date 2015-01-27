@@ -10,7 +10,7 @@ div.radio{
     display: inline-block;
 }
 footer.footer-note{
-    position: absolute;
+    /*position: absolute;*/
     bottom: 0px;
     left: 0px;
 }

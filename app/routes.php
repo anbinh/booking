@@ -236,6 +236,8 @@ Route::group(array('before' => 'check-language'), function () {
 
         Route::post('purchase', array('as' => 'payment-purchase',
             'uses' => 'PaymentController@purchaseBooking'));
+        Route::get('void-purchase/{id}', array('as' => 'payment-void-purchase',
+            'uses' => 'PaymentController@voidPurchaseBooking'));
     });
 
     Route::get('terms', array('as' => 'terms-page', function () {

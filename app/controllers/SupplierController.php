@@ -176,6 +176,7 @@ class SupplierController extends BaseController {
 		$task->note = $other_required;
 		$task->promotion_code = $promotion_code;
 		$task->duration = $duration;
+		$task->cost = $duration * $sup->rate_per_hour;
         $save_status = $task->save();
 
         if (Request::ajax()){

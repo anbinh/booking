@@ -23,16 +23,12 @@
             </div>
         </div>
         <div class="row main-element-container">
-            <form method="post" action="{{route('suppliers-done', ['id_code' => $task->id])}}">
+            <form method="post" action="{{route('payment-purchase')}}">
             <div class="review-review col-md-12">
-
                     <div class="row">
                         <h3><b>The supplier you chose is Instant booking enabled!!!</b></h3>
-
                         <h3>This is your last step of the booking.</h3>
-
                         <h3 class="payment-header"><b>How would you like to pay?</b></h3>
-
                         <div class="col-md-12">
                             <div class="sample1">
                                 <div class="radio radio-success">
@@ -53,11 +49,26 @@
                         </div>
                         <div class="confirm-signin col-md-12">
                             <h3 style="text-decoration:underline">Card information</h3>
-
+                            <div class="form-group">
+                                <label for="bill_cc"
+                                       class="col-sm-4 control-label text-aglign-left">Card number:</label>
+                                <div class="col-sm-8">
+                                    <input type="cvv2" class="form-control" name="bill_cc"
+                                           required="required" id="bill_cc" placeholder="Card number">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv2"
+                                       class="col-sm-4 control-label text-aglign-left">CVV:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="cvv2"
+                                           required="required" id="cvv2"
+                                           placeholder="CVV">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="cardholder_name" class="col-sm-4 control-label text-aglign-left">Card
                                     holder: </label>
-
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" name="cardholder_name" id="cardholder_name"
                                            required="required" placeholder="Your name in card">
@@ -65,7 +76,6 @@
                             </div>
                             <div class="form-group">
                                 <label for="cc_brand" class="col-sm-4 control-label text-aglign-left">Card brand</label>
-
                                 <div class="col-sm-8">
                                     <select class="form-control" id="cc_brand" name="cc_brand">
                                         <option name="nation" value="AMEX">
@@ -134,27 +144,9 @@
                                        required="required" id="expyear">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="bill_cc"
-                                   class="col-sm-4 control-label text-aglign-left">Card number:</label>
-
-                            <div class="col-sm-8">
-                                <input type="cvv2" class="form-control" name="bill_cc"
-                                       required="required" id="bill_cc" placeholder="Card number">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="cvv2"
-                                   class="col-sm-4 control-label text-aglign-left">CVV:</label>
-                            <div class="col-sm-8">
-                                <input type="password" class="form-control" name="cvv2"
-                                       required="required" id="cvv2"
-                                       placeholder="CVV">
-                            </div>
-                        </div>
-                        <input type="hidden" value="1.00" name="bill_amount">
+                        <input type="hidden" value="{{number_format($task->cost, 2)}}" name="bill_amount">
                         <input type="hidden" value="{{$task->id}}" name="track_id">
-
+                        <input type="hidden" value="USD" name="currencycode">
                     </div>
             </div>
             <div class="col-md-12">
