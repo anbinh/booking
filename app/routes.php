@@ -229,6 +229,9 @@ Route::group(array('before' => 'check-language'), function () {
         Route::get('feedback', array('as' => 'user-feedback', function () {
             return View::make('pages.user-feedback');
         }));
+
+        Route::post('purchase', array('as' => 'payment-purchase',
+            'uses' => 'PaymentController@purchaseBooking'));
     });
 
     Route::get('terms', array('as' => 'terms-page', function () {

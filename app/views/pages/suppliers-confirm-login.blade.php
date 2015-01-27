@@ -53,8 +53,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h3 class="inline-block">Cost of service</h3>
-
-                                <h3 class="inline-block pull-right">AED xxxxxx</h3>
+                                <h3 class="inline-block pull-right">$ {{$duration_selected * $supplier->rate_per_hour}}</h3>
                             </div>
                         </div>
                         <form class="form-horizontal" action="{{route('suppliers-checkout', ['id_code'=> $supplier->id]);}}" method="post">

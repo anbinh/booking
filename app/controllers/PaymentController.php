@@ -1,241 +1,211 @@
 <?php
 
-class SupplierController extends BaseController {
+class PaymentController extends BaseController {
 
+	public $gatewayurl = "https://api.checkout.com/Process/gateway.aspx";
+	public $merchantid = "CKODUBAPITEST";
+	public $password = "Password1!";
 
-	public static $SERVICE_SELECTED_ID = "service_selected_id";
-	public static $DATE_SELECTED = "date_selected";
-	public static $TIME_SELECTED = "time_selected";
-	public static $DURATION_SELECTED = "duration_selected";
-	public static $FILTER_STAR = "filter_star";
-	public static $FROM_PRICE = "from_price";
-	public static $TO_PRICE = "to_price";
-	public static $MAX_PRICE = 500;
+	public function purchaseBooking(){
 
-    public function __construct()
-    {
-
-    }
-
-	public function getIndex()
-	{
-		return View::make('home.index');
-	}
-
-	/*
-	 * get supplier API
-	 *
-	 *  service_id: Service including
-	 * 		+ Handy Homie : id = 1
-	 * 		+ Gardening Homie: id = 2
-	 * 		+ Cleaning Homie: id = 3
-	 *  date: format 'month/day/year' 	example '01/24/2015'
-	 *  time: format 'hour/minues' 		example '09/25'
-	 *
-	 */
-	public function requestSupplier($service_id){
 		$input = Input::all();
-//		$service_id = $input['service_id'];
-//		$date = $input['date'];
-//		$time = $input['time'];
-		$total = 0;
-		$suppliers = [];
-		if($service_id != -1){
-			$sups = Service::find($service_id)->getSupplier;
-			foreach($sups as $s){
-				$suppliers[] = [
-					'company_name' => $s->company_name,
-					'office_address' =>$s->office_address,
-					'license_number' => $s->license_number,
-					'star_rate' => $s->star_rate,
-					'instance' => $s->instance
-				];
-				$total = $total + 1;
+		$body = $this->generatePurchaseBodyRequest(
+			$this->merchantid,
+			$this->password,
+			$input['track_id'],
+			$input['currencycode'],
+			$input['cardholder_name'],
+			'cc',
+			$input['cc_brand'],
+			$input['bill_cc'],
+			$input['expmoth'],
+			$input['expyear'],
+			$input['cvv2'],
+			$input['bill_amount']
+		);
+
+		$header  = "POST HTTP/1.0 \r\n";
+		$header .= "Content-type: text/xml \r\n";
+		$header .= "Content-length: ".strlen($body)." \r\n";
+		$header .= "Content-transfer-encoding: text \r\n";
+		$header .= "Connection: close \r\n\r\n";
+		$header .= $body;
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_URL, $this->gatewayurl);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: close'));
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+		$data = curl_exec($ch);
+
+		$xml_obj = simplexml_load_string($data);
+
+		$response_tranid = $xml_obj->tranid;
+		$response_authcode = $xml_obj->authcode;
+		$reponse_customer_token = $xml_obj->customer_token;
+
+		if($xml_obj->result == 'Successful' && $xml_obj->responsecode == '0'){
+			$payment = new PaymentHistory;
+			$payment->user_id = Auth::user()->id;
+			$payment->card_number = $input['bill_cc'];
+			$payment->cvv2 = $input['cvv2'];
+			$payment->track_id = $input['track_id'];
+			$payment->currencycode = $input['currencycode'];
+			$payment->cardholder_name = $input['cardholder_name'];
+			$payment->cc_brand = $input['cc_brand'];
+			$payment->expmoth = $input['expmoth'];
+			$payment->expyear = $input['expyear'];
+			$payment->bill_amount = $input['bill_amount'];
+
+			$payment->tranid =   $response_tranid;
+			$payment->authcode = $response_authcode;
+			$payment->customertoken = $reponse_customer_token;
+
+			if($payment->save()){
+				return Response::json(array(
+					'error' => false,
+					'response' => 200),
+					200
+				);
 			}
 		}
-		return Response::json(array('suppliers' => $suppliers, 'total' => $total));
+		return Response::json(array(
+			'error' => $xml_obj->result,
+			'response' => 200),
+			200
+		);
 	}
 
-	/**
-	 *
-     */
-	public function getSupplier(){
-		$services = Service::all();
+//	public function parseXML($string){
+//		$string = '<response type="valid" service="token">
+//						<result>Successful</result>
+//						<responsecode>0</responsecode>
+//						<cvv2response>X</cvv2response>
+//						<tranid>40359370</tranid>
+//						<authcode>450663</authcode>
+//						<trackid>111</trackid>
+//						<merchantid>CKODUBAPITEST</merchantid>
+//						<customer_token>03d3d22f-9423-4127-a6eb-2222c0ca785f</customer_token>
+//					</response>';
+//		$xml_obj = simplexml_load_string($string);
+//		$response_result = $xml_obj->result;
+//		$response_responsecode = $xml_obj->responsecode;
+//		$response_tranid = $xml_obj->tranid;
+//		$response_authcode = $xml_obj->authcode;
+//		$reponse_customer_token = $xml_obj->customer_token;
+//
+//	}
 
-		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
-		$date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
-		$time_selected = Session::get(self::$TIME_SELECTED, "12:00");
-		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
-
-		$suppliers = $this->apiGetService($service_selected);
-
-		var_dump($suppliers);
-		die();
-
-		return View::make('pages.suppliers',
-			array(
-				'services' => $services,
-				'suppliers' => $suppliers,
-				'service_selected' => $service_selected,
-				'date_selected' => $date_selected,
-				'time_selected' => $time_selected,
-				'duration_selected' => $duration_selected
-		));
-	}
-
-	public function postSupplier(){
-		$input = Input::all();
-		Session::put(self::$SERVICE_SELECTED_ID, isset($input['service'])?$input['service']:"");
-		Session::put(self::$DATE_SELECTED, isset($input['date'])?$input['date']:"");
-		Session::put(self::$TIME_SELECTED, isset($input['time'])?$input['time']:"");
-		Session::put(self::$DURATION_SELECTED, isset($input['duration'])?$input['duration']:"");
-		return Redirect::route('suppliers');
-	}
-
-	public function postFiltetSupplier(){
-		$input = Input::all();
-		Session::put(self::$FILTER_STAR, $input['filter-star']);
-		Session::put(self::$FROM_PRICE, $input['from-price']);
-		Session::put(self::$TO_PRICE, $input['to_price']);
-		return Redirect::route('suppliers');
-	}
-
-	public function reviewSupplier($id_code){
-		$sup = Supplier::find($id_code);
-		$reviews = DB::table('review')
-			->join('task', 'review.task_id', '=', 'task.id')
-			->join('supplier', 'task.supplier_id', '=', 'supplier.id')
-			->join('users', 'users.id', '=', 'task.user_id')
-			->where('supplier.id', '=', $id_code)
-			->get();
-//		var_dump($reviews[0]);
-//		die();
-		return View::make('pages.suppliers-review',
-			array(
-				'supplier' => $sup,
-				'reviews' => $reviews,
-			));
-	}
-
-	public function confirmSupplier($id_code){
-
-		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
-		if($service_selected == -1){
-			Session::flash('error', 'Not selected SERVICE yets');
-			return Redirect::route('suppliers');
-		}
-
-		$service = Service::find($service_selected);
-		$sup = Supplier::find($id_code);
-		$date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
-		$time_selected = Session::get(self::$TIME_SELECTED, "00:00");
-		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
-
-		if(Auth::check()){
-			$view = 'pages.suppliers-confirm-login';
-		}else{
-			$view = 'pages.suppliers-confirm-withoutlogin';
-		}
-		return View::make($view,
-			[
-				'service' => $service,
-				'supplier' => $sup,
-				'service_selected' => $service_selected,
-				'date_selected' => $date_selected,
-				'time_selected' => $time_selected,
-				'duration_selected' => $duration_selected
-			]);
-	}
-
-	//var_dump(gmdate('h:i', 1422327000));
-
-	public function checkoutSupplier($id_code){
-		$sup = Supplier::find($id_code);
-		$duration = Session::get(self::$DURATION_SELECTED);
-		$time_begin = Session::get(self::$TIME_SELECTED);
-		$date_selected = Session::get(self::$DATE_SELECTED);
-		$service_selected  = Session::get(self::$SERVICE_SELECTED_ID);
-
-		$all_input = Input::all();
-		$promotion_code = $all_input['promotion_code'];
-		$other_required = $all_input['other_required'];
-
-		$task = new Task;
-		$task->user_id = Auth::user()->id;
-		$task->service_id = $service_selected;
-		$task->supplier_id = $id_code;
-		$task->date = DateTime::createFromFormat('m/d/Y h:i:s', $date_selected.' 00:00:00');
-		$task->starting_time = strtotime($time_begin);
-		$task->note = $other_required;
-		$task->promotion_code = $promotion_code;
-		$task->duration = $duration;
-
-		if(!$task->save()){
-			return Redirect::route('suppliers-confirm', ['id_code' => $id_code]);
-		}
-
-		self::removeFilterSession();
-		return Redirect::route('suppliers-finish', ['id_code' => $task->id]);
+	public function voidPurchaseBooking(){
+		die('to be defined');
 	}
 
 
-	public static function removeFilterSession(){
-		Session::forget(self::$DURATION_SELECTED);
-		Session::forget(self::$TIME_SELECTED);
-		Session::forget(self::$DATE_SELECTED);
-		Session::forget(self::$SERVICE_SELECTED_ID);
+	public function generateVoidPurchaseBodyRequest(){
+		$post_string = '<?xml version="1.0" encoding="ISO-8859-1"?>';
+		$post_string .= '<request>';
+		$post_string .= '<account_identifier></account_identifier>';
+		$post_string .= '<merchantid>CKODUBAPITEST</merchantid>';
+		$post_string .= '<password>Password1!</password>';
+		$post_string .= '<action>3</action>';
+		$post_string .= '<trackid>1122-001</trackid>';
+		$post_string .= '<transid>40356555</transid>';
+		$post_string .= '<bill_currencycode>USD</bill_currencycode>';
+		$post_string .= '<bill_cardholder>SOME NAME</bill_cardholder>';
+		$post_string .= '<bill_cc_type>CC</bill_cc_type>';
+		$post_string .= '<bill_cc_brand>VISA</bill_cc_brand>';
+		$post_string .= '<bill_cc>4543474002249996</bill_cc>';
+		$post_string .= '<bill_expmonth>06</bill_expmonth>';
+		$post_string .= '<bill_expyear>2017</bill_expyear>';
+		$post_string .= '<bill_cvv2>956</bill_cvv2>';
+		$post_string .= '<bill_address>Billing Address</bill_address>';
+		$post_string .= '<bill_address2>Billing Address 2</bill_address2>';
+		$post_string .= '<bill_postal>Billing Postal</bill_postal>';
+		$post_string .= '<bill_city>Billing city</bill_city>';
+		$post_string .= '<bill_state>Billing state</bill_state>';
+		$post_string .= '<bill_email>omkar61422@gmail.com</bill_email>';
+		$post_string .= '<bill_country>USA</bill_country>';
+		$post_string .= '<bill_amount>1.00</bill_amount>';
+		$post_string .= '<bill_phone>44-12312331312</bill_phone>';
+		$post_string .= '<bill_fax>44-12312331312</bill_fax>';
+		$post_string .= '<bill_customerip>123.123.123.200</bill_customerip>';
+		$post_string .= '<bill_merchantip>192.168.33.10</bill_merchantip>';
+		$post_string .= '<ship_address>Shipping address</ship_address>';
+		$post_string .= '<ship_email>email@shipping.com</ship_email>';
+		$post_string .= '<ship_postal>Shipping Postal Code</ship_postal>';
+		$post_string .= '<ship_address2>Shipping Address 2</ship_address2>';
+		$post_string .= '<ship_type>FEDEX</ship_type>';
+		$post_string .= '<ship_city>Shipping City</ship_city>';
+		$post_string .= '<ship_state>Shipping State</ship_state>';
+		$post_string .= '<ship_phone>44-12312331312</ship_phone>';
+		$post_string .= '<ship_country>USA</ship_country>';
+		$post_string .= '<ship_fax>44-12312331312</ship_fax>';
+		$post_string .= '<udf1></udf1>';
+		$post_string .= '<udf2></udf2>';
+		$post_string .= '<udf3></udf3>';
+		$post_string .= '<udf4></udf4>';
+		$post_string .= '<udf5></udf5>';
+		$post_string .= '<merchantcustomerid>21</merchantcustomerid>';
+		$post_string .= '<product_desc>booking</product_desc>';
+		$post_string .= '<product_quantity>1</product_quantity>';
+		$post_string .= '<product_unitcost>1</product_unitcost>';
+		$post_string .= '</request>';
 	}
 
-	public function finishedSupplier($id_code){
-		$task = Task::find($id_code);
-		$sup  = Supplier::find($task->supplier_id);
-		if($sup->instance){
-			$view = 'pages.suppliers-checkout-instant';
-		}else{
-			$view = 'pages.suppliers-finish-notinstant';
-		}
-		return View::make($view,[
-			'task' => $task,
-			'supplier '=> $sup
-		]);
-	}
-
-	public function doneSupplier($id_code){
-		$task = Task::find($id_code);
-		$input = Input::all();
-		$task->payment_type = $input['payment'];
-		$task->status = Task::$STATUS_CONFIRM;
-		return View::make('pages.suppliers-finish', ['reference_code' => $task->id]);
-	}
-
-
-
-	public function reCalcSupplierRate(){
-		$suppliers = Supplier::all();
-		foreach($suppliers as $sup){
-			$this->reCalcEachSupplierRate($sup);
-		}
-	}
-
-	public function reCalcEachSupplierRate($sup){
-		$total = 0;
-		$reviews = DB::table('review')
-			->join('task', 'review.task_id', '=', 'task.id')
-			->join('supplier', 'task.supplier_id', '=', 'supplier.id')
-			->join('users', 'users.id', '=', 'task.user_id')
-			->where('supplier.id', '=', $sup->id)
-			->get();
-		foreach($reviews as $re) $total += $re->rating_start;
-		if ($total != 0) $avg = round($total/count($reviews)+0.49);
-		else $avg = 0;
-		$sup->star_rate = $avg;
-		return $sup->save();
-	}
-
-
-	public function apiGetService(){
-
-
-
+	public function generatePurchaseBodyRequest($merchantid, $password, $track_id, $currencycode, $cardholder_name,
+	$ccType, $cc_brand, $bill_cc, $expmonth, $expyear, $cvv2, $bill_amount){
+		$post_string = '<?xml version="1.0" encoding="ISO-8859-1"?>';
+		$post_string .= '<request>';
+		$post_string .= '<account_identifier></account_identifier>';
+		$post_string .= "<merchantid>$merchantid</merchantid>";
+		$post_string .= "<password>$password</password>";
+		$post_string .= '<action>1</action>';
+		$post_string .= "<trackid>$track_id</trackid>";
+		$post_string .= "<bill_currencycode>$currencycode</bill_currencycode>";
+		$post_string .= "<bill_cardholder>$cardholder_name</bill_cardholder>";
+		$post_string .= '<bill_cc_type>CC</bill_cc_type>';
+		$post_string .= "<bill_cc_brand>$cc_brand</bill_cc_brand>";
+		$post_string .= "<bill_cc>$bill_cc</bill_cc>";
+		$post_string .= "<bill_expmonth>$expmonth</bill_expmonth>";
+		$post_string .= "<bill_expyear>$expyear</bill_expyear>";
+		$post_string .= "<bill_cvv2>$cvv2</bill_cvv2>";
+		$post_string .= '<bill_address>Billing Address</bill_address>';
+		$post_string .= '<bill_address2>Billing Address 2</bill_address2>';
+		$post_string .= '<bill_postal>Billing Postal</bill_postal>';
+		$post_string .= '<bill_city>Billing city</bill_city>';
+		$post_string .= '<bill_state>Billing state</bill_state>';
+		$post_string .= '<bill_email>test@gmail.com</bill_email>';
+		$post_string .= '<bill_country>USA</bill_country>';
+		$post_string .= "<bill_amount>$bill_amount</bill_amount>";
+		$post_string .= '<bill_phone>44-12312331312</bill_phone>';
+		$post_string .= '<bill_fax>44-12312331312</bill_fax>';
+		$post_string .= '<bill_customerip>123.123.123.200</bill_customerip>';
+		$post_string .= '<bill_merchantip>192.168.33.10</bill_merchantip>';
+		$post_string .= '<ship_address>Shipping address</ship_address>';
+		$post_string .= '<ship_email>email@shipping.com</ship_email>';
+		$post_string .= '<ship_postal>Shipping Postal Code</ship_postal>';
+		$post_string .= '<ship_address2>Shipping Address 2</ship_address2>';
+		$post_string .= '<ship_type>FEDEX</ship_type>';
+		$post_string .= '<ship_city>Shipping City</ship_city>';
+		$post_string .= '<ship_state>Shipping State</ship_state>';
+		$post_string .= '<ship_phone>44-12312331312</ship_phone>';
+		$post_string .= '<ship_country>USA</ship_country>';
+		$post_string .= '<ship_fax>44-12312331312</ship_fax>';
+		$post_string .= '<udf1></udf1>';
+		$post_string .= '<udf2></udf2>';
+		$post_string .= '<udf3></udf3>';
+		$post_string .= '<udf4></udf4>';
+		$post_string .= '<udf5></udf5>';
+		$post_string .= '<merchantcustomerid></merchantcustomerid>';
+		$post_string .= '<product_desc></product_desc>';
+		$post_string .= '<product_quantity></product_quantity>';
+		$post_string .= '<product_unitcost></product_unitcost>';
+		$post_string .= '</request>';
+		return $post_string;
 	}
 }

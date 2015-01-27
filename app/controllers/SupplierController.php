@@ -232,6 +232,5 @@ class SupplierController extends BaseController {
 
 	public function apiGetService(){
 
-
 	}
 }
