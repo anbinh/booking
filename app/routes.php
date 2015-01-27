@@ -55,6 +55,10 @@ Route::group(array('before' => 'auth'), function(){
 
 });
 
+
+
+
+
 Route::post('upload/image/{user_id}', array('uses' => 'ImageController@postUpload'));
 Route::post('upload/image', array('uses' => 'ImageController@postUpload'));
 
@@ -201,33 +205,6 @@ Route::group(array('before'=>'check-language'), function(){
 	 * end a booking
 	 */
 
-	/*
-	 * user pages
-	 */
-	Route::get('dashboard',array('as'=>'user-dashboard', function()
-	{
-		return View::make('pages.user-dashboard');
-	}));
-	Route::get('profile',array('as'=>'user-profile', function()
-	{
-		return View::make('pages.user-profile');
-	}));
-	Route::get('booking',array('as'=>'user-current-booking', function()
-	{
-		return View::make('pages.user-current-booking');
-	}));
-	Route::get('past-booking',array('as'=>'user-past-booking', function()
-	{
-		return View::make('pages.user-past-booking');
-	}));
-	Route::get('feedback',array('as'=>'user-feedback', function()
-	{
-		return View::make('pages.user-feedback');
-	}));
-	/*
-	 * end user profile
-	 */
-
 	Route::get('terms',array ('as'=>'terms-page', function()
 	{
 		return View::make('pages.termsOfService');
@@ -300,7 +277,44 @@ Route::group(array('before'=>'check-language'), function(){
 			//var_dump($input['name_service']);
 			return View::make('pages.contact');
 		}
-	});*/	
+	});*/
+
+
+Route::filter('must-login', function()
+{
+	if (!Auth::check()){
+		return Redirect::route('landing-page');
+	}
+	/*
+	 * end user profile
+	 */
+});
+
+Route::group(array('before'=>'must-login'), function(){
+	/*
+	 * user pages
+	 */
+	Route::get('dashboard',array('as'=>'user-dashboard', function()
+	{
+		return View::make('pages.user-dashboard');
+	}));
+	Route::get('profile',array('as'=>'user-profile', function()
+	{
+		return View::make('pages.user-profile');
+	}));
+	Route::get('booking',array('as'=>'user-current-booking', function()
+	{
+		return View::make('pages.user-current-booking');
+	}));
+	Route::get('past-booking',array('as'=>'user-past-booking', function()
+	{
+		return View::make('pages.user-past-booking');
+	}));
+	Route::get('feedback',array('as'=>'user-feedback', function()
+	{
+		return View::make('pages.user-feedback');
+	}));
+});
 	
 Route::post('/ajax', 'AjaxController@postSelectSupplier');
 
