@@ -156,6 +156,10 @@ Route::group(array('before' => 'check-language'), function () {
     Route::post('suppliers-filter', array('uses' => 'SupplierController@postFiltetSupplier',
         'as' => 'suppliers-post-filter'));
 
+
+//   making a booking Rest API
+    Route::get('api/suppliers/{service_id}', array('uses' => 'SupplierController@apigetSupplier',
+        'as' => 'api_suppliers'));
 //	Route::get('suppliers-review/{id_code}',array('as'=>'suppliers-review', function()
 //	{
 //		return View::make('pages.suppliers-review');

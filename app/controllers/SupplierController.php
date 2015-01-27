@@ -61,17 +61,13 @@ class SupplierController extends BaseController {
      */
 	public function getSupplier(){
 		$services = Service::all();
-		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
+		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, 0);
+        $date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
+        $time_selected = Session::get(self::$TIME_SELECTED, "12:00");
+        $duration_selected = Session::get(self::$DURATION_SELECTED, "1");
 
-		if($service_selected == -1){
-			$suppliers = [];
-		}else{
-			$suppliers = Service::find($service_selected)->getSupplier->take(10);
-		}
+        $suppliers= $this->querySupplier($service_selected);
 
-		$date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
-		$time_selected = Session::get(self::$TIME_SELECTED, "12:00");
-		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
 		return View::make('pages.suppliers',
 			array(
 				'services' => $services,
@@ -82,6 +78,17 @@ class SupplierController extends BaseController {
 				'duration_selected' => $duration_selected
 		));
 	}
+
+    public function apiGetSupplier($service_id = 0){
+        $service_id = $service_id <= 0?0:$service_id;
+        $suppliers = $this->querySupplier($service_id);
+        $result =  array(
+            'error' => false,
+            'suppliers' => $suppliers,
+        );
+        return Response::json($result,200);
+    }
+
 
 	public function postSupplier(){
 		$input = Input::all();
@@ -169,13 +176,26 @@ class SupplierController extends BaseController {
 		$task->note = $other_required;
 		$task->promotion_code = $promotion_code;
 		$task->duration = $duration;
+        $save_status = $task->save();
 
-		if(!$task->save()){
-			return Redirect::route('suppliers-confirm', ['id_code' => $id_code]);
-		}
+        if (Request::ajax()){
+            $result = array('error' => false);
+            if(!$save_status){
+                $result['id_code'] = $id_code;
+                $result['error'] = true;
+            } else {
+                $result['id_code'] = $task->id;
+                self::removeFilterSession();
+            }
+            return Response::json($result,200);
 
-		self::removeFilterSession();
-		return Redirect::route('suppliers-finish', ['id_code' => $task->id]);
+        }else {
+            if(!$save_status){
+                return Redirect::route('suppliers-confirm', ['id_code' => $id_code]);
+            }
+            self::removeFilterSession();
+            return Redirect::route('suppliers-finish', ['id_code' => $task->id]);
+        }
 	}
 
 
@@ -230,7 +250,13 @@ class SupplierController extends BaseController {
 		return $sup->save();
 	}
 
-	public function apiGetService(){
+    //Query Supplier from db
+    protected  function querySupplier($service_selected){
+        $suppliers = [];
+        if($service_selected != 0){
+            $suppliers = Service::find($service_selected)->getSupplier->take(10);
+        }
+        return $suppliers;
+    }
 
-	}
 }
