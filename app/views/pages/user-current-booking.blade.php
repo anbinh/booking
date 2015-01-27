@@ -46,7 +46,7 @@
                                     <td>{{explode(' ',$t->date)[0]}}</td>
                                     <td>{{$t->duration}}</td>
                                     <td>{{gmdate('H:i', $t->starting_time)}}</td>
-                                    <td>{{$t->payment_type}}</td>
+                                    <td> @if($t->payment_type == 0) Credit @else Cash @endif </td>
                                     <td>{{$t->note}}</td>
                                     @if(!isset($hidden) || !$hidden)
                                         <td><button class="btn btn-primary padding-20">Change</button></td>
