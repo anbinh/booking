@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="confirm-signin col-md-5">
+                            <div class="confirm-signin col-md-6">
                                 <h3 style="text-decoration:underline">Sign in</h3>
                                 <form class="form-horizontal" action="{{route('login-page')}}" method="post">
                                     <div class="form-group">
@@ -96,9 +96,6 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="col-md-1">
-                                <div> OR</div>
                             </div>
                             <div class="confirm-signin col-md-6">
                                 <h3 style="text-decoration:underline">Create a new account</h3>
