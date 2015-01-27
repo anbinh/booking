@@ -22,17 +22,53 @@ class SupplierController extends BaseController {
 		return View::make('home.index');
 	}
 
+	/*
+	 * get supplier API
+	 *  service_id: Service including
+	 * 		+ Handy Homie : id = 1
+	 * 		+ Gardening Homie: id = 2
+	 * 		+ Cleaning Homie: id = 3
+	 *  date: format 'month/day/year' 	example '01/24/2015'
+	 *  time: format 'hour/minues' 		example '09/25'
+	 *
+	 *
+	 */
+	public function requestSupplier(){
+		$input = Input::all();
+		$service_id = $input['service_id'];
+		$date = $input['date'];
+		$time = $input['time'];
+		$total = 0;
+		$suppliers = [];
+		if($service_id != -1){
+			$sups = Service::find($service_id)->getSupplier;
+			foreach($sups as $s){
+				$suppliers[] = [
+					'company_name' => $s->company_name,
+					'office_address' =>$s->office_address,
+					'license_number' => $s->license_number,
+					'star_rate' => $s->star_rate,
+					'instance' => $s->instance
+				];
+				$total = $total + 1;
+			}
+		}
+		return Response::json(array('suppliers' => $suppliers, 'total' => $total));
+	}
+
 	/**
 	 *
      */
 	public function getSupplier(){
 		$services = Service::all();
 		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
+
 		if($service_selected == -1){
 			$suppliers = [];
 		}else{
 			$suppliers = Service::find($service_selected)->getSupplier->take(10);
 		}
+
 		$date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
 		$time_selected = Session::get(self::$TIME_SELECTED, "12:00");
 		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
@@ -49,10 +85,10 @@ class SupplierController extends BaseController {
 
 	public function postSupplier(){
 		$input = Input::all();
-		Session::put(self::$SERVICE_SELECTED_ID, $input['service']);
-		Session::put(self::$DATE_SELECTED, $input['date']);
-		Session::put(self::$TIME_SELECTED, $input['time']);
-		Session::put(self::$DURATION_SELECTED, $input['duration']);
+		Session::put(self::$SERVICE_SELECTED_ID, isset($input['service'])?$input['service']:"");
+		Session::put(self::$DATE_SELECTED, isset($input['date'])?$input['date']:"");
+		Session::put(self::$TIME_SELECTED, isset($input['time'])?$input['time']:"");
+		Session::put(self::$DURATION_SELECTED, isset($input['duration'])?$input['duration']:"");
 		return Redirect::route('suppliers');
 	}
 
@@ -100,7 +136,6 @@ class SupplierController extends BaseController {
 		}else{
 			$view = 'pages.suppliers-confirm-withoutlogin';
 		}
-
 		return View::make($view,
 			[
 				'service' => $service,
@@ -195,5 +230,12 @@ class SupplierController extends BaseController {
 		else $avg = 0;
 		$sup->star_rate = $avg;
 		return $sup->save();
+	}
+
+
+	public function apiGetService(){
+
+
+
 	}
 }
