@@ -71,8 +71,6 @@ class SupplierController extends BaseController {
 		$array_star = Session::get(self::$FILTER_STAR, [1,2,3,4,5]);
         $suppliers= $this->querySupplier($service_selected, $from_price, $to_price,$array_star);
 
-
-
 		return View::make('pages.suppliers',
 			array(
 				'services' => $services,
@@ -143,7 +141,7 @@ class SupplierController extends BaseController {
 
 	public function postSupplier(){
 		$input = Input::all();
-		Session::put(self::$SERVICE_SELECTED_ID, isset($input['service'])?$input['service']:"");
+//		Session::put(self::$SERVICE_SELECTED_ID, isset($input['service'])?$input['service']:"");
 		Session::put(self::$DATE_SELECTED, isset($input['date'])?$input['date']:"");
 		Session::put(self::$TIME_SELECTED, isset($input['time'])?$input['time']:"");
 		Session::put(self::$DURATION_SELECTED, isset($input['duration'])?$input['duration']:"");
@@ -153,18 +151,13 @@ class SupplierController extends BaseController {
 	public function postFiltetSupplier(){
 		$input = Input::all();
 
-		$star = isset($input['filter-star'])?array_merge([], array_map('intval',$input['filter-star'])): [1,2,3,4,5];
+		$star = isset($input['filter-star'])?array_merge([], array_map('intval',$input['filter-star'])): [0,1,2,3,4,5];
 		$from = isset($input['from-price'])?$input['from-price']: 0;
 		$to = isset($input['to-price'])?$input['to-price']:0;
 
 		Session::put(self::$FILTER_STAR, $star);
 		Session::put(self::$FROM_PRICE, $from);
 		Session::put(self::$TO_PRICE, $to);
-
-//		var_dump($star);
-//		var_dump($from);
-//		var_dump($to);
-//		die();
 
 		return Redirect::route('suppliers');
 	}
@@ -188,16 +181,20 @@ class SupplierController extends BaseController {
 	public function confirmSupplier($id_code){
 
 		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
-		if($service_selected == -1){
-			Session::flash('error', 'Not selected SERVICE yets');
+		$date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
+		$time_selected = Session::get(self::$TIME_SELECTED, "00:00");
+		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
+
+		if($service_selected == -1 ||
+			count($date_selected) == 0||
+			count($time_selected) == 0||
+			count($duration_selected) == 0){
+			Session::flash('error', 'Not yets');
 			return Redirect::route('suppliers');
 		}
 
 		$service = Service::find($service_selected);
 		$sup = Supplier::find($id_code);
-		$date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
-		$time_selected = Session::get(self::$TIME_SELECTED, "00:00");
-		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
 
 		if(Auth::check()){
 			$view = 'pages.suppliers-confirm-login';
