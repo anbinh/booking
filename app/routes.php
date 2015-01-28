@@ -198,7 +198,7 @@ Route::group(array('before' => 'check-language'), function () {
     Route::get('suppliers-finish/{id_code}', array('uses' => 'SupplierController@finishedSupplier',
         'as' => 'suppliers-finish'));
 
-    Route::post('suppliers-done/{id_code}', array('as' => 'suppliers-done',
+    Route::get('suppliers-done/{id_code}', array('as' => 'suppliers-done',
         'uses' => 'SupplierController@doneSupplier'));
 
 //    Route::get('suppliers-calc', array('uses' => 'SupplierController@reCalcSupplierRate',
