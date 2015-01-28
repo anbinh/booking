@@ -162,6 +162,8 @@ Route::group(array('before' => 'check-language'), function () {
         'as' => 'api_suppliers'));
 
     Route::post('api/booking/{id_code}', array('uses' =>'SupplierController@apiCheckoutSupplier','as' => 'api_make_booking'));
+
+    Route::post('api/review',array('uses' => "HomeController@postFeedback", 'as' => 'api_review'));
 //	Route::get('suppliers-review/{id_code}',array('as'=>'suppliers-review', function()
 //	{
 //		return View::make('pages.suppliers-review');
