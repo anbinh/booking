@@ -333,3 +333,6 @@ Route::get('select-supplier', array('as' => 'select-supplier', function () {
 
 // TRI
 Route::get('tri/test/{user_id}', 'APISupplierController@getUserById');
+
+// TAI
+Route::post('forgetPassword', 'APISupplierController@postForgotPassword');
