@@ -90,12 +90,54 @@ class SupplierController extends BaseController {
 
     public function apiGetSupplier($service_id = 0){
         $service_id = $service_id <= 0?0:$service_id;
-//        $suppliers = $this->querySupplier($service_id);
-//        $result =  array(
-//            'error' => false,
-//            'suppliers' => $suppliers,
-//        );
-//        return Response::json($result,200);
+
+		$duration = Input::get(self::$DURATION_SELECTED);
+		$time_begin = Input::get(self::$TIME_SELECTED);
+		$date_selected = Input::get(self::$DATE_SELECTED);
+		$service_selected  = Input::get(self::$SERVICE_SELECTED_ID);
+
+		$from_price = Input::get(self::$FROM_PRICE);
+		$to_price = Input::get(self::$TO_PRICE);
+		$filter_start = Input::get(self::$FILTER_STAR);
+
+		$result = array('error' => false);
+		if(!Input::has(self::$DURATION_SELECTED)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$DURATION_SELECTED;
+		}
+		if(!Input::has(self::$TIME_SELECTED)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$TIME_SELECTED;
+		}
+		if(!Input::has(self::$DATE_SELECTED)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$DATE_SELECTED;
+		}
+		if(!Input::has(self::$SERVICE_SELECTED_ID)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$SERVICE_SELECTED_ID;
+		}
+		if(!Input::has(self::$FROM_PRICE)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$FROM_PRICE;
+		}
+		if(!Input::has(self::$TO_PRICE)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$TO_PRICE;
+		}
+		if(!Input::has(self::$FILTER_STAR)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$FILTER_STAR;
+		}
+		if(!$result['error']){
+			$suppliers = $this->querySupplier($service_selected, $from_price, $to_price, $filter_start);
+			$result =  array(
+				'error' => false,
+				'suppliers' => $suppliers,
+			);
+			return Response::json($result,200);
+		}
+		return Response::json($result,200);
     }
 
 
@@ -224,7 +266,6 @@ class SupplierController extends BaseController {
         }
         if(Input::has('promotion_code')){
             $promotion_code = Input::get('promotion_code');
-
         } else {
             $promotion_code = '';
         }
@@ -333,10 +374,6 @@ class SupplierController extends BaseController {
 				->where('supplier.rate_per_hour', '<=', intval($max_price))
 				->orderBy('supplier.star_rate', 'desc')
 				->get();
-//			$queries = DB::getQueryLog();
-//			$last_query = end($queries);
-//			var_dump($last_query);
-//			die();
 			return $suppliers;
         }
         return $suppliers;
