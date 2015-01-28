@@ -197,7 +197,16 @@ class SupplierController extends BaseController {
 			strlen($date_selected) == 0||
 			strlen($time_selected) == 0||
 			strlen($duration_selected) == 0){
-			Session::flash('error', 'You\'re missing some fields');
+
+			if($service_selected == -1){
+				Session::flash('error', 'Please select service');
+			}elseif(strlen($date_selected) == 0){
+				Session::flash('error', 'Please select date');
+			}elseif(strlen($time_selected) == 0){
+				Session::flash('error', 'Please select time');
+			}elseif(strlen($duration_selected) == 0){
+				Session::flash('error', 'Please select duration');
+			}
 			return Redirect::route('suppliers');
 		}
 
