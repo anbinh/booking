@@ -525,14 +525,7 @@ class DashboardController extends \BaseController {
 	}
 
 	public function managerBooking(){
-		$user  =  Auth::user();
-		$query = DB::table(Task::$table_name);
-		$query->join('service', 'task.service_id', '=', 'service.id')
-			->join('supplier', 'task.supplier_id', '=', 'supplier.id');
-		$query->where('task.user_id', '=', $user->id);
-		$query->where('task.date', '>', date("Y-m-d H:i:s"));
-		$query->orderBy('task.date', 'asc');
-		$task = $query->get();
+		$task = $this->getCurrentBooking(Auth::user()->id);
 		return View::make('pages.user-current-booking',[
 			'tasks' => $task,
 			'hidden' => false
@@ -540,22 +533,35 @@ class DashboardController extends \BaseController {
 	}
 
 	public function pastBooking(){
-		$user  =  Auth::user();
-		$query = DB::table(Task::$table_name);
-		$query->join('service', 'task.service_id', '=', 'service.id')
-			->join('supplier', 'task.supplier_id', '=', 'supplier.id');
-
-		$query->where('task.user_id', '=', $user->id);
-		$query->where('task.date', '<', date("Y-m-d H:i:s"));
-		$query->orderBy('task.date', 'asc');
-
-		$task = $query->get();
-
+		$task = $this->getPastBooking(Auth::user()->id);
 		return View::make('pages.user-current-booking',[
 			'tasks' => $task,
 			'hidden' => true
 		]);
 	}
-	
+
+
+	protected function getCurrentBooking($user_id)
+	{
+		$query = DB::table(Task::$table_name);
+		$query->join('service', 'task.service_id', '=', 'service.id')
+			->join('supplier', 'task.supplier_id', '=', 'supplier.id');
+		$query->where('task.user_id', '=', $user_id);
+		$query->where('task.date', '>', date("Y-m-d H:i:s"));
+		$query->orderBy('task.date', 'asc');
+		$task = $query->get();
+		return $task;
+	}
+
+	protected function getPastBooking($user_id)
+	{
+		$query = DB::table(Task::$table_name);
+		return $query
+			->join('service', 'task.service_id', '=', 'service.id')
+			->join('supplier', 'task.supplier_id', '=', 'supplier.id')
+			->where('task.user_id', '=', $user_id)
+			->where('task.date', '<', date("Y-m-d H:i:s"))
+			->orderBy('task.date', 'asc')->get();
+	}
 
 }

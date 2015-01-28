@@ -9,13 +9,21 @@
         <div class="row navigator">
             <div class="bs-component">
                 <div class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        {{--<a class="navbar-brand" href="javascript:void(0)">Make a new booking</a>--}}
+                    </div>
                     <div class="navbar-collapse collapse navbar-responsive-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="{{route('user-dashboard')}}">Make a new booking</a></li>
-                            <li><a href="{{route('user-profile')}}">My profile</a></li>
-                            <li><a href="{{route('user-current-booking')}}">Manage bookings</a></li>
-                            <li><a href="{{route('user-past-booking')}}">Past bookings</a></li>
-                            <li><a href="{{route('user-feedback')}}">Give us feedback</a></li>
+                            <li class="active col-md-25 col-sm-12 col-xs-12"><a class="col-sm-12" href="{{route('user-dashboard')}}">Make a new booking</a></li>
+                            <li class="col-md-25 col-sm-12 col-xs-12"><a class="col-sm-12" href="{{route('user-profile')}}">My profile</a></li>
+                            <li class="col-md-25 col-sm-12 col-xs-12"><a class="col-sm-12" href="{{route('user-current-booking')}}">Manage bookings</a></li>
+                            <li class="col-md-25 col-sm-12 col-xs-12"><a class="col-sm-12" href="{{route('user-past-booking')}}">Past bookings</a></li>
+                            <li class="col-md-25 col-sm-12 col-xs-12"><a class="col-sm-12" href="{{route('user-feedback')}}">Give us feedback</a></li>
                         </ul>
                     </div>
                 </div>
