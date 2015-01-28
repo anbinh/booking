@@ -144,6 +144,10 @@ class SupplierController extends BaseController {
 
 	public function postSupplier(){
 		$input = Input::all();
+
+//		var_dump($input);
+//		die();
+
 		Session::put(self::$SERVICE_SELECTED_ID, isset($input['service'])?$input['service']:"");
 		Session::put(self::$DATE_SELECTED, isset($input['date'])?$input['date']:"");
 		Session::put(self::$TIME_SELECTED, isset($input['time'])?$input['time']:"");

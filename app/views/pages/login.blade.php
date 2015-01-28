@@ -54,14 +54,14 @@
 				<div class="form-fields-wrapper" id = "form-fields-wrapper-plusCss">
 					<div class="pad-top">
 						<div class="form-control-wrapper" id = "form-control-wrapper-plusCss" >
-							<input name = "email" id = "input-email-plusCss" type="email" class="form-control empty" data-hint="A valid email should contains @" required><div class="hint">A valid email should contains @</div>
+							<input name = "email" placeholder="Your email" id = "input-email-plusCss" type="email" class="form-control empty" data-hint="A valid email should contains @" required><div class="hint">A valid email should contains @</div>
 							<div class="floating-label" id = "floating-label-plusCss">Email</div>
 							<span class="material-input"></span>
 						</div>
 					</div>
 					<div class="pad-top">
 						<div class="form-control-wrapper">
-							<input style = "color: #009587; font-size: 110%;" type="password" class="form-control empty" data-hint="" required name = "password">
+							<input style = "color: #009587; font-size: 110%;" placeholder="Your password" type="password" class="form-control empty" data-hint="" required name = "password">
 							<div class="hint"></div><div class="floating-label" style = "color: #53A524;">Password</div>
 							<span class="material-input"></span>
 						</div>
