@@ -25,11 +25,13 @@ $(document).ready(function () {
 //            },
 //            readOnly: true
 //        });
+    var fromPrice = $("input#from-price").val();
+    var toPrice = $("input#to-price").val();
     $("#slider-range").slider({
         range: true,
         min: 0,
         max: 10,
-        values: [0, 10],
+        values: [fromPrice, toPrice],
         slide: function (event, ui) {
             $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
             $("input#from-price").val(ui.values[0])

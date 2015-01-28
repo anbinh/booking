@@ -23,7 +23,8 @@
             </div>
         </div>
         <div class="row main-element-container">
-            <form method="post" action="{{route('payment-purchase')}}">
+            <div id="canvasloader-container" class="wrapper" style="position: absolute;top: 50%;left: 50%;"></div>
+            <form method="post" action="{{route('payment-purchase')}}" class="payment-form">
             <div class="review-review col-md-12">
                     <div class="row">
                         <h3><b>The supplier you chose is Instant booking enabled!!!</b></h3>
@@ -33,15 +34,14 @@
                             <div class="sample1">
                                 <div class="radio radio-success">
                                     <label>
-                                        <input type="radio" name="payment" value="0" checked=""><span
-                                                class="circle"></span><span class="check"></span>
+                                        <input class="paymentMethod" type="radio" name="payment" value="0" checked=""><span
+                                                class="circle"></span>
                                         Credit card*
                                     </label>
                                 </div>
                                 <div class="radio radio-success">
                                     <label>
-                                        <input type="radio" name="payment" value="1"><span class="circle"></span><span
-                                                class="check"></span>
+                                        <input class="paymentMethod" type="radio" name="payment" value="1"><span class="circle"></span>
                                         Cash on delivery
                                     </label>
                                 </div>
@@ -67,6 +67,30 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="expmoth"
+                                       class="col-sm-4 control-label text-aglign-left">Expired Time:</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" id="cc_brand" name="expmoth">
+                                        @for($i= 1; $i <= 12; $i++)
+                                            <option name="expmoth" value="{{$i}}">
+                                                {{$i}}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    {{--<select class="form-control" id="cc_brand" name="expyear">--}}
+{{--                                        @for($i = 2010; $i <= 2020; $i++)--}}
+                                            {{--<option name="expyear" value="{{$i}}">--}}
+                                                {{--{{$i}}--}}
+                                            {{--</option>--}}
+                                        {{--@endfor--}}
+                                    {{--</select>--}}
+                                    <input type="tel" class="form-control" name="expyear"
+                                    required="required" id="expyear">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="cardholder_name" class="col-sm-4 control-label text-aglign-left">Card
                                     holder: </label>
                                 <div class="col-sm-8">
@@ -74,6 +98,7 @@
                                            required="required" placeholder="Your name in card">
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label for="cc_brand" class="col-sm-4 control-label text-aglign-left">Card brand</label>
                                 <div class="col-sm-8">
@@ -127,23 +152,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="expmoth"
-                                   class="col-sm-4 control-label text-aglign-left">Expired Time:</label>
-                            <div class="col-sm-4">
-                                <select class="form-control" id="cc_brand" name="expmoth">
-                                    @for($i = 1; $i <= 12; ($i++))
-                                    <option name="expmoth" value="{{$i}}">
-                                        {{$i}}
-                                    </option>
-                                    @endfor
-                                </select>
-                            </div>
-                            <div class="col-sm-4">
-                                <input type="tel" class="form-control" name="expyear"
-                                       required="required" id="expyear">
-                            </div>
-                        </div>
                         <input type="hidden" value="{{number_format($task->cost, 2)}}" name="bill_amount">
                         <input type="hidden" value="{{$task->id}}" name="track_id">
                         <input type="hidden" value="USD" name="currencycode">
@@ -151,7 +159,7 @@
             </div>
             <div class="col-md-12">
                 <div class="col-sm-4 text-center finished-bottom">
-                    <button type="submit" style="width: 80%" class="btn btn-default btn-primary">Finished
+                    <button id="finised-button" type="submit" style="width: 80%" class="btn btn-default btn-primary">Finished
                         <div class="ripple-wrapper"></div>
                     </button>
                 </div>
@@ -159,9 +167,17 @@
             </form>
             <footer class="footer-note">
                 <small>*5% credit card charge will apply (the evil bank wants it!)</small>
+                <h1></h1>
             </footer>
         </div>
     </div>
     </div>
     </div>
+@stop
+
+@section('jsfile')
+    <script> var NEXT_PAGE = "{{route('suppliers-done', ['id_code' => $task->id])}}"; </script>
+    <script> var PAYMENT_PAGE = "{{route('payment-purchase')}}"; </script>
+    <script src="http://heartcode-canvasloader.googlecode.com/files/heartcode-canvasloader-min-0.9.1.js"></script>
+    <script src="{{ cached_asset('/js/payment.js', true)}}"></script>
 @stop

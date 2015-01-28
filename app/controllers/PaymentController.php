@@ -75,7 +75,7 @@ class PaymentController extends BaseController {
 			}
 		}
 		return Response::json(array(
-			'error' => $data,
+			'error' => $xml_obj->error_text . $xml_obj->result,
 			'response' => 200),
 			200
 		);

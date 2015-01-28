@@ -130,7 +130,11 @@
                                                     <td>
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" name="filter-star[]" value="{{$i}}" checked>
+                                                                <input type="checkbox" name="filter-star[]" value="{{$i}}"
+                                                                        @if(in_array($i, $star_filter))
+                                                                            checked
+                                                                        @endif
+                                                                        >
                                                             </label>
                                                         </div>
                                                     </td>
@@ -157,8 +161,8 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div id="slider-range"></div>
-                                                <input type="hidden" id="from-price" name="from-price" value="0">
-                                                <input type="hidden" id="to-price" name="to-price" value="500">
+                                                <input type="hidden" id="from-price" name="from-price" value="{{$from_price}}">
+                                                <input type="hidden" id="to-price" name="to-price" value="{{$to_price}}">
                                             </div>
                                         </div>
                                     </div>
@@ -201,13 +205,13 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <h3><a href="{{route('suppliers-review', ['id_code'=> $s->id]);}}">Read reviews</a></h3>
+                                                <h3><a href="{{route('suppliers-review', ['id_code'=> $s->supplier_id]);}}">Read reviews</a></h3>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3 vcenter" style="width: 23%">
                                         <div class="bg-info center">AED {{$s->rate_per_hour}}</div>
-                                        <a class="btn btn-default btn-primary col-md-12" href="{{route('suppliers-confirm', ['id_code'=>$s->id])}}" role="button">Book Now</a>
+                                        <a class="btn btn-default btn-primary col-md-12" href="{{route('suppliers-confirm', ['id_code'=>$s->supplier_id])}}" role="button">Book Now</a>
                                         {{--<button class="btn btn-primary btn-sm col-md-12"></button>--}}
                                     </div>
                                 </div>

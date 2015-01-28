@@ -461,13 +461,33 @@ class HomeController extends BaseController {
 		return View::make('pages.search');
 	}
 
-    public  function postFeedback(){
+    public function postFeedback(){
         $inputs = Input::all();
-        $promotion_code = $inputs['rating-star-input'];
-        $title = $inputs['title'];
-        $content = $inputs['content'];
-
-
+        $result = array(
+            'error' =>false
+        );
+        if(Input::has('rating_star')){
+            $rating_star = $inputs['rating_star'];
+        } else {
+            $result['error'] = true;
+            $result['message'] = 'missing rating star';
+        }
+        if(Input::has('title')){
+            $title = $inputs['title'];
+        } else {
+            $result['error'] = true;
+            $result['message'] = 'missing title';
+        }
+        if(Input::has('content')){
+            $content = $inputs['content'];
+        } else {
+            $result['error'] = true;
+            $result['message'] = 'missing content';
+        }
+        if(!$result['error']){
+            $result['error'] = Review::addReview(-1,$rating_star,$title,$content);
+        }
+        return Response::json($result,200);
 
 
     }

@@ -10,7 +10,7 @@ class SupplierController extends BaseController {
 	public static $FILTER_STAR = "filter_star";
 	public static $FROM_PRICE = "from_price";
 	public static $TO_PRICE = "to_price";
-	public static $MAX_PRICE = 500;
+	public static $MAX_PRICE = 20;
 
     public function __construct()
     {
@@ -66,7 +66,10 @@ class SupplierController extends BaseController {
         $time_selected = Session::get(self::$TIME_SELECTED, "12:00");
         $duration_selected = Session::get(self::$DURATION_SELECTED, "1");
 
-        $suppliers= $this->querySupplier($service_selected);
+		$from_price = Session::get(self::$FROM_PRICE, 0);
+		$to_price = Session::get(self::$TO_PRICE, self::$MAX_PRICE);
+		$array_star = Session::get(self::$FILTER_STAR, [1,2,3,4,5]);
+        $suppliers= $this->querySupplier($service_selected, $from_price, $to_price,$array_star);
 
 		return View::make('pages.suppliers',
 			array(
@@ -75,24 +78,70 @@ class SupplierController extends BaseController {
 				'service_selected' => $service_selected,
 				'date_selected' => $date_selected,
 				'time_selected' => $time_selected,
-				'duration_selected' => $duration_selected
+				'duration_selected' => $duration_selected,
+
+				'star_filter' => $array_star,
+				'from_price' => $from_price,
+				'to_price' => $to_price
 		));
 	}
 
     public function apiGetSupplier($service_id = 0){
         $service_id = $service_id <= 0?0:$service_id;
-        $suppliers = $this->querySupplier($service_id);
-        $result =  array(
-            'error' => false,
-            'suppliers' => $suppliers,
-        );
-        return Response::json($result,200);
+
+		$duration = Input::get(self::$DURATION_SELECTED);
+		$time_begin = Input::get(self::$TIME_SELECTED);
+		$date_selected = Input::get(self::$DATE_SELECTED);
+		$service_selected  = Input::get(self::$SERVICE_SELECTED_ID);
+
+		$from_price = Input::get(self::$FROM_PRICE);
+		$to_price = Input::get(self::$TO_PRICE);
+		$filter_start = Input::get(self::$FILTER_STAR);
+
+		$result = array('error' => false);
+		if(!Input::has(self::$DURATION_SELECTED)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$DURATION_SELECTED;
+		}
+		if(!Input::has(self::$TIME_SELECTED)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$TIME_SELECTED;
+		}
+		if(!Input::has(self::$DATE_SELECTED)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$DATE_SELECTED;
+		}
+		if(!Input::has(self::$SERVICE_SELECTED_ID)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$SERVICE_SELECTED_ID;
+		}
+		if(!Input::has(self::$FROM_PRICE)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$FROM_PRICE;
+		}
+		if(!Input::has(self::$TO_PRICE)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$TO_PRICE;
+		}
+		if(!Input::has(self::$FILTER_STAR)){
+			$result['error'] =true;
+			$result['message'] = 'missing '.self::$FILTER_STAR;
+		}
+		if(!$result['error']){
+			$suppliers = $this->querySupplier($service_selected, $from_price, $to_price, $filter_start);
+			$result =  array(
+				'error' => false,
+				'suppliers' => $suppliers,
+			);
+			return Response::json($result,200);
+		}
+		return Response::json($result,200);
     }
 
 
 	public function postSupplier(){
 		$input = Input::all();
-		Session::put(self::$SERVICE_SELECTED_ID, isset($input['service'])?$input['service']:"");
+//		Session::put(self::$SERVICE_SELECTED_ID, isset($input['service'])?$input['service']:"");
 		Session::put(self::$DATE_SELECTED, isset($input['date'])?$input['date']:"");
 		Session::put(self::$TIME_SELECTED, isset($input['time'])?$input['time']:"");
 		Session::put(self::$DURATION_SELECTED, isset($input['duration'])?$input['duration']:"");
@@ -101,9 +150,15 @@ class SupplierController extends BaseController {
 
 	public function postFiltetSupplier(){
 		$input = Input::all();
-		Session::put(self::$FILTER_STAR, $input['filter-star']);
-		Session::put(self::$FROM_PRICE, $input['from-price']);
-		Session::put(self::$TO_PRICE, $input['to_price']);
+
+		$star = isset($input['filter-star'])?array_merge([], array_map('intval',$input['filter-star'])): [0,1,2,3,4,5];
+		$from = isset($input['from-price'])?$input['from-price']: 0;
+		$to = isset($input['to-price'])?$input['to-price']:0;
+
+		Session::put(self::$FILTER_STAR, $star);
+		Session::put(self::$FROM_PRICE, $from);
+		Session::put(self::$TO_PRICE, $to);
+
 		return Redirect::route('suppliers');
 	}
 
@@ -115,8 +170,7 @@ class SupplierController extends BaseController {
 			->join('users', 'users.id', '=', 'task.user_id')
 			->where('supplier.id', '=', $id_code)
 			->get();
-//		var_dump($reviews[0]);
-//		die();
+
 		return View::make('pages.suppliers-review',
 			array(
 				'supplier' => $sup,
@@ -127,16 +181,20 @@ class SupplierController extends BaseController {
 	public function confirmSupplier($id_code){
 
 		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
-		if($service_selected == -1){
-			Session::flash('error', 'Not selected SERVICE yets');
+		$date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
+		$time_selected = Session::get(self::$TIME_SELECTED, "00:00");
+		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
+
+		if($service_selected == -1 ||
+			count($date_selected) == 0||
+			count($time_selected) == 0||
+			count($duration_selected) == 0){
+			Session::flash('error', 'Not yets');
 			return Redirect::route('suppliers');
 		}
 
 		$service = Service::find($service_selected);
 		$sup = Supplier::find($id_code);
-		$date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
-		$time_selected = Session::get(self::$TIME_SELECTED, "00:00");
-		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
 
 		if(Auth::check()){
 			$view = 'pages.suppliers-confirm-login';
@@ -151,6 +209,7 @@ class SupplierController extends BaseController {
 				'date_selected' => $date_selected,
 				'time_selected' => $time_selected,
 				'duration_selected' => $duration_selected
+
 			]);
 	}
 
@@ -166,8 +225,10 @@ class SupplierController extends BaseController {
 		$all_input = Input::all();
 		$promotion_code = $all_input['promotion_code'];
 		$other_required = $all_input['other_required'];
+		$cost = $sup->rate_per_hour * $duration;
 
-        $task = $this->addTask($service_selected,$id_code,$date_selected,$time_begin,$duration,$promotion_code,$other_required);
+        $task = $this->addTask($service_selected,$id_code,$date_selected,
+			$time_begin,$duration,$promotion_code,$other_required, $cost);
             if($task == null){
                 return Redirect::route('suppliers-confirm', ['id_code' => $id_code]);
             }
@@ -202,7 +263,6 @@ class SupplierController extends BaseController {
         }
         if(Input::has('promotion_code')){
             $promotion_code = Input::get('promotion_code');
-
         } else {
             $promotion_code = '';
         }
@@ -211,8 +271,10 @@ class SupplierController extends BaseController {
         } else {
             $other_required = '';
         }
+		$cost = $sup->rate_per_hour * $duration;
         if(!$result['error']){
-            $task = $this->addTask($service_selected,$id_code,$date_selected,$time_begin,$duration,$promotion_code,$other_required);
+            $task = $this->addTask($service_selected,$id_code,$date_selected,$time_begin,
+				$duration,$promotion_code,$other_required, $cost);
             if($task == null) {
                 $result['error'] =true;
                 $result['message'] = "save new task failed ";
@@ -225,7 +287,9 @@ class SupplierController extends BaseController {
         return Response::json($result,200);
     }
 
-    protected function addTask($service_selected,$id_code,$date_selected,$time_begin,$duration,$promotion_code,$other_required){
+    protected function addTask($service_selected,$id_code,$date_selected,$time_begin,
+							   $duration,$promotion_code,$other_required,$cost){
+
         $task = new Task;
         $task->user_id = Auth::user()->id;
         $task->service_id = $service_selected;
@@ -235,12 +299,12 @@ class SupplierController extends BaseController {
         $task->note = $other_required;
         $task->promotion_code = $promotion_code;
         $task->duration = $duration;
+		$task->cost = $cost;
         if($task->save()){
             return $task;
         }else {
             return null;
         }
-
     }
 
 
@@ -268,7 +332,7 @@ class SupplierController extends BaseController {
 	public function doneSupplier($id_code){
 		$task = Task::find($id_code);
 		$input = Input::all();
-		$task->payment_type = $input['payment'];
+		$task->payment_type = isset($input['payment'])?$input['payment']:0;
 		$task->status = Task::$STATUS_CONFIRM;
 		return View::make('pages.suppliers-finish', ['reference_code' => $task->id]);
 	}
@@ -296,10 +360,18 @@ class SupplierController extends BaseController {
 	}
 
     //Query Supplier from db
-    protected  function querySupplier($service_selected){
+    protected  function querySupplier($service_selected, $min_price, $max_price, $list_star){
         $suppliers = [];
         if($service_selected != 0){
-            $suppliers = Service::find($service_selected)->getSupplier->take(10);
+			$suppliers = DB::table('supplier')
+				->join('supplier_service', 'supplier.id', '=', 'supplier_service.supplier_id')
+				->where('supplier_service.service_id', '=', $service_selected)
+				->whereIn('supplier.star_rate', $list_star)
+				->where('supplier.rate_per_hour', '>=', intval($min_price))
+				->where('supplier.rate_per_hour', '<=', intval($max_price))
+				->orderBy('supplier.star_rate', 'desc')
+				->get();
+			return $suppliers;
         }
         return $suppliers;
     }
