@@ -37,18 +37,24 @@ function select_supplier() {
 							</div>	
 							<div class = "row icon-handy">
 								<div class = "container-fluid">
-								<form method = "post" aciton = "#">	
+									<form method="post" action="{{route('suppliers-post-search')}}">
 									<div class = "row">
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 thumb">
 											<div>
 											    <strong class = "text-question">What service do you need?</strong>
 											</div>
-											<select class ="soflow-color responsive-select-option" name= "name_service" id = "name_service">
-										
-												<option>Select an Option</option>
-												<option>Cleaning Homie</option>
-												<option>Handy Homie</option>
-												<option>Gardening Homie</option>
+											<select class="soflow-color responsive-select-option" name="service"
+													id="name_service">
+												<option value="-1" selected="">Select an Option</option>
+												<option name="service" value="1" selected="">
+													Handy Homie
+												</option>
+												<option name="service" value="2" selected="">
+													Gardening Homie
+												</option>
+												<option name="service" value="3" selected="">
+													Cleaning Homie
+												</option>
 											</select>
 											
 										</div>
@@ -84,20 +90,12 @@ function select_supplier() {
 											<div>
 											    <strong class = "text-question">For how long?</strong>
 											</div>
-											<select class="soflow-color responsive-select-option" name= "long_service" id = "long_service">
-											
-												<option>Select an Option</option>
-												<option>1 hours</option>
-												<option>2 hours</option>
-												<option>3 hours</option>
-												<option>4 hours</option>
-												<option>5 hours</option>
-												<option>6 hours</option>
-												<option>7 hours</option>
-												<option>8 hours</option>
-												<option>9 hours</option>
-												<option>10 hours</option>
-												<option>longger</option>
+											<select class="soflow-color responsive-select-option" name="duration"
+													id="long_service">
+												@for($i = 1; $i < 11; $i++)
+													<option value="{{$i}}">
+														{{$i}} Hours</option>
+												@endfor
 											</select>
 											
 										</div>
@@ -267,7 +265,7 @@ function select_supplier() {
 										</div>
 									</div>
 									<div id = "booking-button-container">
-											<button class="boton" type = "submit" onclick = "select_supplier()">Booking</button>
+											<button class="boton" type = "submit">Booking</button>
 									</div>
 									
 									
