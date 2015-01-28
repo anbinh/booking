@@ -2,9 +2,16 @@
  * Created by thinhvoxuan on 1/24/15.
  */
 
-$("#datepicker").datepicker();
+$("#datepicker").datepicker({
+    onSelect: function(dateText, inst) {
+        $('#booking-form').submit();
+    }
+});
 $("input#timepicker").clockpicker({
-    autoclose: true
+    autoclose: true,
+    afterDone: function() {
+        $('#booking-form').submit();
+    }
 });
 //$("#datepicker").attr("placeholder", " ");
 
@@ -36,6 +43,9 @@ $(document).ready(function () {
             $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
             $("input#from-price").val(ui.values[0])
             $("input#to-price").val(ui.values[1])
+        },
+        change: function( event, ui ) {
+            $('#filter-result-form').submit();
         }
     });
     $("#amount").val("$" + $("#slider-range").slider("values", 0) +
@@ -43,4 +53,38 @@ $(document).ready(function () {
 
     $('button.button-instant-enabled').popover({ trigger: "hover" });
 
+//    $('form').areYouSure( {'silent':true} );
+//
+//
+//
+//    $('form').on('dirty.areYouSure', function() {
+//        // Enable save button only as the form is dirty.
+//        $(this).submit();
+//    });
+//
+//    $('#datepicker').on('change',function(){
+//        $('#booking-form').submit();
+//    });
+    $('#service').change(function(){
+        $('#booking-form').submit();
+//        console.log('submit');
+    });
+    $('#long_service').change(function(){
+        $('#booking-form').submit();
+    });
+
+    $('.start_filter').change(function(){
+        $('#filter-result-form').submit();
+    });
+    $('#from-price').change(function(){
+        $('#filter-result-form').submit();
+    });
+//    $('#amount').change(function(){
+//        $('#filter-result-form').submit();
+//    })
+
 });
+
+
+
+
