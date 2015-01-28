@@ -188,15 +188,16 @@ class SupplierController extends BaseController {
 	public function confirmSupplier($id_code){
 
 		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
-		$date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
-		$time_selected = Session::get(self::$TIME_SELECTED, "00:00");
-		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
+		$date_selected = Session::get(self::$DATE_SELECTED);
+		$time_selected = Session::get(self::$TIME_SELECTED);
+		$duration_selected = Session::get(self::$DURATION_SELECTED);
+
 
 		if($service_selected == -1 ||
-			count($date_selected) == 0||
-			count($time_selected) == 0||
-			count($duration_selected) == 0){
-			Session::flash('error', 'Not yets');
+			strlen($date_selected) == 0||
+			strlen($time_selected) == 0||
+			strlen($duration_selected) == 0){
+			Session::flash('error', 'You\'re missing some fields');
 			return Redirect::route('suppliers');
 		}
 
