@@ -26,7 +26,7 @@ class Supplier extends Eloquent {
 		return $results;
 	}
 
-    public function User(){
+    public function user(){
         return $this->belongsTo('User');
     }
 

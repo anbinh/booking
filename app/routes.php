@@ -333,7 +333,9 @@ Route::get('select-supplier', array('as' => 'select-supplier', function () {
 
 // TRI
 Route::get('supplierProfile/{supplier_id}', array('as' => 'supplier-profile' ,
-        'uses' => 'APISupplierController@getSupplierProfile'));
+        'uses' => 'APISupplierController@getAPISupplierProfile'));
+
+Route::get('supplier/profile/{supplier_id}', "SupplierController@getSupplierProfile");
 
 // TAI
 Route::post('postRegister', 'APISupplierController@postRegister');

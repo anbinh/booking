@@ -135,13 +135,13 @@ class APISupplierController extends BaseController {
         }
     }
 
-    public function getSupplierProfile($supplier_id)
+    public function getAPISupplierProfile($supplier_id)
     {
         $supplier = Supplier::where('id','=',$supplier_id);
         if($supplier->count())
         {
             $supplier = $supplier -> first();
-            $supplier->User;
+            $supplier->user;
             return Response::json(array(
                     'error' => false,
                     'supplier' => $supplier),
@@ -153,6 +153,4 @@ class APISupplierController extends BaseController {
             404
         );
     }
-
-
 }
