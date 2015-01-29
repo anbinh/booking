@@ -58,6 +58,7 @@ function select_supplier() {
 											</select>
 											
 										</div>
+
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 thumb">
 											<div>
 											    <strong class = "text-question">When do you need it for?</strong>
@@ -81,7 +82,6 @@ function select_supplier() {
 												border-radius: 20px;
 												padding-left: 15px;
 												" name= "date"/>
-											
 										</div>
 									
 								
@@ -115,8 +115,8 @@ function select_supplier() {
 											</div>	
 											
 											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 thumb">
-												<select class="soflow-color responsive-select-option"  style = "margin-left:0; width: 85%" name= "city" id = "city">
-													<option>City</option>
+												<select class="soflow-color responsive-select-option"  style = "margin-left:0; width: 100%" name= "city" id = "city">
+													<option>Sub-Area</option>
 													<option>Al Badaa</option>
 													<option>Al Barsha</option>
 													<option>Al Hamriya</option>
@@ -262,6 +262,30 @@ function select_supplier() {
 												
 											</label>
 											
+										</div>
+										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 thumb">
+											<div>
+												<strong class = "text-question">What time do you need it for?</strong>
+											</div>
+											<input id="timepicker" name="time" type = "text" placeholder = "hh/mm" style = "-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+												-webkit-padding-end: 20px;
+												-webkit-padding-start: 2px;
+												background-position: 97% center;
+												background-repeat: no-repeat;
+												border: 1px solid #AAA;
+												font-size: inherit;
+												overflow: hidden;
+												padding: 5px 5px;
+												text-overflow: ellipsis;
+												white-space: nowrap;
+												width: 65%;
+												line-height: 25px;
+												color: #fff;
+												background-image: url(http://i62.tinypic.com/15xvbd5.png),-webkit-linear-gradient(#2ECC71, #289E5A 40%, #2ECC71);
+												background-color: #2ECC71;
+												border-radius: 20px;
+												padding-left: 15px;
+												" name= "date"/>
 										</div>
 									</div>
 									<div id = "booking-button-container">
@@ -534,4 +558,12 @@ function select_supplier() {
 			$("#datepicker").datepicker();
 	</script>
 	
+@stop
+
+@section('jsfile')
+	<script>
+		$("input#timepicker").clockpicker({
+			autoclose: true
+		});
+	</script>
 @stop
