@@ -65,20 +65,25 @@ $(document).ready(function () {
 //    $('#datepicker').on('change',function(){
 //        $('#booking-form').submit();
 //    });
-    $('#service').change(function(){
-        $('#booking-form').submit();
-//        console.log('submit');
-    });
-    $('#long_service').change(function(){
-        $('#booking-form').submit();
-    });
 
-    $('.start_filter').change(function(){
+
+    var submitFunction = function(){
+        $('#booking-form').submit();
+        var cl = new CanvasLoader('canvasloader-container');
+        cl.show();
+    };
+
+    var submitFunction2 = function(){
         $('#filter-result-form').submit();
-    });
-    $('#from-price').change(function(){
-        $('#filter-result-form').submit();
-    });
+        var cl = new CanvasLoader('canvasloader-container');
+        cl.show();
+    }
+
+    $('#service').change(submitFunction);
+    $('#long_service').change(submitFunction);
+    $('.start_filter').change(submitFunction2);
+    $('#from-price').change(submitFunction2);
+
 //    $('#amount').change(function(){
 //        $('#filter-result-form').submit();
 //    })

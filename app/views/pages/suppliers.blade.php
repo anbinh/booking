@@ -178,6 +178,7 @@
             <div class="col-md-9">
                 <h2 style="padding-top: 20px">We found these suppliers who meet your requirement</h2>
                 @if(Session::has('error'))<h3 style="color: red">{{Session::get('error')}}</h3>@endif
+                <div id="canvasloader-container" class="wrapper" style="position: absolute;top: 50%;left: 50%; z-index: 999"></div>
                 <div class="container-fluid" id="result-supplier">
                     @foreach($suppliers as $s)
                         <div class="row row-result">
@@ -238,6 +239,7 @@
 @stop
 
 @section('jsfile')
+    <script src="http://heartcode-canvasloader.googlecode.com/files/heartcode-canvasloader-min-0.9.1.js"></script>
     <script src="{{ cached_asset('/js/plugins/areyousure/jquery.are-you-sure.js', true) }}"></script>
     <script src="{{ cached_asset('/js/plugins/areyousure/ays-beforeunload-shim.js', true) }}"></script>
     <script src="{{ cached_asset('/js/supplier.js', true)}}"></script>
