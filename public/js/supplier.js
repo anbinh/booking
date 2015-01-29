@@ -2,19 +2,6 @@
  * Created by thinhvoxuan on 1/24/15.
  */
 
-$("#datepicker").datepicker({
-    onSelect: function(dateText, inst) {
-        $('#booking-form').submit();
-    }
-});
-$("input#timepicker").clockpicker({
-    autoclose: true,
-    afterDone: function() {
-        $('#booking-form').submit();
-    }
-});
-//$("#datepicker").attr("placeholder", " ");
-
 $(document).ready(function () {
     // simple jRating call
     $(".basic").jRating({
@@ -87,6 +74,15 @@ $(document).ready(function () {
 //    $('#amount').change(function(){
 //        $('#filter-result-form').submit();
 //    })
+
+    $("#datepicker").datepicker({
+        onSelect: submitFunction
+    });
+
+    $("input#timepicker").clockpicker({
+        autoclose: true,
+        afterDone: submitFunction
+    });
 
 });
 

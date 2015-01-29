@@ -58,7 +58,7 @@
                                         <td>{{$t->note}}</td>
                                         @if(!isset($hidden) || !$hidden)
                                             <td>
-                                                <button class="btn btn-primary padding-20">Change</button>
+                                                <button class="btn btn-primary padding-20" data-toggle="modal" data-target="#myModal">Change</button>
                                             </td>
                                             <td>
                                                 <button class="btn btn-primary padding-20">Cancel</button>
@@ -69,6 +69,20 @@
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                    <h4 class="modal-title" style="line-height: 1.3em">Please call the supplier directly regarding changes</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
