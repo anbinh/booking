@@ -17,21 +17,21 @@
 		<div class="form-fields-wrapper" id = "form-fields-wrapper-plusCss">
 			<div class="pad-top">
 				<div class="form-control-wrapper" id = "form-control-wrapper-plusCss" >
-					<input name = "username" id = "input-email-plusCss" type="text" class="form-control empty" data-hint="A valid email should contains @" required><div class="hint">A valid email should contains @</div>
+					<input name = "username" placeholder="Your username" id = "input-email-plusCss" type="text" class="form-control empty" data-hint="A valid email should contains @" required><div class="hint">A valid email should contains @</div>
 					<div class="floating-label" id = "floating-label-plusCss">User name</div>
 					<span class="material-input"></span>
 				</div>			
 			</div>
 			<div class="pad-top">
 				<div class="form-control-wrapper" id = "form-control-wrapper-plusCss" >
-					<input name = "email" id = "input-email-plusCss" type="email" class="form-control empty" data-hint="A valid email should contains @" required><div class="hint">A valid email should contains @</div>
+					<input name = "email" placeholder="Your email" id = "input-email-plusCss" type="email" class="form-control empty" data-hint="A valid email should contains @" required><div class="hint">A valid email should contains @</div>
 					<div class="floating-label" id = "floating-label-plusCss">Email</div>
 					<span class="material-input"></span>
 				</div>			
 			</div>
 			<div class="pad-top">
 				<div class="form-control-wrapper" >
-					<input style = "color: #009587; font-size: 110%;" type="password" id = "input-email-plusCss" class="form-control empty" data-hint="" required name = "password">
+					<input style = "color: #009587; font-size: 110%;" placeholder="Your password" type="password" id = "input-email-plusCss" class="form-control empty" data-hint="" required name = "password">
 					<div class="hint"></div>
 					<div class="floating-label" id = "floating-label-plusCss">Password</div>
 					
@@ -40,7 +40,7 @@
 			</div>
 			<div class="pad-top">
 				<div class="form-control-wrapper">
-					<input style = "color: #009587; font-size: 110%;" type="password" id = "input-email-plusCss"  class="form-control empty" data-hint="" required name = "password_confirmation">
+					<input style = "color: #009587; font-size: 110%;" placeholder="Confirm password" type="password" id = "input-email-plusCss"  class="form-control empty" data-hint="" required name = "password_confirmation">
 					<div class="hint"></div>
 					<div class="floating-label" id = "floating-label-plusCss">Re-Enter Password</div>
 					<span class="material-input"></span>
@@ -48,7 +48,7 @@
 			</div>
 			<div class="pad-top">
 				<div class="form-control-wrapper">
-					<input style = "color: #009587; font-size: 110%;" type="text" id = "input-email-plusCss" class="form-control empty" data-hint="" required name = "phone_number">
+					<input style = "color: #009587; font-size: 110%;" type="text" placeholder="Your phone number" id = "input-email-plusCss" class="form-control empty" data-hint="" required name = "phone_number">
 					<div class="hint"></div>
 					<div class="floating-label" id = "floating-label-plusCss">Phone number</div>
 					<span class="material-input"></span>

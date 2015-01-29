@@ -86,17 +86,17 @@ class SupplierController extends BaseController {
 		));
 	}
 
-    public function apiGetSupplier($service_id = 0){
-        $service_id = $service_id <= 0?0:$service_id;
+    public function apiGetSupplier($service_selected = 0){
+		$service_selected = $service_selected <= 0?0:$service_selected;
 
 		$duration = Input::get(self::$DURATION_SELECTED);
 		$time_begin = Input::get(self::$TIME_SELECTED);
 		$date_selected = Input::get(self::$DATE_SELECTED);
-		$service_selected  = Input::get(self::$SERVICE_SELECTED_ID);
+//		$service_selected  = Input::get(self::$SERVICE_SELECTED_ID);
 
-		$from_price = Input::get(self::$FROM_PRICE);
-		$to_price = Input::get(self::$TO_PRICE);
-		$filter_start = Input::get(self::$FILTER_STAR);
+		$from_price = Input::get(self::$FROM_PRICE, 0);
+		$to_price = Input::get(self::$TO_PRICE, 10);
+		$filter_start = Input::get(self::$FILTER_STAR, [1,2,3,4,5]);
 
 		$result = array('error' => false);
 		if(!Input::has(self::$DURATION_SELECTED)){
@@ -111,22 +111,25 @@ class SupplierController extends BaseController {
 			$result['error'] =true;
 			$result['message'] = 'missing '.self::$DATE_SELECTED;
 		}
-		if(!Input::has(self::$SERVICE_SELECTED_ID)){
-			$result['error'] =true;
-			$result['message'] = 'missing '.self::$SERVICE_SELECTED_ID;
-		}
-		if(!Input::has(self::$FROM_PRICE)){
-			$result['error'] =true;
-			$result['message'] = 'missing '.self::$FROM_PRICE;
-		}
-		if(!Input::has(self::$TO_PRICE)){
-			$result['error'] =true;
-			$result['message'] = 'missing '.self::$TO_PRICE;
-		}
-		if(!Input::has(self::$FILTER_STAR)){
-			$result['error'] =true;
-			$result['message'] = 'missing '.self::$FILTER_STAR;
-		}
+
+
+//		if(!Input::has(self::$SERVICE_SELECTED_ID)){
+//			$result['error'] =true;
+//			$result['message'] = 'missing '.self::$SERVICE_SELECTED_ID;
+//		}
+//		if(!Input::has(self::$FROM_PRICE)){
+//			$result['error'] =true;
+//			$result['message'] = 'missing '.self::$FROM_PRICE;
+//		}
+//		if(!Input::has(self::$TO_PRICE)){
+//			$result['error'] =true;
+//			$result['message'] = 'missing '.self::$TO_PRICE;
+//		}
+//		if(!Input::has(self::$FILTER_STAR)){
+//			$result['error'] =true;
+//			$result['message'] = 'missing '.self::$FILTER_STAR;
+//		}
+
 		if(!$result['error']){
 			$suppliers = $this->querySupplier($service_selected, $from_price, $to_price, $filter_start);
 			$result =  array(
@@ -141,7 +144,11 @@ class SupplierController extends BaseController {
 
 	public function postSupplier(){
 		$input = Input::all();
-//		Session::put(self::$SERVICE_SELECTED_ID, isset($input['service'])?$input['service']:"");
+
+//		var_dump($input);
+//		die();
+
+		Session::put(self::$SERVICE_SELECTED_ID, isset($input['service'])?$input['service']:"");
 		Session::put(self::$DATE_SELECTED, isset($input['date'])?$input['date']:"");
 		Session::put(self::$TIME_SELECTED, isset($input['time'])?$input['time']:"");
 		Session::put(self::$DURATION_SELECTED, isset($input['duration'])?$input['duration']:"");
@@ -181,15 +188,25 @@ class SupplierController extends BaseController {
 	public function confirmSupplier($id_code){
 
 		$service_selected = Session::get(self::$SERVICE_SELECTED_ID, -1);
-		$date_selected = Session::get(self::$DATE_SELECTED, date("m/d/Y"));
-		$time_selected = Session::get(self::$TIME_SELECTED, "00:00");
-		$duration_selected = Session::get(self::$DURATION_SELECTED, "1");
+		$date_selected = Session::get(self::$DATE_SELECTED);
+		$time_selected = Session::get(self::$TIME_SELECTED);
+		$duration_selected = Session::get(self::$DURATION_SELECTED);
+
 
 		if($service_selected == -1 ||
-			count($date_selected) == 0||
-			count($time_selected) == 0||
-			count($duration_selected) == 0){
-			Session::flash('error', 'Not yets');
+			strlen($date_selected) == 0||
+			strlen($time_selected) == 0||
+			strlen($duration_selected) == 0){
+
+			if($service_selected == -1){
+				Session::flash('error', 'Please select service');
+			}elseif(strlen($date_selected) == 0){
+				Session::flash('error', 'Please select date');
+			}elseif(strlen($time_selected) == 0){
+				Session::flash('error', 'Please select time');
+			}elseif(strlen($duration_selected) == 0){
+				Session::flash('error', 'Please select duration');
+			}
 			return Redirect::route('suppliers');
 		}
 
@@ -228,7 +245,7 @@ class SupplierController extends BaseController {
 		$cost = $sup->rate_per_hour * $duration;
 
         $task = $this->addTask($service_selected,$id_code,$date_selected,
-			$time_begin,$duration,$promotion_code,$other_required, $cost);
+			$time_begin,$duration,$promotion_code,$other_required, $cost, Auth::user()->id);
             if($task == null){
                 return Redirect::route('suppliers-confirm', ['id_code' => $id_code]);
             }
@@ -243,6 +260,7 @@ class SupplierController extends BaseController {
         $time_begin = Input::get(self::$TIME_SELECTED);
         $date_selected = Input::get(self::$DATE_SELECTED);
         $service_selected  = Input::get(self::$SERVICE_SELECTED_ID);
+		$author_id = Input::get('author_id');
 
         $result = array('error' => false);
         if(!Input::has(self::$DURATION_SELECTED)){
@@ -261,6 +279,10 @@ class SupplierController extends BaseController {
             $result['error'] =true;
             $result['message'] = 'missing '.self::$SERVICE_SELECTED_ID;
         }
+		if(!Input::has('author_id')){
+			$result['error'] =true;
+			$result['message'] = 'missing '.'author_id';
+		}
         if(Input::has('promotion_code')){
             $promotion_code = Input::get('promotion_code');
         } else {
@@ -271,10 +293,13 @@ class SupplierController extends BaseController {
         } else {
             $other_required = '';
         }
+
+
+
 		$cost = $sup->rate_per_hour * $duration;
         if(!$result['error']){
             $task = $this->addTask($service_selected,$id_code,$date_selected,$time_begin,
-				$duration,$promotion_code,$other_required, $cost);
+				$duration,$promotion_code,$other_required, $cost, $author_id);
             if($task == null) {
                 $result['error'] =true;
                 $result['message'] = "save new task failed ";
@@ -288,10 +313,10 @@ class SupplierController extends BaseController {
     }
 
     protected function addTask($service_selected,$id_code,$date_selected,$time_begin,
-							   $duration,$promotion_code,$other_required,$cost){
+							   $duration,$promotion_code,$other_required,$cost, $author_id){
 
         $task = new Task;
-        $task->user_id = Auth::user()->id;
+        $task->user_id = $author_id;
         $task->service_id = $service_selected;
         $task->supplier_id = $id_code;
         $task->date = DateTime::createFromFormat('m/d/Y h:i:s', $date_selected.' 00:00:00');
@@ -375,5 +400,8 @@ class SupplierController extends BaseController {
         }
         return $suppliers;
     }
+
+	// Query Supplier Service
+//	protected functin querySupplierService()
 
 }

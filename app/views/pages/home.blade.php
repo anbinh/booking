@@ -37,21 +37,28 @@ function select_supplier() {
 							</div>	
 							<div class = "row icon-handy">
 								<div class = "container-fluid">
-								<form method = "post" aciton = "#">	
+									<form method="post" action="{{route('suppliers-post-search')}}">
 									<div class = "row">
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 thumb">
 											<div>
 											    <strong class = "text-question">What service do you need?</strong>
 											</div>
-											<select class ="soflow-color responsive-select-option" name= "name_service" id = "name_service">
-										
-												<option>Select an Option</option>
-												<option>Cleaning Homie</option>
-												<option>Handy Homie</option>
-												<option>Gardening Homie</option>
+											<select class="soflow-color responsive-select-option" name="service"
+													id="name_service">
+												<option value="-1" selected="">Select an Option</option>
+												<option name="service" value="1" selected="">
+													Handy Homie
+												</option>
+												<option name="service" value="2" selected="">
+													Gardening Homie
+												</option>
+												<option name="service" value="3" selected="">
+													Cleaning Homie
+												</option>
 											</select>
 											
 										</div>
+
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 thumb">
 											<div>
 											    <strong class = "text-question">When do you need it for?</strong>
@@ -75,7 +82,6 @@ function select_supplier() {
 												border-radius: 20px;
 												padding-left: 15px;
 												" name= "date"/>
-											
 										</div>
 									
 								
@@ -84,20 +90,12 @@ function select_supplier() {
 											<div>
 											    <strong class = "text-question">For how long?</strong>
 											</div>
-											<select class="soflow-color responsive-select-option" name= "long_service" id = "long_service">
-											
-												<option>Select an Option</option>
-												<option>1 hours</option>
-												<option>2 hours</option>
-												<option>3 hours</option>
-												<option>4 hours</option>
-												<option>5 hours</option>
-												<option>6 hours</option>
-												<option>7 hours</option>
-												<option>8 hours</option>
-												<option>9 hours</option>
-												<option>10 hours</option>
-												<option>longger</option>
+											<select class="soflow-color responsive-select-option" name="duration"
+													id="long_service">
+												@for($i = 1; $i < 11; $i++)
+													<option value="{{$i}}">
+														{{$i}} Hours</option>
+												@endfor
 											</select>
 											
 										</div>
@@ -117,8 +115,8 @@ function select_supplier() {
 											</div>	
 											
 											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 thumb">
-												<select class="soflow-color responsive-select-option"  style = "margin-left:0; width: 85%" name= "city" id = "city">
-													<option>City</option>
+												<select class="soflow-color responsive-select-option"  style = "margin-left:0; width: 100%" name= "city" id = "city">
+													<option>Sub-Area</option>
 													<option>Al Badaa</option>
 													<option>Al Barsha</option>
 													<option>Al Hamriya</option>
@@ -265,9 +263,33 @@ function select_supplier() {
 											</label>
 											
 										</div>
+										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 thumb">
+											<div>
+												<strong class = "text-question">What time do you need it for?</strong>
+											</div>
+											<input id="timepicker" name="time" type = "text" placeholder = "hh/mm" style = "-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+												-webkit-padding-end: 20px;
+												-webkit-padding-start: 2px;
+												background-position: 97% center;
+												background-repeat: no-repeat;
+												border: 1px solid #AAA;
+												font-size: inherit;
+												overflow: hidden;
+												padding: 5px 5px;
+												text-overflow: ellipsis;
+												white-space: nowrap;
+												width: 65%;
+												line-height: 25px;
+												color: #fff;
+												background-image: url(http://i62.tinypic.com/15xvbd5.png),-webkit-linear-gradient(#2ECC71, #289E5A 40%, #2ECC71);
+												background-color: #2ECC71;
+												border-radius: 20px;
+												padding-left: 15px;
+												" name= "date"/>
+										</div>
 									</div>
 									<div id = "booking-button-container">
-											<button class="boton" type = "submit" onclick = "select_supplier()">Booking</button>
+											<button class="boton" type = "submit">Booking</button>
 									</div>
 									
 									
@@ -536,4 +558,12 @@ function select_supplier() {
 			$("#datepicker").datepicker();
 	</script>
 	
+@stop
+
+@section('jsfile')
+	<script>
+		$("input#timepicker").clockpicker({
+			autoclose: true
+		});
+	</script>
 @stop

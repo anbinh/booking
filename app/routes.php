@@ -332,7 +332,8 @@ Route::get('select-supplier', array('as' => 'select-supplier', function () {
 }));
 
 // TRI
-Route::get('tri/test/{user_id}', 'APISupplierController@getUserById');
+Route::get('supplierProfile/{supplier_id}', array('as' => 'supplier-profile' ,
+        'uses' => 'APISupplierController@getSupplierProfile'));
 
 // TAI
 //Route::post('forgetPassword', 'APISupplierController@postForgotPassword');

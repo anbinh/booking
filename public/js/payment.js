@@ -1,6 +1,5 @@
 
 
-var loaderObj = document.getElementById("canvasLoader");
 var cl = new CanvasLoader('canvasloader-container');
 
 $("input.paymentMethod").change(function(){

@@ -17,15 +17,15 @@
         </div>
         <div class="row" style="padding: 0 0 100px;background-color: #ffffff;color: rgba(0,0,0,.84); padding-top:20px">
             <div class="col-md-3" style="padding-left: 30px">
-                @if(Session::has('error'))<h5>{{Session::get('error')}}</h5>@endif
+
                 <div class="row">
                     <div class="col-md-12">
                         <h3>Modify your search</h3>
-                        <form class="form-horizontal" method="post" action="{{route('suppliers-post-search')}}">
+                        <form class="form-horizontal" method="post" action="{{route('suppliers-post-search')}}" id="booking-form">
                             <div class="form-group">
                                 <label for="service" class="col-lg-4 col-md-4 col-xs-4">Service</label>
                                 <div class="col-lg-8 col-md-8 col-xs-8">
-                                    <select class="form-control" id="service" name="service">
+                                    <select class="form-control" id="service" name="service" class="booking-input">
                                         <option value="-1"
                                                 @if($service_selected == -1)
                                                     selected
@@ -61,7 +61,7 @@
 												background-image: url(http://i62.tinypic.com/15xvbd5.png),-webkit-linear-gradient(#2ECC71, #289E5A 40%, #2ECC71);
 												background-color: #2ECC71;
 												border-radius: 20px;
-												padding-left: 15px;" name="date"/>
+												padding-left: 15px;" name="date" class="booking-input"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -85,14 +85,14 @@
 												background-image: url(http://i62.tinypic.com/15xvbd5.png),-webkit-linear-gradient(#2ECC71, #289E5A 40%, #2ECC71);
 												background-color: #2ECC71;
 												border-radius: 20px;
-												padding-left: 15px;" name="time" />
+												padding-left: 15px;" name="time" class="booking-input" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="long_service" class="col-lg-8 col-md-8 col-xs-8">Number of hours</label>
 
                                 <div class="col-lg-4 col-md-4 col-xs-4" style="padding-left: 5px;padding-right: 10px">
-                                    <select class="form-control" id="long_service" name="duration">
+                                    <select class="form-control" id="long_service" name="duration" class="booking-input">
                                         @for($i = 1; $i < 11; $i++)
                                             <option value="{{$i}}"
                                                 @if($i == $duration_selected) selected @endif> {{$i}} Hours</option>
@@ -130,7 +130,7 @@
                                                     <td>
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" name="filter-star[]" value="{{$i}}"
+                                                                <input type="checkbox" name="filter-star[]" value="{{$i}}" class="start_filter"
                                                                         @if(in_array($i, $star_filter))
                                                                             checked
                                                                         @endif
@@ -161,7 +161,7 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div id="slider-range"></div>
-                                                <input type="hidden" id="from-price" name="from-price" value="{{$from_price}}">
+                                                <input type="hidden" id="from-price" name="from-price" value="{{$from_price}}" >
                                                 <input type="hidden" id="to-price" name="to-price" value="{{$to_price}}">
                                             </div>
                                         </div>
@@ -177,6 +177,8 @@
             </div>
             <div class="col-md-9">
                 <h2 style="padding-top: 20px">We found these suppliers who meet your requirement</h2>
+                @if(Session::has('error'))<h3 style="color: red">{{Session::get('error')}}</h3>@endif
+                <div id="canvasloader-container" class="wrapper" style="position: absolute;top: 50%;left: 50%; z-index: 999"></div>
                 <div class="container-fluid" id="result-supplier">
                     @foreach($suppliers as $s)
                         <div class="row row-result">
@@ -237,5 +239,8 @@
 @stop
 
 @section('jsfile')
+    <script src="http://heartcode-canvasloader.googlecode.com/files/heartcode-canvasloader-min-0.9.1.js"></script>
+    <script src="{{ cached_asset('/js/plugins/areyousure/jquery.are-you-sure.js', true) }}"></script>
+    <script src="{{ cached_asset('/js/plugins/areyousure/ays-beforeunload-shim.js', true) }}"></script>
     <script src="{{ cached_asset('/js/supplier.js', true)}}"></script>
 @stop
