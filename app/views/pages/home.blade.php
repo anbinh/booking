@@ -285,7 +285,7 @@ function select_supplier() {
 											<div>
 												<strong class = "text-question">What time do you need it for?</strong>
 											</div>
-											<input id="timepicker" name="time" type = "text" placeholder = "hh/mm" style = "-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+											<input id="timepicker" name="time" value="00:00" type = "text" placeholder = "hh:mm" style = "-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 												-webkit-padding-end: 20px;
 												-webkit-padding-start: 2px;
 												background-position: 97% center;
@@ -581,7 +581,8 @@ function select_supplier() {
 @section('jsfile')
 	<script>
 		$("input#timepicker").clockpicker({
-			autoclose: true
+			default: 'now',
+			autoclose: true,
 		});
 	</script>
 @stop
