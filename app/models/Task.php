@@ -12,11 +12,16 @@ class Task extends Eloquent {
 	 */
 	protected $table = 'task';
 
+    public function supplier(){
+        return $this->belongsTo('Supplier');
+    }
+
 	//	0: not set, 1: Confirm, 2: Decline, 3:Propose
 	public static $STATUS_NOTSET = 0;
 	public static $STATUS_CONFIRM = 1;
 	public static $STATUS_DECLINE = 2;
 	public static $STATUS_PROPOSE = 3;
+
 
 	public static $table_name = 'task';
 

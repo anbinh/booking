@@ -153,4 +153,44 @@ class APISupplierController extends BaseController {
             404
         );
     }
+
+    public function getAPIBookingRequest($supplier_id)
+    {
+        $task = Task::where('supplier_id',$supplier_id)
+            ->where('status',Task::$STATUS_NOTSET);
+        if($task->count())
+        {
+            $tasks = $task -> get();
+            return Response::json(array(
+                    'error' => false,
+                    'tasks' => $tasks),
+                200
+            );
+        }
+        return Response::json(array(
+                'error' => 'not found'),
+            404
+        );
+    }
+
+    public function getAPIPastBooking($supplier_id)
+    {
+        // get start day of 3 month ago
+        $month_start = date('Y-m-d',strtotime('first day of -2 months'));
+        $task = Task::where('supplier_id',$supplier_id)
+            ->where('date','>=',$month_start.'%');
+        if($task->count())
+        {
+            $tasks = $task -> get();
+            return Response::json(array(
+                    'error' => false,
+                    'tasks' => $tasks),
+                200
+            );
+        }
+        return Response::json(array(
+                'error' => 'not found'),
+            404
+        );
+    }
 }

@@ -332,10 +332,17 @@ Route::get('select-supplier', array('as' => 'select-supplier', function () {
 }));
 
 // TRI
+// API
 Route::get('supplierProfile/{supplier_id}', array('as' => 'supplier-profile' ,
-        'uses' => 'APISupplierController@getAPISupplierProfile'));
-
+    'uses' => 'APISupplierController@getAPISupplierProfile'));
+Route::get('bookingRequest/{supplier_id}', array('as' => 'supplier-booking-request' ,
+    'uses' => 'APISupplierController@getAPIBookingRequest'));
+Route::get('pastBooking/{supplier_id}', array('as' => 'supplier-past-booking' ,
+    'uses' => 'APISupplierController@getAPIPastBooking'));
+// VIEW
 Route::get('supplier/profile/{supplier_id}', "SupplierController@getSupplierProfile");
+Route::get('supplier/booking_request/{supplier_id}', "SupplierController@getBookingRequest");
+Route::get('supplier/past_booking/{supplier_id}', "SupplierController@getPastBooking");
 
 // TAI
 Route::post('postRegister', 'APISupplierController@postRegister');
