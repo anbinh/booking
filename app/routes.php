@@ -335,4 +335,9 @@ Route::get('select-supplier', array('as' => 'select-supplier', function () {
 Route::get('tri/test/{user_id}', 'APISupplierController@getUserById');
 
 // TAI
-Route::post('forgetPassword', 'APISupplierController@postForgotPassword');
+//Route::post('forgetPassword', 'APISupplierController@postForgotPassword');
+
+Route::group(array('prefix' => 'api/v1', 'before' => 'auth.basic'), function()
+{
+    Route::resource('apisupplier', 'APISupplierController');
+});
