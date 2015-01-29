@@ -109,40 +109,58 @@ function select_supplier() {
 											</div>
 											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 thumb">
 												<select class="soflow-color responsive-select-option" style="margin-left: 6px; width :85%" name= "area" id = "area">	
-													<option>Area</option>
-													<option>Dubai</option>
+													<option>City</option>
+													<option>Bur Dubai</option>
+													<option>Deira</option>
 												</select>
 											</div>	
-											
 											<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 thumb">
 												<select class="soflow-color responsive-select-option"  style = "margin-left:0; width: 100%" name= "city" id = "city">
-													<option>Sub-Area</option>
-													<option>Al Badaa</option>
-													<option>Al Barsha</option>
-													<option>Al Hamriya</option>
-													<option>Al Hudaiba</option>
-													<option>Al Jafeliah</option>
-													<option>Al Karama</option>
-													<option>Al Mankhool</option>
-													<option>Al Qouz</option>
-													<option>Al Refaa</option>
-													<option>Al Sofouh</option>
-													<option>Al Souq Al Kabeer</option>
-													<option>Al Wasl</option>
-													<option>Jumeirah</option>
-													<option>Madinat Dubai Al Melaheyah</option>
-													<option>Oud Metha</option>
-													<option>Satwa</option>
-													<option>Trade Center 1</option>
-													<option>Trade Center 2</option>
-													<option>Umm Hurair</option>
-													<option>Umm  Suqeim</option>
-													<option>Al Qouz (ALkhail Gate Project)</option>
-													<option>Al Safa</option>
+													<option value="86" selected>Sub-Area</option>
+													<option value="86">Business Bay</option>
+													<option value="88">Discovery Gardens</option>
+													<option value="89">Down Town</option>
+													<option value="90">Dubai Festival City - Badia</option>
+													<option value="91">Dubai Festival City - Hillside</option>
+													<option value="92">Dubai Festival City - Marsa</option>
+													<option value="94">Dubai Investment Park</option>
+													<option value="95">Dubai Marina</option>
+													<option value="96">Dubai Silicon Oasis</option>
+													<option value="97">Dubai Sport City</option>
+													<option value="99">Gardens</option>
+													<option value="100">Green Community DIP</option>
+													<option value="101">Greens</option>
+													<option value="102">IMPZ (Int. Media Produc. Zone)</option>
+													<option value="103">International City</option>
+													<option value="104">International City CBD</option>
+													<option value="105">JBR (Jumeirah Beach Residence)</option>
+													<option value="106">JLT (Jumeirah Lake Towers)</option>
+													<option value="108">Jumeirah Village</option>
+													<option value="110">Layan Community</option>
+													<option value="112">Motor City</option>
+													<option value="113">Old Town</option>
+													<option value="114">Palm Jumeirah</option>
+													<option value="116">Tecom</option>
+													<option value="117">The Lakes</option>
+													<option value="122">Ibn Battuta Gate</option>
+													<option value="127">Sky Court Tower – Dubai land </option>
+													<option value="128">The Views</option>
+													<option value="131">Burj Khalifa Tower</option>
+													<option value="132">Remraam</option>
+													<option value="133">Jumeirah Heights</option>
+													<option value="139">Jumeirah Park</option>
+													<option value="141">Green Community Motor City</option>
+													<option value="142">Arjaan</option>
+													<option value="143">Masakin Al Furjan</option>
+													<option value="144">Dubai Outsource Zone</option>
+													<option value="145">Up Town Motor City</option>
+													<option value="153">Warsan Fourth</option>
+													<option value="155"> DIFC-LIMESTONE HOUSE</option>
+													<option value="157"> DIFC-LIBERTY HOUSE</option>
+													<option value="158"> DIFC-Sky Gardens</option>
+													<option value="159"> DIFC-INDEX TOWER</option>
 												</select>
 											</div>
-											
-											
 										</div>
 										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 thumb">
 											<div>
@@ -396,7 +414,7 @@ function select_supplier() {
 					</div>
 				</div>
 				
-				<div class='main-content-row-no-padding bottom-line'>
+				<div class='main-content-row-no-padding bottom-line' style="margin-top: 50px">
 					<div class="wrapper">
 					  <div class="steps">
 					  <h1 id = "how-to-booking">Register with us and see the difference</h1>
@@ -513,22 +531,22 @@ function select_supplier() {
 					</div>
 				</div>-->
 				
-					<div class='main-content-row bottom-line' id = "main-content-slide3-plusCss" style = "background-color: rgb(244, 244, 244);">
-						<div class="row">
-							<div class="col-lg-5 col-sm-6">
-								<img class="img-responsive" src="http://partstock.com/sites/default/files/bestchoice.png" alt="">
-							</div>
-							<div class="col-lg-5 col-lg-offset-2 col-sm-6 margin-bottom-5">
-								
-								<hr class="section-heading-spacer">
-								<div class="clearfix"></div>
-								<p class='home-download-app-header color-53A524' >{{trans ('greetings.Claritas est etiam')}}</p>
-								<p class = "bigtext color-53A524">{{trans ('greetings.Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.')}} 
-									<a href="https://miratik.com/">{{trans ('greetings.Mirum est notare quam littera gothica')}}</a> {{trans ('greetings.est etiam processus.')}}
-								</p>
-							</div>
-						</div>
-					</div>
+					{{--<div class='main-content-row bottom-line' id = "main-content-slide3-plusCss" style = "background-color: rgb(244, 244, 244);">--}}
+						{{--<div class="row">--}}
+							{{--<div class="col-lg-5 col-sm-6">--}}
+								{{--<img class="img-responsive" src="http://partstock.com/sites/default/files/bestchoice.png" alt="">--}}
+							{{--</div>--}}
+							{{--<div class="col-lg-5 col-lg-offset-2 col-sm-6 margin-bottom-5">--}}
+								{{----}}
+								{{--<hr class="section-heading-spacer">--}}
+								{{--<div class="clearfix"></div>--}}
+								{{--<p class='home-download-app-header color-53A524' >{{trans ('greetings.Claritas est etiam')}}</p>--}}
+								{{--<p class = "bigtext color-53A524">{{trans ('greetings.Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.')}} --}}
+									{{--<a href="https://miratik.com/">{{trans ('greetings.Mirum est notare quam littera gothica')}}</a> {{trans ('greetings.est etiam processus.')}}--}}
+								{{--</p>--}}
+							{{--</div>--}}
+						{{--</div>--}}
+					{{--</div>--}}
 					<div class='main-content-row'>
 						<div class='row'>
 							<h3 class='section-block-header pad-top color-white style-Shojumaru'>{{trans ('greetings.Ready to start?')}}</h3>
