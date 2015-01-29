@@ -94,4 +94,25 @@ class APISupplierController extends BaseController {
             );
         }
     }
+
+    public function getSupplierProfile($supplier_id)
+    {
+        $supplier = Supplier::where('id','=',$supplier_id);
+        if($supplier->count())
+        {
+            $supplier = $supplier -> first();
+            $supplier->User;
+            return Response::json(array(
+                    'error' => false,
+                    'supplier' => $supplier),
+                200
+            );
+        }
+        return Response::json(array(
+                'error' => 'not found'),
+            404
+        );
+    }
+
+
 }
