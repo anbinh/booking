@@ -26,6 +26,10 @@ class Supplier extends Eloquent {
 		return $results;
 	}
 
+    public function User(){
+        return $this->belongsTo('User');
+    }
+
 	public function getReview(){
 		return $this->belongsToMany('Supplier', 'supplier_service', 'service_id', 'supplier_id');
 	}
