@@ -26,7 +26,7 @@ class Supplier extends Eloquent {
 		return $results;
 	}
 
-    public function User(){
+    public function user(){
         return $this->belongsTo('User');
     }
 
@@ -34,4 +34,7 @@ class Supplier extends Eloquent {
 		return $this->belongsToMany('Supplier', 'supplier_service', 'service_id', 'supplier_id');
 	}
 
+    public function services(){
+        return $this->belongsToMany('Service', 'supplier_service', 'supplier_id', 'service_id');
+    }
 }

@@ -29,11 +29,14 @@ class APISupplierController extends BaseController {
 //            200
 //        );
 //    }
-    public function Test(){
-        $email = Input::json()->all();
+    public function Test($id){
+        $input = Input::json()->all();
+
+        $services = Service::find($id)->suppliers;
+
         return Response::json(array(
                 'error' => false,
-                'message' => $email),
+                'message' => $services),
             200
         );
     }
@@ -44,6 +47,43 @@ class APISupplierController extends BaseController {
                 'message' => "post"),
             200
         );
+    }
+    public function postRegister(){
+        $input = Input::json()->all();
+        $user = User::where('email', '=', $input['email'])->first();
+
+        if($user!=null){
+            return Response::json(array(
+                    'error' => true,
+                    'message' => 'email_exist'),
+                200
+            );
+        }
+        else{
+            $user = new User();
+            $user->username = $input["username"];
+            $user->first_name = $input["first_name"];
+            $user->last_name = $input["last_name"];
+            $user->email = $input["email"];
+            $user->phone_number = $input["phone_number"];
+            if($user->save()){
+                $user_id = $user->id;
+
+                $supplier = new Supplier();
+                $supplier->user_id = $user_id;
+                $supplier->company_name = $input["company_name"];
+                $supplier->office_address = $input["office_address"];
+                $supplier->license_number = $input["license_number"];
+                $supplier->save();
+                $supplier->services()->attach($input['supplier_service']);
+            }
+            return Response::json(array(
+                    'error' => false,
+                    'message' => 'register_successful'),
+                200
+            );
+        }
+
     }
     public function postForgotPassword(){
         $email = Input::json()->all();
@@ -95,13 +135,13 @@ class APISupplierController extends BaseController {
         }
     }
 
-    public function getSupplierProfile($supplier_id)
+    public function getAPISupplierProfile($supplier_id)
     {
         $supplier = Supplier::where('id','=',$supplier_id);
         if($supplier->count())
         {
             $supplier = $supplier -> first();
-            $supplier->User;
+            $supplier->user;
             return Response::json(array(
                     'error' => false,
                     'supplier' => $supplier),
@@ -114,5 +154,43 @@ class APISupplierController extends BaseController {
         );
     }
 
+    public function getAPIBookingRequest($supplier_id)
+    {
+        $task = Task::where('supplier_id',$supplier_id)
+            ->where('status',Task::$STATUS_NOTSET);
+        if($task->count())
+        {
+            $tasks = $task -> get();
+            return Response::json(array(
+                    'error' => false,
+                    'tasks' => $tasks),
+                200
+            );
+        }
+        return Response::json(array(
+                'error' => 'not found'),
+            404
+        );
+    }
 
+    public function getAPIPastBooking($supplier_id)
+    {
+        // get start day of 3 month ago
+        $month_start = date('Y-m-d',strtotime('first day of -2 months'));
+        $task = Task::where('supplier_id',$supplier_id)
+            ->where('date','>=',$month_start.'%');
+        if($task->count())
+        {
+            $tasks = $task -> get();
+            return Response::json(array(
+                    'error' => false,
+                    'tasks' => $tasks),
+                200
+            );
+        }
+        return Response::json(array(
+                'error' => 'not found'),
+            404
+        );
+    }
 }

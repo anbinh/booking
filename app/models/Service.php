@@ -12,4 +12,7 @@ class Service extends Eloquent {
 	{
 		return $this->belongsToMany('Supplier', 'supplier_service', 'service_id', 'supplier_id');
 	}
+    public function suppliers(){
+        return $this->belongsToMany('Supplier', 'supplier_service', 'service_id', 'supplier_id');
+    }
 }

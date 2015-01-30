@@ -405,4 +405,47 @@ class SupplierController extends BaseController {
 	// Query Supplier Service
 //	protected functin querySupplierService()
 
+    // TRI
+    public function getSupplierProfile($supplier_id)
+    {
+        $supplier = App::make('APISupplierController')->getAPISupplierProfile($supplier_id);
+        $data = json_decode($supplier->getContent(),true);
+        if($data['error'] == false)
+        {
+            return View::make('supplier.profile')
+                ->with('data', $data['supplier']);
+        }
+        else
+            return View::make('supplier.profile')
+                ->with('data', 'invalid supplier');
+    }
+
+    public function getBookingRequest($supplier_id)
+    {
+        $tasks = App::make('APISupplierController')->getAPIBookingRequest($supplier_id);
+        $data = json_decode($tasks->getContent(),true);
+        if($data['error'] == false)
+        {
+            return View::make('supplier.booking_request')
+                ->with('data', $data['tasks']);
+        }
+        else
+            return View::make('supplier.booking_request')
+                ->with('data', 'invalid supplier');
+    }
+
+    public function getPastBooking($supplier_id)
+    {
+        $tasks = App::make('APISupplierController')->getAPIPastBooking($supplier_id);
+        $data = json_decode($tasks->getContent(),true);
+        if($data['error'] == false)
+        {
+            return View::make('supplier.past_booking')
+                ->with('data', $data['tasks']);
+        }
+        else
+            return View::make('supplier.past_booking')
+                ->with('data', 'invalid supplier');
+    }
+
 }
