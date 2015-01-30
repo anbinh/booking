@@ -18,6 +18,10 @@ class Task extends Eloquent {
 	public static $STATUS_DECLINE = 2;
 	public static $STATUS_PROPOSE = 3;
 
+	public static $PAY_BY_CREDIT = 0;
+	public static $PAY_BY_CRASH = 1;
+
+
 	public static $table_name = 'task';
 
 }

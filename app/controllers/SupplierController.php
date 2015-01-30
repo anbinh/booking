@@ -325,6 +325,7 @@ class SupplierController extends BaseController {
         $task->promotion_code = $promotion_code;
         $task->duration = $duration;
 		$task->cost = $cost;
+		$task->payment_type = Task::$PAY_BY_CRASH;
         if($task->save()){
             return $task;
         }else {
@@ -357,7 +358,7 @@ class SupplierController extends BaseController {
 	public function doneSupplier($id_code){
 		$task = Task::find($id_code);
 		$input = Input::all();
-		$task->payment_type = isset($input['payment'])?$input['payment']:0;
+		$task->payment_type = isset($input['payment'])?$input['payment']:Task::$PAY_BY_CRASH;
 		$task->status = Task::$STATUS_CONFIRM;
 		return View::make('pages.suppliers-finish', ['reference_code' => $task->id]);
 	}

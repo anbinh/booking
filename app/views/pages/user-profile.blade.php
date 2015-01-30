@@ -39,18 +39,18 @@
                                 </label>
                                 <div class="col-sm-7">
                                     <input type="text" class="form-control" name="name" id="name"
-                                           required="required" placeholder="Your name">
+                                           required="required" placeholder="Your name" value="{{$user->username}}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="sex" class="col-sm-5 control-label text-aglign-left">Sex:
                                 </label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" id="service" name="service">
-                                        <option name="sex" value="0">
+                                    <select class="form-control" id="service" name="sex">
+                                        <option name="sex" value="0" @if($user->sex == 0) selected @endif>
                                             Male
                                         </option>
-                                        <option name="sex" value="1">
+                                        <option name="sex" value="1" @if($user->sex == 1) selected @endif>
                                             Female
                                         </option>
                                     </select>
@@ -62,7 +62,7 @@
                                 <div class="col-sm-7">
                                     <select name="nation" class="form-control" id="nation" name="nation">
                                     @foreach($nationals as $na)
-                                        <option name="nation" value="{{$na}}">
+                                        <option name="nation" value="{{$na}}" @if($user->nation == $na) selected @endif>
                                                 {{$na}}
                                         </option>
                                     @endforeach
@@ -75,7 +75,7 @@
                                 </label>
                                 <div class="col-sm-7">
                                     <input type="password" class="form-control" name="currentPassword" id="currentPassword"
-                                           required="required" placeholder="">
+                                            placeholder="">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -104,7 +104,7 @@
 
                                 <div class="col-sm-8">
                                     <input type="tel" class="form-control" name="phoneNumber" id="phoneNumber"
-                                           required="required" placeholder="Your phone">
+                                           required="required" placeholder="Your phone" value="{{$user->phone_number}}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -113,7 +113,7 @@
 
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" name="address1" id="address1"
-                                           placeholder="Your address">
+                                           placeholder="Your address" value="{{$user->addr1}}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -122,25 +122,23 @@
 
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" name="address2"
-                                           id="address2" placeholder="Your another address">
+                                           id="address2" placeholder="Your another address" value="{{$user->addr2}}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="city"
                                        class="col-sm-4 control-label text-aglign-left">*City:</label>
-
                                 <div class="col-sm-8">
-                                    <input type="password" class="form-control" name="city"
-                                           required="required" id="city" placeholder="Your city">
+                                    <input type="text" class="form-control" name="city"
+                                           required="required" id="city" placeholder="Your city" value="{{$user->city}}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="area"
                                        class="col-sm-4 control-label text-aglign-left">Area:</label>
-
                                 <div class="col-sm-8">
-                                    <input type="password" class="form-control" name="area"
-                                           required="required" id="area" placeholder="Your area">
+                                    <input type="text" class="form-control" name="area"
+                                           required="required" id="area" placeholder="Your area" value="{{$user->area}}">
                                 </div>
                             </div>
                         </div>

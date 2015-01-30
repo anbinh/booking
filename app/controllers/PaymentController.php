@@ -66,6 +66,11 @@ class PaymentController extends BaseController {
 			$payment->authcode = $response_authcode;
 			$payment->customertoken = $reponse_customer_token;
 
+
+			$task = Task::find($$payment->track_id);
+			$task->payment_type = Task::$PAY_BY_CREDIT;
+			$task->save();
+
 			if($payment->save()){
 				return Response::json(array(
 					'error' => false,

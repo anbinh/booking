@@ -44,7 +44,7 @@
                                 </label>
                                 <div class="col-sm-7">
                                     <div class="rating-star-div" data-score="3"></div>
-                                    <input type="hidden" name="rating-star" id="rating-star-input">
+                                    <input type="hidden" name="rating_star" id="rating-star-input">
                                 </div>
                             </div>
                             <div class="form-group">

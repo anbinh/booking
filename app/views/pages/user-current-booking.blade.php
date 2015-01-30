@@ -61,7 +61,14 @@
                                                 <button class="btn btn-primary padding-20" data-toggle="modal" data-target="#myModal">Change</button>
                                             </td>
                                             <td>
-                                                <button class="btn btn-primary padding-20">Cancel</button>
+                                                <?php ($diff = abs(strtotime($t->date) - strtotime(date("Y-m-d H:i:s")))/64000); ?>
+                                                @if($diff < 1.5)
+                                                    <button class="btn btn-primary padding-20" onclick="in_24_hour()">Cancel</button>
+                                                @elseif($t->payment_type == 0)
+                                                    <button class="btn btn-primary padding-20" onclick="without_cash_on_delivery( {{$t->id}} )">Cancel</button>
+                                                @else
+                                                    <button class="btn btn-primary padding-20" onclick="with_credit_card({{$t->id}})">Cancel</button>
+                                                @endif
                                             </td>
                                         @endif
                                     </tr>
@@ -72,6 +79,8 @@
                 </div>
             </div>
         </div>
+
+        {{--data-toggle="modal" data-target="#cancel_booking"--}}
 
     </div>
     <div class="modal fade" id="myModal">
@@ -87,7 +96,46 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="cancel_booking">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--}}
+                    <h4 class="modal-title" style="line-height: 1.3em">Your booking has been cancel</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('jsfile')
+
+    <script>
+        var in_24_hour = function(){
+            alert("Sorry but it is too late to cancel the booking");
+        }
+        var without_cash_on_delivery = function(id_booking){
+            $.ajax({
+                url: '/cancelbooking/' + id_booking,
+                success: function(result) {
+                    console.log(result);
+                    $('#cancel_booking').modal('show');
+                    location.reload();
+                }
+            });
+        }
+        var with_credit_card = function(id_booking){
+            $.ajax({
+                url: '/cancelbooking/' + id_booking,
+                success: function(result) {
+                    console.log(result);
+                    $('#cancel_booking').modal('show');
+                    location.reload();
+                }
+            });
+        }
+    </script>
 @stop

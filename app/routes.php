@@ -158,12 +158,28 @@ Route::group(array('before' => 'check-language'), function () {
 
 
 //   making a booking Rest API
+    /*
+     * API
+     *
+     */
     Route::get('api/suppliers/{service_id}', array('uses' => 'SupplierController@apigetSupplier',
         'as' => 'api_suppliers'));
 
     Route::post('api/booking/{id_code}', array('uses' =>'SupplierController@apiCheckoutSupplier','as' => 'api_make_booking'));
 
     Route::post('api/review',array('uses' => "HomeController@postFeedback", 'as' => 'api_review'));
+
+    Route::get('api/current_booking/{user_id}', array('uses'=>'HomeController@apiGetCurrentBooking',
+        'as' => 'api_get_current_booking'));
+
+    Route::get('api/old_booking/{user_id}', array('uses'=>'HomeController@apiGetOldBooking',
+        'as' => 'api_get_current_booking'));
+    /*
+     *
+     * END API
+     */
+
+
 //	Route::get('suppliers-review/{id_code}',array('as'=>'suppliers-review', function()
 //	{
 //		return View::make('pages.suppliers-review');
@@ -218,25 +234,26 @@ Route::group(array('before' => 'check-language'), function () {
             return View::make('pages.user-dashboard');
         }));
 
-        Route::get('profile', array('as' => 'user-profile',
-            'uses' => 'DashboardController@updateProfile'));
+        Route::match(array('GET', 'POST'), 'profile', array('as' => 'user-profile',
+            'uses' => 'HomeController@updateProfile'));
 
 //        Route::get('dashboard.booking', array('as' => 'user-current-booking', function () {
 //            return View::make('pages.user-current-booking');
 //        }));
 
         Route::get('dashboard.booking', array('as' => 'user-current-booking',
-            'uses' => 'DashboardController@managerBooking'));
+            'uses' => 'HomeController@managerBooking'));
         Route::get('dashboard.past.booking', array('as' => 'user-past-booking',
-            'uses' => 'DashboardController@pastBooking'));
+            'uses' => 'HomeController@pastBooking'));
 
 //        Route::get('past-booking', array('as' => 'user-past-booking', function () {
 //            return View::make('pages.user-past-booking');
 //        }));
 
-        Route::get('feedback', array('as' => 'user-feedback', function () {
-            return View::make('pages.user-feedback');
-        }));
+        Route::match(array('GET', 'POST'), 'feedback', array('as' => 'user-feedback',
+            'uses' =>'HomeController@postFeedback'));
+
+
 
         Route::post('purchase', array('as' => 'payment-purchase',
             'uses' => 'PaymentController@purchaseBooking'));
@@ -245,6 +262,9 @@ Route::group(array('before' => 'check-language'), function () {
     });
 //  Post feedback
 //    Route::post('feedback',array('as =>user-post-feedback','uses'=>'HomeController@postFeedback'));
+
+    Route::get('cancelbooking/{id}', array('as' => 'user-cancel',
+        'uses' =>'HomeController@cancelBooking'));
 
     Route::get('terms', array('as' => 'terms-page', function () {
         return View::make('pages.termsOfService');

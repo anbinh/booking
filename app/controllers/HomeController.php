@@ -4,6 +4,202 @@
 
 class HomeController extends BaseController {
 
+	public $nationals = array(
+		'Afghan',
+		'Albanian',
+		'Algerian',
+		'American',
+		'Andorran',
+		'Angolan',
+		'Antiguans',
+		'Argentinean',
+		'Armenian',
+		'Australian',
+		'Austrian',
+		'Azerbaijani',
+		'Bahamian',
+		'Bahraini',
+		'Bangladeshi',
+		'Barbadian',
+		'Barbudans',
+		'Batswana',
+		'Belarusian',
+		'Belgian',
+		'Belizean',
+		'Beninese',
+		'Bhutanese',
+		'Bolivian',
+		'Bosnian',
+		'Brazilian',
+		'British',
+		'Bruneian',
+		'Bulgarian',
+		'Burkinabe',
+		'Burmese',
+		'Burundian',
+		'Cambodian',
+		'Cameroonian',
+		'Canadian',
+		'Cape Verdean',
+		'Central African',
+		'Chadian',
+		'Chilean',
+		'Chinese',
+		'Colombian',
+		'Comoran',
+		'Congolese',
+		'Costa Rican',
+		'Croatian',
+		'Cuban',
+		'Cypriot',
+		'Czech',
+		'Danish',
+		'Djibouti',
+		'Dominican',
+		'Dutch',
+		'East Timorese',
+		'Ecuadorean',
+		'Egyptian',
+		'Emirian',
+		'Equatorial Guinean',
+		'Eritrean',
+		'Estonian',
+		'Ethiopian',
+		'Fijian',
+		'Filipino',
+		'Finnish',
+		'French',
+		'Gabonese',
+		'Gambian',
+		'Georgian',
+		'German',
+		'Ghanaian',
+		'Greek',
+		'Grenadian',
+		'Guatemalan',
+		'Guinea-Bissauan',
+		'Guinean',
+		'Guyanese',
+		'Haitian',
+		'Herzegovinian',
+		'Honduran',
+		'Hungarian',
+		'I-Kiribati',
+		'Icelander',
+		'Indian',
+		'Indonesian',
+		'Iranian',
+		'Iraqi',
+		'Irish',
+		'Israeli',
+		'Italian',
+		'Ivorian',
+		'Jamaican',
+		'Japanese',
+		'Jordanian',
+		'Kazakhstani',
+		'Kenyan',
+		'Kittian and Nevisian',
+		'Kuwaiti',
+		'Kyrgyz',
+		'Laotian',
+		'Latvian',
+		'Lebanese',
+		'Liberian',
+		'Libyan',
+		'Liechtensteiner',
+		'Lithuanian',
+		'Luxembourger',
+		'Macedonian',
+		'Malagasy',
+		'Malawian',
+		'Malaysian',
+		'Maldivan',
+		'Malian',
+		'Maltese',
+		'Marshallese',
+		'Mauritanian',
+		'Mauritian',
+		'Mexican',
+		'Micronesian',
+		'Moldovan',
+		'Monacan',
+		'Mongolian',
+		'Moroccan',
+		'Mosotho',
+		'Motswana',
+		'Mozambican',
+		'Namibian',
+		'Nauruan',
+		'Nepalese',
+		'New Zealander',
+		'Nicaraguan',
+		'Nigerian',
+		'Nigerien',
+		'North Korean',
+		'Northern Irish',
+		'Norwegian',
+		'Omani',
+		'Pakistani',
+		'Palauan',
+		'Panamanian',
+		'Papua New Guinean',
+		'Paraguayan',
+		'Peruvian',
+		'Polish',
+		'Portuguese',
+		'Qatari',
+		'Romanian',
+		'Russian',
+		'Rwandan',
+		'Saint Lucian',
+		'Salvadoran',
+		'Samoan',
+		'San Marinese',
+		'Sao Tomean',
+		'Saudi',
+		'Scottish',
+		'Senegalese',
+		'Serbian',
+		'Seychellois',
+		'Sierra Leonean',
+		'Singaporean',
+		'Slovakian',
+		'Slovenian',
+		'Solomon Islander',
+		'Somali',
+		'South African',
+		'South Korean',
+		'Spanish',
+		'Sri Lankan',
+		'Sudanese',
+		'Surinamer',
+		'Swazi',
+		'Swedish',
+		'Swiss',
+		'Syrian',
+		'Taiwanese',
+		'Tajik',
+		'Tanzanian',
+		'Thai',
+		'Togolese',
+		'Tongan',
+		'Trinidadian/Tobagonian',
+		'Tunisian',
+		'Turkish',
+		'Tuvaluan',
+		'Ugandan',
+		'Ukrainian',
+		'Uruguayan',
+		'Uzbekistani',
+		'Venezuelan',
+		'Vietnamese',
+		'Welsh',
+		'Yemenite',
+		'Zambian',
+		'Zimbabwean'
+	);
+
     public function __construct()
     {
 
@@ -461,7 +657,13 @@ class HomeController extends BaseController {
 		return View::make('pages.search');
 	}
 
-    public function postFeedback(){
+
+
+    public function apiPostFeedback(){
+
+		if (Request::isMethod('post')){
+
+		}
         $inputs = Input::all();
         $result = array(
             'error' =>false
@@ -488,7 +690,161 @@ class HomeController extends BaseController {
             $result['error'] = Review::addReview(-1,$rating_star,$title,$content);
         }
         return Response::json($result,200);
-
-
     }
+
+	public function cancelBooking($id){
+		$task = Task::find($id);
+
+		if($task){
+			$task->status = -2;
+			$task->save();
+		}
+		return Response::json(['success' => true],200);
+	}
+
+	public function postFeedback(){
+		$message = "";
+		if (Request::isMethod('post')){
+			$inputs = Input::all();
+			$result = array(
+				'error' =>false
+			);
+			if(Input::has('rating_star')){
+				$rating_star = $inputs['rating_star'];
+			} else {
+				$result['error'] = true;
+				$result['message'] = 'missing rating star';
+			}
+			if(Input::has('title')){
+				$title = $inputs['title'];
+			} else {
+				$result['error'] = true;
+				$result['message'] = 'missing title';
+			}
+			if(Input::has('content')){
+				$content = $inputs['content'];
+			} else {
+				$result['error'] = true;
+				$result['message'] = 'missing content';
+			}
+			if(!$result['error']){
+				$result['error'] = Review::addReview(102,$rating_star,$title,$content);
+			}
+		}
+		return View::make('pages.user-feedback',[
+			'message' => $result,
+		]);
+	}
+
+	/*
+	 * move from dashboard controller
+	 */
+
+	public function updateProfile(){
+		$user = Auth::user();
+		if (Request::isMethod('post'))
+		{
+			$input = Input::all();
+			$username = $input['name'];
+			$sex = $input['sex'];
+			$nation = $input['nation'];
+			$current = $input['currentPassword'];
+			$newPassword = $input['newPassword'];
+			$confirmPassword = $input['confirmPassword'];
+			$phoneNumber = $input['phoneNumber'];
+			$addr1 = $input['address1'];
+			$addr2 = $input['address2'];
+			$city = $input['city'];
+			$area = $input['area'];
+			$user = $this->updateUserInfor(Auth::user()->id, $username, $sex, $nation, $current,
+				$newPassword, $confirmPassword, $phoneNumber, $addr1, $addr2, $city, $area);
+		}
+		return View::make('pages.user-profile',[
+			'nationals' => $this->nationals,
+			'user' => $user,
+		]);
+	}
+
+	public function managerBooking(){
+		$task = $this->getCurrentBooking(Auth::user()->id);
+		return View::make('pages.user-current-booking',[
+			'tasks' => $task,
+			'hidden' => false
+		]);
+	}
+
+
+
+	private function updateUserInfor($user_id, $username, $user_sex, $user_nation,
+									 $oldPass, $newPass, $newPass2, $phone, $addr1, $addr2, $city, $area){
+		$user = User::find($user_id);
+		if(!$user)
+			return null;
+
+		$user->username = $username;
+		$user->sex = $user_sex;
+		$user->nation = $user_nation;
+
+		$user->phone_number = $phone;
+		$user->city = $city;
+		$user->area = $area;
+		$user->addr1 = $addr1;
+		$user->addr2 = $addr2;
+		if(strlen($newPass) > 0 && strlen($oldPass) > 0 && $newPass == $newPass2 && Hash::check($oldPass, $user->password)){
+			$user->password = $newPass;
+		}
+		$user->save();
+		return $user;
+	}
+
+	public function pastBooking(){
+		$task = $this->getPastBooking(Auth::user()->id);
+		return View::make('pages.user-current-booking',[
+			'tasks' => $task,
+			'hidden' => true
+		]);
+	}
+
+
+	public function apiGetCurrentBooking($user_id){
+		$all_booking = $this->getCurrentBooking($user_id);
+		return Response::json(array('booking' => $all_booking, 'total' => count($all_booking), 'response' => 200));
+	}
+
+	public function apiGetOldBooking($user_id){
+		$all_booking = $this->apiGetOldBooking($user_id);
+		return Response::json(array('booking' => $all_booking, 'total' => count($all_booking), 'response' => 200));
+	}
+
+
+	protected function getCurrentBooking($user_id)
+	{
+		$query = DB::table(Task::$table_name);
+		$query->leftJoin('service', 'task.service_id', '=', 'service.id')
+			->leftJoin('supplier', 'task.supplier_id', '=', 'supplier.id');
+		$query->where('task.user_id', '=', $user_id);
+		$query->where('task.date', '>', date("Y-m-d H:i:s"))
+		->where('task.status', '>', -1);
+		$query->orderBy('task.date', 'asc')
+		->select('task.id', 'service.name', 'supplier.company_name', 'task.date', 'task.starting_time', 'task.payment_type', 'task.note', 'task.duration')
+			->get();;
+
+		$task = $query->get();
+		return $task;
+	}
+
+	protected function getPastBooking($user_id)
+	{
+		$query = DB::table(Task::$table_name);
+		return $query
+			->leftJoin('service', 'task.service_id', '=', 'service.id')
+			->leftJoin('supplier', 'task.supplier_id', '=', 'supplier.id')
+			->where('task.user_id', '=', $user_id)
+			->where(function($query){
+				$query->where('task.date', '<', date("Y-m-d H:i:s"))
+					->orwhere('task.status', '<', 0);
+			})
+			->select('task.id', 'service.name', 'supplier.company_name', 'task.date', 'task.starting_time', 'task.payment_type', 'task.note', 'task.duration')
+			->orderBy('task.date', 'asc')->get();
+	}
 }
